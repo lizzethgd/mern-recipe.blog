@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import '../assets/css/cards.scss'
 import miniAvatar from "../assets/images/avatar6.png"
+import {NavLink} from 'react-router-dom'
 
 const Card = () => {
 
@@ -34,7 +35,7 @@ const Card = () => {
             This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
           </div>
           <div className="card__actions">
-              <button className="card__btn">Read more</button>
+              <NavLink className="card__btn" to="/recipe">Read more</NavLink>
           </div>
         </div>
     </div>

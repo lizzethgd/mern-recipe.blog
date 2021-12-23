@@ -6,13 +6,13 @@ $white: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: $white;
   flex-direction: column;
   font-family: 'Open Sans', sans-serif;
   font-size: 14px;
 }
 
 .timeline {
+  background: transparent;
   width: 100%;
   background-color: $white;
   box-shadow: 0 5px 25px 5px $boxShadow;

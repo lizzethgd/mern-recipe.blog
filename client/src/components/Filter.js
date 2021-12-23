@@ -1,8 +1,7 @@
-const Header = () => {
+const Filter = () => {
     return (
-
 <div className="w3-container">      
-<div className="w3-section w3-bottombar w3-padding-16">
+<div className="w3-section w3-padding-16">
       <span className="w3-margin-right">Filter:</span> 
       <button className="w3-button w3-black">ALL</button>
       <button className="w3-button w3-white"><i className="fa fa-diamond w3-margin-right"></i>Design</button>
@@ -13,4 +12,4 @@ const Header = () => {
     )
 }
 
-export default Header
+export default Filter
