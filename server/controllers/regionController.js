@@ -38,7 +38,17 @@ exports.remove = (req, res) => {
   })
 }
 
-exports.regionById = (req, res, next, id) => {
+exports.getRecipes = async(req, res) => {
+  try {
+  const region = await Region.findById(req.params.id).populate('recipes')
+  await res.json(region.recipes)
+}catch (err) {
+  res.status(500).json(err.name+': '+err.message)
+  console.log(err.name+': '+err.message);
+}
+}
+
+/* exports.regionById = (req, res, next, id) => {
  Region.findById(id).exec((err, region) => {
     if (err || !region) {
       return res.status(400).json({
@@ -48,5 +58,5 @@ exports.regionById = (req, res, next, id) => {
     req.region = region;
     next();
   })
-}
+} */
 

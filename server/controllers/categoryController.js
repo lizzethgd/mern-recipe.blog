@@ -38,8 +38,20 @@ exports.remove = (req, res) => {
   })
 }
 
+exports.getRecipes = async(req, res) => {
+  try {
+  const category = await Category.findById(req.params.id).populate('recipes')
+  await res.json(category.recipes)
+}catch (err) {
+  res.status(500).json(err.name+': '+err.message)
+  console.log(err.name+': '+err.message);
+}
+}
+
+
 exports.categoryById = (req, res, next, id) => {
-  Category.findById(id).exec((err, category) => {
+  Category.findById(id).
+  exec((err, category) => {
     if (err || !category) {
       return res.status(400).json({
         error: "Category does not exist"

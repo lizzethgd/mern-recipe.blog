@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Schema
 
 const regionSchema = new mongoose.Schema(
   {
@@ -9,13 +8,19 @@ const regionSchema = new mongoose.Schema(
       maxlength: 20,
       trim: true, 
       unique: true
-    },
-    recipes: [
-      { type: ObjectId, 
-        ref: 'Recipe' }
-    ]
+    }
   },
-  {timestamps: true, versionKey: false}
+  {timestamps: true, 
+    versionKey: false,  
+    toJSON: {virtuals: true}, 
+    toObject: { virtuals: true } 
+  }
 );
+
+regionSchema.virtual('recipes', {
+  ref: 'Recipe',
+  localField: '_id',
+  foreignField: 'region'
+}); 
 
 module.exports = mongoose.model("Region", regionSchema);

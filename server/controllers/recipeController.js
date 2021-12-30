@@ -10,7 +10,10 @@ exports.list = (req, res) => {
   
   Recipe.find()
     .select("-photo")
+    .populate('user')
     .populate('category')
+    .populate('language')
+    .populate('region')
     .sort([[sortBy, order]])
     .exec((err, recipes) => {
       if (err) {
@@ -21,7 +24,7 @@ exports.list = (req, res) => {
       res.json(recipes);
     })
 }
-
+/* 
 exports.create = (req, res) => {
   const recipe = new Recipe(req.body)
   recipe.save((err, data) => {
@@ -32,33 +35,34 @@ exports.create = (req, res) => {
     }
     res.json({data});
   })
-}
+} */
 
 exports.read = (req, res) => {
   req.recipe.photo = undefined;
   return res.json(req.recipe);
 }
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
   
-  let form = new formidable.IncomingForm()
+  try {
+    const recipe = new Recipe(req.body)
+  /* let form = new formidable.IncomingForm()
   form.keepExtensions = true
   form.parse(req, (err, fields, files) => {
     
-    if (err) {
+    if (error) {
           return res.status(400).json({
           error: "Image could not be uploaded"
           })
     }
-
-    const { title, description, serves, cookTime, ingredients, steps, author, category, langaguage, region  } = fields
-    let recipe = new Recipe(fields);
+   const { title, description, serves, cookTime, ingredients, steps, author, category, language, region  } = fields */
+    
 
     // 1KB = 1000 bytes
     // 1MB = 1,000,000 bytes 
     // 1 Byte = 8 bits
 
-    if (files.photo) {
+/*     if (files.photo) {
         if (files.photo.size > 1000000) {
         return res.status(400).json({
             error: "Image should be lass than 1MB in size"
@@ -66,18 +70,18 @@ exports.create = (req, res) => {
         }
         recipe.photo.data = fs.readFileSync(files.photo.path)
         recipe.photo.contentType = files.photo.type
-    }
+    } */
 
-    recipe.save((err, result) => {
-        if (err) {
-        return res.status(400).json({
-            error: errorHandler(error)
-        })
-        }
-        res.json(result);
-    })
+   await recipe.save()
+   await res.json(recipe);
 
-  })
+  /* }) */
+  }
+catch(err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message); 
+  }
+  
 }
 
 exports.remove = (req, res) => {
@@ -94,10 +98,13 @@ exports.remove = (req, res) => {
   })
 }
 
-exports.recipeById = (req, res, next, id) => {
-  Recipe.findById(id)
-  .populate("category")
-  .exec((err, recipe) => {
+exports.recipeById =  (req, res, next, id) => {
+ Recipe.findById(id).
+  populate('author', 'username').
+  populate('category', 'name').
+  populate('language', 'name').
+  populate('region', 'name').
+  exec((err, recipe) => {
     if (err || !recipe) {
       return res.status(400).json({
         error: "Recipe not found"

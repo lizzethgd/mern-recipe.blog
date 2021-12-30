@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const { ObjectId } = mongoose.Schema
-
 
 const userSchema = new mongoose.Schema(
 {
@@ -43,13 +41,13 @@ const userSchema = new mongoose.Schema(
   lastName:{
     type: String,
     maxlength: 20
-  },
-  recipes: [
-    { type: ObjectId, 
-      ref: 'Recipe' }
-  ]
-},
-{timestamps: true, versionKey: false}
+  }
+}, 
+{timestamps: true, 
+  versionKey: false,  
+  toJSON: {virtuals: true}, 
+  toObject: { virtuals: true } 
+}
 );
 
 // virtual field for password hash
@@ -60,5 +58,11 @@ userSchema.statics.encryptPassword = async (password) => {
 userSchema.statics.comparePassword = async (password, receivedPassword) => {
   return await bcrypt.compare(password, receivedPassword)
 }
+
+userSchema.virtual('recipes', {
+  ref: 'Recipe',
+  localField: '_id',
+  foreignField: 'author'
+}); 
 
 module.exports = mongoose.model('User', userSchema);

@@ -85,30 +85,6 @@ exports.update = async (req, res) => {
 }
 
 
-exports.getById = async(req, res) => {
-  try {
-    const user =  await User.findById(req.params.id)
-    const { pasword, ...others} =user._doc
-    await res.status(200).json(others)
-  } catch (err) {
-    res.status(500).json(err.name+': '+err.message)
-    console.log(err.name+': '+err.message);
-  }
-  
-}
-
-exports.userById = (req, res, next, id) => {
-  User.findById(id).exec((err,user) => {
-    if(err||!user) {
-      return res.status(400).json({
-        error: "User not found"
-      });
-    }
-    req.profile = user;
-    next()
-  });
-}
-
 exports.delete = async(req, res) => {
   //console.log(req.headers["x-access-token"])
     //await req.headers["x-access-token"] = '';  
@@ -122,12 +98,42 @@ exports.delete = async(req, res) => {
   }
 }
 
-exports.getUserRecipes = async(req, res) => {
+
+exports.getUserById = async(req, res) => {
   try {
-  const foundUser = await new User.find({_id: req.params.id}).populate('recipes')
-  await res.json(foundUser)
+    const user =  await User.findById(req.params.id)
+    const { pasword, ...others} =user._doc
+    await res.status(200).json(others)
+  } catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+  }
+  
+}
+
+
+exports.getUserRecipes = async (req, res) => {
+  try { 
+   const user = await User.findById(req.params.id)
+   await user.populate('recipes')
+  // await user.populated('recipes')
+   await  res.status(200).json(user.recipes);
 }catch (err) {
   res.status(500).json(err.name+': '+err.message)
   console.log(err.name+': '+err.message);
 }
 }
+
+/*  exports.userById = (req, res, next, id) => {
+  User.findById(id).
+  populate('recipe')
+  exec((err,user) => {
+    if(err||!user) {
+      return res.status(400).json({
+        error: "User not found"
+      });
+    }
+    req.user = user;
+    next()
+  });
+}  */

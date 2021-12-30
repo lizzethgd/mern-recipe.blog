@@ -21,10 +21,12 @@ router.put('/:id',  middelware1.verifyOwnership, authController.update)
 
 router.delete('/:id',  middelware1.verifyOwnership, authController.logout, authController.delete)
 
-router.get('/:id', authController.getById)
+router.get('/:id', authController.getUserById)
+
+router.get('/:id/recipes', authController.getUserRecipes)
 
 router.get('/admin', middelware1.verifyToken, middelware1.getAuthenticated);
 
-router.get('/:id/recipes', authController.getUserRecipes)
+/* router.param("userId", authController.userById); */
 
 module.exports= router

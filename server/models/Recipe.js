@@ -6,7 +6,7 @@ const recipeSchema = new mongoose.Schema(
     title: {
       type: String,
       trim: true, 
-      requrie: true,
+      require: true,
       maxlength: 32,
     },
     description: {
@@ -32,7 +32,8 @@ const recipeSchema = new mongoose.Schema(
         type: Array,
         trim: true,
         require: true,
-        default: []
+        default: [],
+        maxlength: 2000,
       },
     steps: {
         type: Array,
@@ -59,10 +60,13 @@ const recipeSchema = new mongoose.Schema(
       type: ObjectId,
       ref: 'Region',
       require: true
-    },
-    
-  },
-  {timestamps: true, versionKey: false}
+    }
+  }, 
+ {  timestamps: true, 
+    versionKey: false,  
+    toJSON: {virtuals: true}, 
+    toObject: { virtuals: true } 
+  }
 );
 
 module.exports = mongoose.model("Recipe", recipeSchema);

@@ -38,7 +38,17 @@ exports.remove = (req, res) => {
   })
 }
 
-exports.languageById = (req, res, next, id) => {
+exports.getRecipes = async(req, res) => {
+  try {
+  const language = await Language.findById(req.params.id).populate('recipes')
+  await res.json(language.recipes)
+}catch (err) {
+  res.status(500).json(err.name+': '+err.message)
+  console.log(err.name+': '+err.message);
+}
+}
+
+/* exports.languageById = (req, res, next, id) => {
   Language.findById(id).exec((err, language) => {
     if (err || !language) {
       return res.status(400).json({
@@ -49,4 +59,4 @@ exports.languageById = (req, res, next, id) => {
     next();
   })
 }
-
+ */

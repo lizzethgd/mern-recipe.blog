@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Schema
 
 const languageSchema = new mongoose.Schema(
   {
@@ -9,13 +8,20 @@ const languageSchema = new mongoose.Schema(
       trim: true, 
       maxlength: 32,
       unique: true
-    },
-    recipes: [
-      { type: ObjectId, 
-        ref: 'Recipe' }
-    ]
+    }
   },
-  {timestamps: true, versionKey: false}
-);
+  {timestamps: true, 
+    versionKey: false,  
+    toJSON: {virtuals: true}, 
+    toObject: { virtuals: true } 
+  }
+)
+
+languageSchema.virtual('recipes', {
+  ref: 'Recipe',
+  localField: '_id',
+  foreignField: 'language'
+}); 
+
 
 module.exports = mongoose.model("Language", languageSchema);

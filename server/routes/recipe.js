@@ -5,7 +5,7 @@ const { list, read, create, remove, recipeById, photo } = require('../controller
 
 // list 
 router.get('/recipes', list);
-router.post('/create/:userId', create)
+router.post('/:userId/create', create)
 router.get('/:recipeId', read)
 router.delete('/:recipeId', remove)
 router.get('/photo/:recipeId', photo)

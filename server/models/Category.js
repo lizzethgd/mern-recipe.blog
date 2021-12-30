@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { ObjectId } = mongoose.Schema
 
 const categorySchema = new mongoose.Schema(
   {
@@ -9,13 +8,19 @@ const categorySchema = new mongoose.Schema(
       maxlength: 32,
       trim: true, 
       unique: true
-    },
-    recipes: [
-      { type: ObjectId, 
-        ref: 'Recipe' }
-    ]  
+    } 
   },
-  {timestamps: true, versionKey: false}
+  {timestamps: true, 
+    versionKey: false,  
+    toJSON: {virtuals: true}, 
+    toObject: { virtuals: true } 
+  }
 );
+
+categorySchema.virtual('recipes', {
+  ref: 'Recipe',
+  localField: '_id',
+  foreignField: 'category'
+}); 
 
 module.exports = mongoose.model("Category", categorySchema);
