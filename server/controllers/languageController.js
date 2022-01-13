@@ -24,18 +24,15 @@ exports.create = async (req, res) => {
   }
 }
 
-exports.remove = (req, res) => {
-  let Language = req.language
-  Language.remove((err, data) => {
-    if(err) {
-      return res.status(400).json({
-        error: errorHandler(err)
-      })
-    }
-    res.json({
-      message: "Language succesfully deleted"
-    })
-  })
+exports.remove = async (req, res) => {
+  try {
+    await Language.findByIdAndDelete(req.params.id)
+    await res.status(200).json({success : true});
+    console.log('Language deleted');
+  } catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+  }
 }
 
 exports.getRecipes = async(req, res) => {
@@ -48,15 +45,4 @@ exports.getRecipes = async(req, res) => {
 }
 }
 
-/* exports.languageById = (req, res, next, id) => {
-  Language.findById(id).exec((err, language) => {
-    if (err || !language) {
-      return res.status(400).json({
-        error: "Language does not exist"
-      });
-    }
-    req.language = Language;
-    next();
-  })
-}
- */
+

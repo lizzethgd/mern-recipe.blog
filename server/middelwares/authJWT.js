@@ -99,7 +99,7 @@ exports.isAdmin = async (req, res, next) => {
     const role = user.role
 
       if (role === "admin") {
-        console.log('es admin')
+        console.log('is admin')
         next();
         return; 
     }

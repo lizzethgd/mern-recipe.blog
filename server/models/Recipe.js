@@ -34,7 +34,7 @@ const recipeSchema = new mongoose.Schema(
         require: true,
         default: [],
         maxlength: 2000,
-      },
+    },
     steps: {
         type: Array,
         trim: true,
@@ -57,16 +57,28 @@ const recipeSchema = new mongoose.Schema(
         require: true
       },
     region: {
-      type: ObjectId,
-      ref: 'Region',
-      require: true
+        type: ObjectId,
+        ref: 'Region',
+        require: true
     }
-  }, 
+}, 
  {  timestamps: true, 
     versionKey: false,  
     toJSON: {virtuals: true}, 
     toObject: { virtuals: true } 
   }
 );
+
+recipeSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'recipe'
+}); 
+
+recipeSchema.virtual('likes', {
+  ref: 'Like',
+  localField: '_id',
+  foreignField: 'recipe'
+}); 
 
 module.exports = mongoose.model("Recipe", recipeSchema);

@@ -21,9 +21,13 @@ router.put('/:id',  middelware1.verifyOwnership, authController.update)
 
 router.delete('/:id',  middelware1.verifyOwnership, authController.logout, authController.delete)
 
+router.get('/profile/:id', authController.getMyProfile)
+
 router.get('/:id', authController.getUserById)
 
 router.get('/:id/recipes', authController.getUserRecipes)
+
+router.get('/:id/favorites', authController.getUserFavorites)
 
 router.get('/admin', middelware1.verifyToken, middelware1.getAuthenticated);
 

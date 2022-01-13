@@ -24,18 +24,15 @@ exports.create = async (req, res) => {
   }
 }
 
-exports.remove = (req, res) => {
-  let region = req.region
-  region.remove((err, data) => {
-    if(err) {
-      return res.status(400).json({
-        error: errorHandler(err)
-      })
-    }
-    res.json({
-      message: "Region succesfully deleted"
-    })
-  })
+exports.remove = async (req, res) => {
+  try {
+    await Region.findByIdAndDelete(req.params.id)
+    await res.status(200).json({success : true});
+    console.log('Region deleted');
+  } catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+  }
 }
 
 exports.getRecipes = async(req, res) => {
@@ -48,15 +45,5 @@ exports.getRecipes = async(req, res) => {
 }
 }
 
-/* exports.regionById = (req, res, next, id) => {
- Region.findById(id).exec((err, region) => {
-    if (err || !region) {
-      return res.status(400).json({
-        error: "Region does not exist"
-      });
-    }
-    req.region = region;
-    next();
-  })
-} */
+
 

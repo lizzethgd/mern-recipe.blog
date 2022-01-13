@@ -37,11 +37,6 @@ exports.create = (req, res) => {
   })
 } */
 
-exports.read = (req, res) => {
-  req.recipe.photo = undefined;
-  return res.json(req.recipe);
-}
-
 exports.create = async (req, res) => {
   
   try {
@@ -84,36 +79,46 @@ catch(err) {
   
 }
 
-exports.remove = (req, res) => {
-  let recipe = req.recipe
-  recipe.remove((err, data) => {
-    if(err) {
-      return res.status(400).json({
-        error: errorHandler(err)
-      })
-    }
-    res.json({
-      message: "Recipe succesfully deleted"
-    })
-  })
+exports.remove = async (req, res) => {
+  try {
+    await Recipe.findByIdAndDelete(req.params.id)
+    await res.status(200).json({success : true});
+    console.log('Recipe deleted');
+  } catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+  }
 }
 
-exports.recipeById =  (req, res, next, id) => {
- Recipe.findById(id).
-  populate('author', 'username').
-  populate('category', 'name').
-  populate('language', 'name').
-  populate('region', 'name').
-  exec((err, recipe) => {
-    if (err || !recipe) {
-      return res.status(400).json({
-        error: "Recipe not found"
-      });
-    }
-    req.recipe = recipe;
-    next();
-  })
+exports.update =  async (req, res) => {
+  try {
+    const updateRecipe = await User.findByIdAndUpdate(req.params.id, {
+      $set: req.body
+    },{new: true})
+    await res.status(200).json({success : true, recipe: updateRecipe});
+  } catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+  }
 }
+
+ exports.read = async(req, res) => {
+  try { 
+    const recipe = await Recipe.findById(req.params.id)
+    await recipe.populate('author', 'username')
+    await recipe.populate('category', 'name')
+    await recipe.populate('language', 'name')
+    await recipe.populate('region', 'name')
+    await recipe.populate('comments')
+    await recipe.populate('likes', 'user')
+    await res.status(200).json(recipe);
+ }catch (err) {
+   res.status(500).json(err.name+': '+err.message)
+   console.log(err.name+': '+err.message);
+ }
+  /*req.recipe.photo = undefined;
+  return res.json(req.recipe);*/
+} 
 
 exports.photo = (req, res, next ) => {
   if (req.recipe.photo.data) {
@@ -122,3 +127,30 @@ exports.photo = (req, res, next ) => {
   }
   next();
   }
+
+exports.getRecipeComments = async (req, res) => {
+    try { 
+     const recipe = await Recipe.findById(req.params.id)
+     await recipe.populate('comments')
+    // await user.populated('recipes')
+     await  res.status(200).json(recipe.comments);
+  }catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+  }
+}
+
+exports.getRecipeLikes = async (req, res) => {
+    try { 
+     const recipe = await Recipe.findById(req.params.id)
+     await recipe.populate('likes')
+    // await user.populated('recipes')
+     await  res.status(200).json(recipe.likes);
+  }catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+  }
+}
+
+  
+   

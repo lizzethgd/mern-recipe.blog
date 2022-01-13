@@ -17,9 +17,9 @@ const Recipe = () => {
       }); */
 
 return (
-<div className="w3-content" style={{maxWidth:"1100px"}}>
+<div className="w3-content w3-light-green" style={{maxWidth:"1100px"}}>
 
-<div className="w3-container w3-light-green w3-center w3-text-white  w3-padding-16" id="about">
+<div className="w3-container  w3-center w3-text-white  w3-padding-16" id="about">
     <img src="https://www.w3schools.com/w3images/avatar_hat.jpg" alt="Me" className="w3-image w3-padding-32" width="600" height="650" />
     <h3><b>Recipe Title</b></h3>
     <div className="w3-content w3-justify" style={{maxWidth: "600px"}}>
@@ -27,7 +27,7 @@ return (
     </div>
 </div>
 
-    <div className="w3-row w3-padding-16 w3-light-green w3-text-white " >
+    <div className="w3-row w3-padding-16  w3-text-white "  >
         
         <div className="w3-col m6 w3-padding-large ">  
         <h3 className="w3-center">Ingredients</h3>

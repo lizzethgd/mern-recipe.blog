@@ -21,6 +21,9 @@ app.use('/api/recipe', require('./server/routes/recipe'));
 app.use('/api/region', require('./server/routes/region'));
 app.use('/api/language', require('./server/routes/language'));
 app.use('/api/category', require('./server/routes/category'));
+app.use('/api/comment', require('./server/routes/comment'));
+app.use('/api/like', require('./server/routes/like'));
+app.use('/api/favorite', require('./server/routes/favorite'));
 
 // error handling middleware
 app.use(function(err, req, res, next){

@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema(
     type: String,
     require: true,
     minlength : 10,
-    maxlength: 20,
+    maxlength: 40,
     unique: true
   },
   password: { 
@@ -36,11 +36,11 @@ const userSchema = new mongoose.Schema(
   },
   firstName: {
     type: String,
-    maxlength: 20
+    maxlength: 40
   },
   lastName:{
     type: String,
-    maxlength: 20
+    maxlength: 40
   }
 }, 
 {timestamps: true, 
@@ -63,6 +63,12 @@ userSchema.virtual('recipes', {
   ref: 'Recipe',
   localField: '_id',
   foreignField: 'author'
+}); 
+
+userSchema.virtual('favorites', {
+  ref: 'Favorite',
+  localField: '_id',
+  foreignField: 'user'
 }); 
 
 module.exports = mongoose.model('User', userSchema);

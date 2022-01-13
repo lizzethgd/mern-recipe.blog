@@ -1,15 +1,16 @@
 const {Router} = require("express");
 const router = Router()
 
-const { list, read, create, remove, recipeById, photo } = require('../controllers/recipeController');
+const { list, read, create, remove, update, recipeById, photo } = require('../controllers/recipeController');
 
 // list 
 router.get('/recipes', list);
-router.post('/:userId/create', create)
-router.get('/:recipeId', read)
-router.delete('/:recipeId', remove)
-router.get('/photo/:recipeId', photo)
+router.post('/create/:userId', create)
+router.get('/:id', read)
+router.delete('/:id', remove)
+router.get('/photo/:id', photo)
+router.put('/:id', update)
 
-router.param("recipeId", recipeById);
+/* router.param("recipeId", recipeById); */
 
 module.exports = router;
