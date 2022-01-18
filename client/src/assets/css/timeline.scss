@@ -1,6 +1,7 @@
 $golden: #d4a024;
 $boxShadow: rgba(0, 0, 0, 0.7);
 $white: #fff;
+$darkGrey: rgb(33, 56, 56);
 
 .container-timeline {
   display: flex;
@@ -12,9 +13,8 @@ $white: #fff;
 }
 
 .timeline {
-  background: transparent;
+  background: $darkGrey;
   width: 100%;
-  background-color: $white;
   box-shadow: 0 5px 25px 5px $boxShadow;
 }
 .timeline .swiper-container {

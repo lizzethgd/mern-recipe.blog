@@ -34,7 +34,7 @@ const Timeline = () => {
 
     return (
      
-  <div className="timeline w3-light-green">
+  <div className="timeline">
     <div className="swiper-container" > 
       <div className="swiper-wrapper" >
         <div className="swiper-slide a"  data-year="2011" >

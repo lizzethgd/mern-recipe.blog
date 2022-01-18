@@ -1,10 +1,20 @@
 import '../assets/css/cards.scss'
 import Card from './Card';
 
-const Cards = () => {
+const CardsList = () => {
      
 
 return (
+<div className="w3-container">
+    
+<div className="w3-section w3-padding-32">
+      <span className="w3-margin-right">Filter:</span> 
+      <button className="w3-button w3-black">ALL</button>
+      <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-rectangle-list w3-margin-right"></i>Category</button>
+      <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-language w3-margin-right"></i>Language</button>
+      <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-earth-americas w3-margin-right"></i>Region</button>
+</div>
+
  <div className="cards__container">
     <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2} />
     <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
@@ -12,29 +22,23 @@ return (
     <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
     <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
     <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
- </div>     
+
+</div> 
+ 
+ <div className="w3-padding-32 w3-text-white">    
+    <div className="w3-bar">
+        <a href="#" className="w3-bar-item w3-button w3-hover-black">«</a>
+        <a href="#" className="w3-bar-item w3-black w3-button">1</a>
+        <a href="#" className="w3-bar-item w3-button w3-hover-black">2</a>
+        <a href="#" className="w3-bar-item w3-button w3-hover-black">3</a>
+        <a href="#" className="w3-bar-item w3-button w3-hover-black">4</a>
+        <a href="#" className="w3-bar-item w3-button w3-hover-black">»</a>
+    </div>
+  </div>
+  
+  </div> 
     )
 }
 
-export default Cards
+export default CardsList
 
-
-
-         /*  let container = document.getElementById("cards__container")
-
-          let cards = document.getElementsByClassName('card__')    
-       
-       if ( card.classList.contains("focused")) {
-            card.classList.remove("focused") 
-            container.classList.remove("unfocused")       
-          }
-          else{
-              //this line is my creation
-            for (let card of cards) {
-              card.classList.remove("focused")
-              card.style.zIndex = 0
-            }
-            container.classList.add("unfocused")
-            card.classList.add("focused")
-            card.style.zIndex = 1
-        }        */

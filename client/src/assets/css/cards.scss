@@ -39,17 +39,23 @@ $darkGrey: #4f585e;
     transform: scale(1.1);
   }
 
-  .card__head{
-   padding: 0 0.5em 0.1em;
-
-   h5{
-     margin-bottom: 0;
-   }
-  
-   img{
-    width: 40px;
-   }
+  .littleIcon{
+    font-size: large;
+    cursor: pointer
   }
+
+  .card__head{
+    padding: 0.5em 0.5em 0.1em;
+  
+    span{
+      margin-bottom: 0;
+    }
+   
+    img{
+     width: 40px;
+    }
+  
+   }
  
   .card__image-holder {
     background: rgba(0,0,0,0.1);
@@ -106,29 +112,29 @@ $darkGrey: #4f585e;
      
     }
 
-    small{
-      display: block;
-     font-size: 14px; 
-     letter-spacing: 0.2em;
+
+    .icons{
+    letter-spacing: 0.2rem;
+    font-size: small
     }
 
-    small::before {
-      font-family: 'FontAwesome';
-      content: '\f004';
+/* 
+    .likes::before {
+      font: var(--fa-font-solid);
+      content: "\f004";
       color: red;
-      font-size: large;
+      font-size: medium;
       cursor: pointer
     }
 
-    small::after {
-      font-family: 'FontAwesome';
-      padding-left: 3em;
-      content: '\f1e0';
-      color: navy;
-      font-size: larger;
-      font-weight: lighter;
+    .favs::before {
+      font: var(--fa-font-solid);
+      padding-left: 5rem;
+      content: '\f005';
+      color: orange;
+      font-size: medium;
       cursor: pointer
-    }
+    } */
   }
   
   .card__flap {

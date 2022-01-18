@@ -115,7 +115,8 @@ return (
 <div className="w3-container w3-light-green w3-text-white" >
  
 <form  className="w3-padding" onSubmit={handleSubmit}>
-    <div className="w3-content w3-padding-large" id="about">
+  
+  <div className="w3-content w3-padding-large" id="about">
     <h2 className="w3-center">Recipe</h2> 
     <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Title" id="title" value={title} onChange={e => handleChange(e)} onKeyDown={handleEnter} required/></div>
     <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Description"  id="description" value={description} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></div>
@@ -144,7 +145,7 @@ return (
             <input className="w3-input w3-border " type="text" placeholder="Language" id="language" value={language} onChange={e => handleChange(e)} onKeyDown={handleEnter}/>
         </div>
     </div>
-    </div>
+  </div>
     
     <div className="w3-row">
 
