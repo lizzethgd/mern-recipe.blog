@@ -6,8 +6,11 @@ import Recipe from './components/Recipe';
 import AddRecipe from './components/AddRecipe';
 import MyRecipes from './components/MyRecipes';
 import MyFavorites from './components/MyFavorites';
+import MyProfile from './components/MyProfile';
+import EditProfile from './components/EditProfile';
+import EditRecipe from './components/EditRecipe';
 
-function App() {
+const App = () => {
   return (
     <BrowserRouter>
       <Navigation />
@@ -18,6 +21,9 @@ function App() {
         <Route  path="/myfavorites" element={<MyFavorites/>} />
         <Route  path="/myrecipes" element={<MyRecipes/>} />
         <Route  path="/addrecipe" element={<AddRecipe/>} />
+        <Route  path="/myprofile" element={<MyProfile/>} />
+        <Route  path="/editprofile" element={<EditProfile/>} />
+        <Route  path="/editrecipe" element={<EditRecipe/>} />
       </Routes >
       <Footer />
     </BrowserRouter>

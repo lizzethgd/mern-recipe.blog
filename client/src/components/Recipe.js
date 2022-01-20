@@ -1,7 +1,6 @@
 import avatar from "../assets/images/avatar6.png"
 import  "../assets/css/comment.scss"
-import miniAvatar from "../assets/images/avatar6.png"
-
+import {NavLink} from 'react-router-dom'
 
 const Recipe = () => {
 
@@ -47,7 +46,7 @@ return (
         <li><p className="w3-padding w3-white w3-justify w3-round">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p></li>
         </ol>
         </div>
-
+        <NavLink className="w3-button w3-round  w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe"><i className="fa-solid fa-pen-to-square"/> Edit</NavLink>
     </div>
 
     <div className="w3-container  w3-center w3-text-white w3-padding-16">  
@@ -56,21 +55,21 @@ return (
         <div className="w3-container w3-padding-small"/>  
         <hr className="w3-clear" />
     </div>
-
+   
      
        <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments</h4>
 
     <div className="w3-container padd">
 
         <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding">
-            <img src={miniAvatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
+            <img src={avatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
             <div className="w3-left"><span>John Doe</span><span className="w3-opacity">@nickname</span></div>
             <small className="w3-opacity w3-right">1 min</small>
             <span className="w3-justify w3-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
         </div>
 
      <div className="w3-container w3-round w3-padding-16">
-        <img src={miniAvatar} className="w3-left w3-circle c-img" style={{margin: "7px 8px 0 16px"}} alt="Avatar" />
+        <img src={avatar} className="w3-left w3-circle c-img" style={{margin: "7px 8px 0 16px"}} alt="Avatar" />
         <form className=" w3-white w3-left w3-card w3-round comment-container">
             <textarea type="text"  id="comment" required/>
             <i className=" w3-button  w3-right  w3-hover-white fa-solid fa-paper-plane  button"/>

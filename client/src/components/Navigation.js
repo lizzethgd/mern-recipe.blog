@@ -21,7 +21,7 @@ return (
   <div className="w3-dropdown-hover w3-right w3-hide-small">
     <button className="w3-button w3-padding-large" > <img src={avatar} className="w3-circle" style={{border: "2px solid #fff", height:"30px", width:"30px"}} alt="Avatar" /></button>     
     <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" style={{width: "100px", right: 0}}>
-      <button className="w3-bar-item w3-button">Profile</button>
+     <NavLink className="w3-bar-item w3-button" to="/myprofile">Profile</NavLink>
       <button className="w3-bar-item w3-button">LogOut</button>
     </div>
   </div>
