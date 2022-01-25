@@ -3,7 +3,9 @@ import '../assets/css/cards.scss'
 import miniAvatar from "../assets/images/avatar6.png"
 import {NavLink} from 'react-router-dom'
 
-const Card = ({author, date, title, pic, description, category, nLikes, nFavs }) => {
+
+/* {author, date, title, pic, description, category, nLikes, nFavs } */
+const Card = ({author, date, title, pic, description, nLikes, nFavs }) => {
 
     const [focus, setFocus] =  useState("")
 
@@ -18,7 +20,7 @@ const Card = ({author, date, title, pic, description, category, nLikes, nFavs })
           <div><small className="w3-opacity">{date}</small><i className="fa-solid fa-share-nodes w3-right litleIcon" title="share" style={{color : "blue"}}/></div>
         </div>
         <div className="card__image-holder" onClick={showDescription}>
-          <img className="card__image" src={pic} alt={category} />
+          <img className="card__image" src={pic} alt={title} />
         </div>
         <div className="card__title">
            <h2>{title}</h2>

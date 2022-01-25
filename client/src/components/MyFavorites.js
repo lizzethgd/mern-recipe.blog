@@ -1,5 +1,7 @@
 import '../assets/css/cards.scss'
 import Card from './Card';
+import { useState, useEffect } from "react";
+import {calculateRange, sliceData} from "../helpers/funtions.js"
 
 const MyFavorites = () => {
     return (

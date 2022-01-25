@@ -9,6 +9,7 @@ import MyFavorites from './components/MyFavorites';
 import MyProfile from './components/MyProfile';
 import EditProfile from './components/EditProfile';
 import EditRecipe from './components/EditRecipe';
+import AllRecipes from './components/AllRecipes'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route  path="/myprofile" element={<MyProfile/>} />
         <Route  path="/editprofile" element={<EditProfile/>} />
         <Route  path="/editrecipe" element={<EditRecipe/>} />
+       
       </Routes >
       <Footer />
     </BrowserRouter>
