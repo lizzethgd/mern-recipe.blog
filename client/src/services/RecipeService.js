@@ -1,10 +1,8 @@
-export const getAllRecipes =  () => 
-fetch('api/recipe/recipes', {
-  method: 'GET'
-})
-  .then(response => {
-     return response.json()
-  })
-  .catch(err => {
+export const getAllRecipes = async () => {
+try{
+  const response = await fetch('api/recipe/recipes')
+  return response.json()
+}catch(err) {
     console.log(err)
-  })
+ }
+}
