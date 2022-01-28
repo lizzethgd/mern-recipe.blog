@@ -1,18 +1,22 @@
 import '../assets/css/cards.scss'
 import Card from './Card';
-import { useState, useEffect, useContext } from "react";
-import {calculateRange, sliceData} from "../helpers/funtions.js"
+import { useState, useMemo, useEffect, useContext } from "react";
+import {sliceData, pagination} from "../helpers/funtions.js"
 import {getAllRecipes} from '../services/RecipeService';
 
 const CardsList = () => {
-  const [recipes,setRecipes] = useState([]);
-  const [totalPages, setTotalPages] = useState([]); //total number of pages 
-  const [currentPage, setCurrentPage] = useState();
+  const [totalPages, setTotalPages] = useState(); //total number of pages 
+  const [currentPage, setCurrentPage] = useState(1);
   const [pageSlice, setPageSlice] = useState( []); //data slice per page
+  const [pagesNumeration, setPagesNumeration] = useState([]); //tipe of numeration
 
-const onChangePage = (data, i) => {
+  const pageSize = 2
+  const sibling = 1
+  
+
+const onChangePage = ( i) => {
   setCurrentPage(i)
-  setPageSlice(sliceData(data, i, 6))
+  //setPageSlice(sliceData(data, i, 6))
   console.log(i)
 }
 
@@ -20,17 +24,21 @@ const onChangePage = (data, i) => {
    (async () => { 
       try{
         const data =  await getAllRecipes()
-        setTotalPages(calculateRange(data.length, 6))
-        console.log(calculateRange(data.length, 6))
-        //setPageSlice(sliceData(data, 1, 6))
-        onChangePage(data, 1)
-        setRecipes(data)
-     }catch(error){
-        console.log(error)
+        const totalPages = Math.ceil(data.length / pageSize);
+        setTotalPages(totalPages)
+        /* const totalPages = calculatePages(data.length, pageSize)
+        setTotalPages(totalPages)
+        console.log(totalPages.length) */
+      //const pag = pagination(data.length, pageSize, siblingCount, currentPage)
+        //console.log(pag)
+        setPageSlice(sliceData(data, currentPage, pageSize))
+        setPagesNumeration(pagination(totalPages, sibling, currentPage))
+     }catch(err){
+        console.log(err)
     }
-   } )() 
+   }) () 
   // }, [data, setTotalPages, currentPage, setPageSlice]);
-}, [calculateRange, sliceData]);
+}, [sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
 
 
 
@@ -47,8 +55,8 @@ return (
 
  <div className="cards__container">
  {
- pageSlice.map(recipe => (
-      <Card key={recipe._id} author={recipe.author.username} date="1 min" title={recipe.title} pic="https://source.unsplash.com/300x225/?desert" 
+ pageSlice.map((recipe, i) => (
+      <Card key={i} author={recipe.author.username} date="1 min" title={recipe.title} pic="https://source.unsplash.com/300x225/?desert" 
      description={recipe.description}  nLikes={recipe.likes.length} nFavs={2} />
      ) 
     )
@@ -58,13 +66,17 @@ return (
  
  <div className="w3-padding-32 w3-text-white">   
     <div className="w3-bar">
-    <button className="w3-bar-item w3-black w3-button" onClick={ ()=> setPageSlice(sliceData(recipes, 1, 6))}>«</button>
-    <button className="w3-bar-item w3-black w3-button" onClick={ ()=>  currentPage>1 ? onChangePage(recipes, currentPage-1): null }><i className="fa-solid fa-caret-left"/></button>
-    { totalPages.map( page=>
-          <button key={page} className="w3-bar-item w3-black w3-button" onClick={ ()=> onChangePage(recipes, page)}>{ page}</button>)
-       }
-    <button className="w3-bar-item w3-black w3-button" onClick={ ()=> currentPage<totalPages.length ? onChangePage(recipes, currentPage+1) : null}><i className="fa-solid fa-caret-right"/></button>   
-    <button className="w3-bar-item w3-black w3-button" onClick={ ()=> setPageSlice(sliceData(recipes, totalPages.length-1, 6)) }>»</button> 
+    <button className="w3-bar-item w3-black w3-button" onClick={ ()=> onChangePage(1)}>«</button>
+    <button className="w3-bar-item w3-black w3-button" onClick={ ()=>  currentPage>1 ? onChangePage(currentPage-1): null }><i className="fa-solid fa-caret-left"/></button>
+    { pagesNumeration.map( (page, i)=> {
+          if (page === '...') 
+          { return <button key={i} className="w3-bar-item w3-black">&#8230;</button>;}
+          
+          return <button key={i} className="w3-bar-item w3-black w3-button" onClick={ ()=> onChangePage(page)}>{ page}</button>
+       })
+    }   
+    <button className="w3-bar-item w3-black w3-button" onClick={ ()=> currentPage<totalPages ? onChangePage(currentPage+1) : null}><i className="fa-solid fa-caret-right"/></button>   
+    <button className="w3-bar-item w3-black w3-button" onClick={ ()=> onChangePage(totalPages) }>»</button> 
     </div>
   </div>
   
@@ -74,7 +86,5 @@ return (
 
 export default CardsList
 
-function newFunction(setPageSlice, data, currentPage) {
-  setPageSlice(sliceData(data, currentPage, 6));
-}
+
 
