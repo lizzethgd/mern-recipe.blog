@@ -24,6 +24,35 @@ exports.list = async (req, res) => {
   
 }
 
+
+exports.listfFiltered = async (req, res) => {
+
+/*   const category =  req.params.categoryId
+  const language = req. params.languageId
+  const region = req.params.regionId */
+
+  try { 
+    const recipes = await Recipe.find({
+      category: req.params.categoryId, 
+      language: req. params.languageId, 
+      region: req.params.regionId
+    })
+    .populate('author', 'username')
+    .populate('category', 'name')
+    .populate('language', 'name')
+    .populate('region', 'name')
+    .populate('comments')
+    .populate('likes', 'user')
+  /*   .exec((err, recipes)) */
+    await res.status(200).json(recipes);
+    console.log(recipes.length)
+ }catch (err) {
+   res.status(500).json(err.name+': '+err.message)
+   console.log(err.name+': '+err.message);
+ }
+
+}
+
 exports.read = async(req, res) => {
   try { 
     const recipe = await Recipe.findById(req.params.id)

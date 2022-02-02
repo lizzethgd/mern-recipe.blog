@@ -1,4 +1,3 @@
-import '../assets/css/cards.scss'
 import CardsList from './CardsList';
 import Numeration from './Numeration';
 import { useState, useMemo, useEffect, useContext } from "react";
@@ -13,6 +12,8 @@ const AllRecipes = () => {
 
   const pageSize = 2
   const sibling = 1
+
+  const filters = {}   
   
   useEffect(() => {
    (async () => { 

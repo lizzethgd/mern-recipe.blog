@@ -1,9 +1,5 @@
 import '../assets/css/cards.scss'
 import Card from './Card';
-//import Numeration from './Numeration';
-//import { useState, useMemo, useEffect, useContext } from "react";
-//import {sliceData, pagination} from "../helpers/funtions.js"
-//import {getAllRecipes} from '../services/RecipeService'; 
 
 const CardsList = ({pageSlice}) => {
  
