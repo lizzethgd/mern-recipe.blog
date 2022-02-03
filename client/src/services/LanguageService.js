@@ -1,7 +1,6 @@
-import { API } from '../config';
 
 export const createLanguage = (userId, token, language) => {
-  return fetch(`${API}/language/create/${userId}`, {
+  return fetch(`language/create/${userId}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',
@@ -18,14 +17,11 @@ export const createLanguage = (userId, token, language) => {
     })
 }
 
-export const getLanguages = () => {
-  return fetch(`${API}/language/languages`, {
-    method: 'GET'
-  })
-    .then(response => {
-      return response.json()
-    })
-    .catch(err => {
+export const getLanguages = async () => {
+  try{
+    const response = await fetch('language/list')
+    return response.json()
+  }catch(err) {
       console.log(err)
-    })
+   }
 }

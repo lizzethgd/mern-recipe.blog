@@ -1,12 +1,12 @@
-export const createCategory = (userId, token, category) => {
-    return fetch(`${API}/category/create/${userId}`, {
+export const createRegion = (userId, token, region) => {
+    return fetch(`/region/create/${userId}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify(category)
+      body: JSON.stringify(region)
     })
       .then(response => {
         return response.json()
@@ -16,14 +16,12 @@ export const createCategory = (userId, token, category) => {
       })
   }
   
-  export const getCategories = () => {
-    return fetch(`${API}/category/categories`, {
-      method: 'GET'
-    })
-      .then(response => {
-        return response.json()
-      })
-      .catch(err => {
+  export const getRegions = async () => {
+    try{
+      const response = await fetch('region/list')
+      return response.json()
+    }catch(err) {
         console.log(err)
-      })
+     }
   }
+  

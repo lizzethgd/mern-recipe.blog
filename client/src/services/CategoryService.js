@@ -1,5 +1,5 @@
 export const createCategory = (userId, token, category) => {
-    return fetch(`${API}/category/create/${userId}`, {
+    return fetch(`category/create/${userId}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -16,14 +16,11 @@ export const createCategory = (userId, token, category) => {
       })
   }
   
-  export const getCategories = () => {
-    return fetch(`${API}/category/categories`, {
-      method: 'GET'
-    })
-      .then(response => {
-        return response.json()
-      })
-      .catch(err => {
+  export const getCategories = async () => {
+    try{
+      const response = await fetch('category/list')
+      return response.json()
+    }catch(err) {
         console.log(err)
-      })
+     }
   }

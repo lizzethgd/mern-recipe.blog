@@ -1,3 +1,4 @@
+import Filter from './Filter';
 import CardsList from './CardsList';
 import Numeration from './Numeration';
 import { useState, useMemo, useEffect, useContext } from "react";
@@ -13,7 +14,8 @@ const AllRecipes = () => {
   const pageSize = 2
   const sibling = 1
 
-  const filters = {}   
+  const filters = {}  
+
   
   useEffect(() => {
    (async () => { 
@@ -33,16 +35,9 @@ const AllRecipes = () => {
 
 return (
 <div className="w3-container">
+
+<Filter /> 
     
-<div className="w3-section w3-padding-32">
-      <span className="w3-margin-right">Filter:</span> 
-      <button className="w3-button w3-black">ALL</button>
-      <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-rectangle-list w3-margin-right"></i>Category</button>
-      <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-language w3-margin-right"></i>Language</button>
-      <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-earth-americas w3-margin-right"></i>Region</button>
-</div>
-
-
 <CardsList pageSlice={pageSlice}/>
 
 <Numeration totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} pagesNumeration={pagesNumeration}/>
