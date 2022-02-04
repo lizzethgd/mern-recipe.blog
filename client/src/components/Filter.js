@@ -4,16 +4,12 @@ import { getCategories } from '../services/CategoryService';
 import { getLanguages } from '../services/LanguageService';
 import { getRegions } from '../services/RegionService';
 
-const Filter = () => {
+const Filter = ({filters, setFilters}) => {
 
     const [categories, setCategories] = useState([]);  
     const [languages, setLanguages] = useState([]); 
     const [regions, setRegions] = useState([]); 
-    const [filters, setFilters] = useState({
-        category: '',
-        language: '',
-        region: ''
-    })
+   
 
     useEffect(() => {
         (async () => { 
@@ -38,7 +34,6 @@ const Filter = () => {
         }
         setFilters({...filters, [e.target.name]: e.target.value})
     }
-    console.log(filters)
     
 return (   
 <div className="w3-section w3-padding-16">

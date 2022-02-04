@@ -21,21 +21,20 @@ exports.list = async (req, res) => {
      res.status(500).json(err.name+': '+err.message)
      console.log(err.name+': '+err.message);
    }
-  
 }
 
 
 exports.listfFiltered = async (req, res) => {
 
-/*   const category =  req.params.categoryId
-  const language = req. params.languageId
-  const region = req.params.regionId */
+  console.log(req.params)
+  const filters = {}
+  if (req.params.categoryId!=="") {filters.category=req.params.categoryId }
+  if (req.params.languageId!=="") {filters.language=req.params.languageId }
+  if (req.params.regionId!=="") {filters.language=req.params.regionId }
 
   try { 
     const recipes = await Recipe.find({
-      category: req.params.categoryId, 
-      language: req. params.languageId, 
-      region: req.params.regionId
+      filters
     })
     .populate('author', 'username')
     .populate('category', 'name')

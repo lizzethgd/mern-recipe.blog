@@ -10,17 +10,19 @@ const AllRecipes = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSlice, setPageSlice] = useState( []); //data slice per page
   const [pagesNumeration, setPagesNumeration] = useState([]); //tipe of numeration
+  const [filters, setFilters] = useState({
+    category: '',
+    language: '',
+    region: ''
+})
 
-  const pageSize = 2
+  const pageSize = 2 
   const sibling = 1
 
-  const filters = {}  
-
-  
   useEffect(() => {
    (async () => { 
       try{
-        const data =  await getAllRecipes()
+        const data =  await getAllRecipes(filters)
         const totalPages = Math.ceil(data.length / pageSize);
         setTotalPages(totalPages)
         setPageSlice(sliceData(data, currentPage, pageSize))
@@ -29,14 +31,14 @@ const AllRecipes = () => {
         console.log(err)
     }
    }) () 
-}, [sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
+}, [filters, setFilters, sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
 
-
+console.log(filters)
 
 return (
 <div className="w3-container">
 
-<Filter /> 
+<Filter filters={filters} setFilters={setFilters}/> 
     
 <CardsList pageSlice={pageSlice}/>
 
