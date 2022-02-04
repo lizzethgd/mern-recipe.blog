@@ -9,9 +9,11 @@ const Filter = () => {
     const [categories, setCategories] = useState([]);  
     const [languages, setLanguages] = useState([]); 
     const [regions, setRegions] = useState([]); 
-    const [category, setCategory] = useState();  
-    const [language, setLanguage] = useState(); 
-    const [region, setRegion] = useState();  
+    const [filters, setFilters] = useState({
+        category: '',
+        language: '',
+        region: ''
+    })
 
     useEffect(() => {
         (async () => { 
@@ -27,31 +29,40 @@ const Filter = () => {
          }
         }) () 
     // }, [sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
-    },[categories, languages, regions, setCategories, setLanguages, setRegions])
+    },[])
 
+    const handleChange = e => {
+        e.preventDefault();
+        if (e.target.value === 0) {
+            setFilters({...filters, [e.target.name]: ''}) 
+        }
+        setFilters({...filters, [e.target.name]: e.target.value})
+    }
+    console.log(filters)
+    
 return (   
 <div className="w3-section w3-padding-16">
     <span className="w3-margin-right">Filter:</span> 
     <button className="w3-button w3-black">ALL</button>
     <div className="w3-button w3-white" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
-    <select>
-    <option value="0">Categories</option>
+    <select name='category' value={filters.category}  onChange={handleChange}>
+    <option value=''>Categories</option>
     {categories.map(category =>
         <option key={category._id} value={category._id} >{category.name}</option>
     )}
   </select>
     </div>
     <div className="w3-button w3-white "><i className="fa-solid fa-language w3-margin-right"></i>
-    <select>
-    <option value="0">Languages</option>
+    <select name='language' value={filters.language}  onChange={handleChange}>
+    <option value=''>Languages</option>
     {languages.map(language =>
         <option key={language._id} value={language._id} >{language.name}</option>
     )}
   </select>
     </div>
     <div className="w3-button w3-white"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
-    <select>
-    <option value="0">Regions</option>
+    <select name='region' value={filters.region}  onChange={handleChange}>
+    <option value=''>Regions</option>
     {regions.map(region =>
         <option key={region._id} value={region._id} >{region.name}</option>
     )}
