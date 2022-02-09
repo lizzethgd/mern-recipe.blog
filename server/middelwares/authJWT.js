@@ -6,26 +6,27 @@ exports.verifyToken = async (req, res, next) => {
     
   const token=  req.cookies['lizzethJWT']
 
- if (!token) return res.status(403).json({ message: "No token provided" });
+  if (!token) return res.status(403).json({ message: "No token provided" });
 
-try {
-   const decoded = JWT.verify(token, _.JWT_SECRET);
-   console.log(decoded)
-   req.userId = decoded.id;
+  try {
+    const decoded = JWT.verify(token, _.JWT_SECRET);
+    console.log(decoded)
+    req.userId = decoded.id;
 
-   const user = await User.findById(req.userId, { password: 0 });
-   
-   if (!user) return res.status(404).json({ message: "User Not Found" });
-      
-   //const username=userFound.username, role=userFound.role
+    const user = await User.findById(req.userId, { password: 0 });
+    
+    if (!user) return res.status(404).json({ message: "User Not Found" });
+    console.log("verificado ok")
+        
+    //const username=userFound.username, role=userFound.role
+    
+    //return res.status(200).json({isAuthenticated : true, user : {username, role}});
   
-  //return res.status(200).json({isAuthenticated : true, user : {username, role}});
- 
-   next();
- 
- } catch (error) {
-   return res.status(401).json({ message: "Unauthorized!, Error: " +error.message });
- } 
+    next();
+  
+  } catch (error) {
+    return res.status(401).json({ message: "Unauthorized!, Error: " +error.message });
+  } 
 };
 
 
@@ -65,10 +66,10 @@ exports.verifyOwnership = async (req, res, next) => {
   }
 }
 
-exports.getAuthenticated = async (req,res)=>{
+exports.authentication = async (req,res)=>{
  
   try {  
-    
+    console.log("usuario: "+ req)
     const user = await User.findById(req.userId);
     console.log('authenticated user: '+user)
     const {username, role} = user  
@@ -118,6 +119,7 @@ exports.isModerator = async (req, res, next) => {
 
     for (let i = 0; i < roles.length; i++) {
       if (roles[i].name === "moderator") {
+        console.log('is moderator')
         next();
         return;
       }

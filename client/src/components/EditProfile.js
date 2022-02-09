@@ -1,7 +1,10 @@
 import avatar from "../assets/images/avatar6.png"
 
-const EditProfile = () => {
-    return (
+const EditProfile = ({profile}) => {
+
+  console.log(profile)
+
+return (
 <div className=" w3-light-green  w3-center w3-padding-32">
    <div className="w3-card w3-round w3-light-grey  w3-content">
     <div className="w3-container">
@@ -26,7 +29,7 @@ const EditProfile = () => {
         <br/> 
    </div>
 </div>
-    )
+)
 }
 
 export default EditProfile

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const authController =require('../controllers/authController')
-const middelware1 =require('../middelwares/authJWT')
+const authJWT =require('../middelwares/authJWT')
 
 
 router.use((req, res, next) => 
@@ -11,17 +11,17 @@ router.use((req, res, next) =>
 
 router.post('/register', authController.register)
 
-router.post('/login', middelware1.verifyUser, authController.login )
+router.post('/login', authJWT.verifyUser, authController.login )
 
-router.get('/logout',  middelware1.verifyToken, authController.logout)
+router.get('/logout',  authJWT.verifyToken, authController.logout)
 
-router.get('/authenticated', middelware1.verifyToken, middelware1.getAuthenticated )
+router.get('/authentication', authJWT.verifyToken, authJWT.authentication )
 
-router.put('/:id',  middelware1.verifyOwnership, authController.update)
+router.put('/:id',  authJWT.verifyOwnership, authController.update)
 
-router.delete('/:id',  middelware1.verifyOwnership, authController.logout, authController.delete)
+router.delete('/:id',  authJWT.verifyOwnership, authController.logout, authController.delete)
 
-router.get('/profile/:id', authController.getMyProfile)
+router.get('/profile/:username', authController.getMyProfile)
 
 router.get('/:id', authController.getUserById)
 
@@ -29,7 +29,7 @@ router.get('/:id/recipes', authController.getUserRecipes)
 
 router.get('/:id/favorites', authController.getUserFavorites)
 
-router.get('/admin', middelware1.verifyToken, middelware1.getAuthenticated);
+router.get('/admin', authJWT.verifyToken, authJWT.authentication);
 
 /* router.param("userId", authController.userById); */
 
