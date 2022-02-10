@@ -38,20 +38,22 @@ exports.register = async (req,res) => {
 exports.login = async (req, res) => {
 
   try {
-    const user = await User.findById(req.userId);
+    const user = req.user
 
     console.log('el user: '+user)
 
-    const {_id, username, role} = user
+    //const {_id, username, role} = user
 
-    const token = JWT.sign({ id: _id },_.JWT_SECRET, {
+    const token = JWT.sign({ id: user._id },_.JWT_SECRET, {
         expiresIn: _.JWT_EXPIRES // 24 hours
       });
 
      //await res.setHeader('x-access-token', token) 
     await res.cookie('lizzethJWT', token, {httpOnly: true, sameSite:true})     
     
-     await res.status(200).json({isAuthenticated : true, user : {username, role}});
+    //await res.status(200).json({isAuthenticated : true, user : {username, role}});
+
+    await res.status(200).json({isAuthenticated : true, user : user}); 
      
      console.log("LOGIN!!!!!!!!!!");
   
@@ -66,7 +68,7 @@ exports.logout = async (req, res) => {
   //console.log(req.headers["x-access-token"])
     //await req.headers["x-access-token"] = '';  
     await res.clearCookie('lizzethJWT');
-    await res.json({user:{username : "", role : ""},success : true})
+    await res.json({user: {}, success : true})
     console.log("LOGOUT!!!!!!!!!!");
 }
 
@@ -100,9 +102,11 @@ exports.delete = async(req, res) => {
 
 exports.getMyProfile = async(req, res) => {
   try {
-    const user =  await User.findOne({username: req.params.username})
+    const username = req.params.username
+    const user =  await User.findOne({username})
+    user.password= null
     await user.populate('recipes')
-    await user.populate('favorites', 'recipe')
+    await user.populate('favorites')
     await res.status(200).json(user)
   } catch (err) {
     res.status(500).json(err.name+': '+err.message)

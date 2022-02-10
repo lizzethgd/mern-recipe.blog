@@ -33,7 +33,7 @@ const AllRecipes = () => {
    }) () 
 }, [filters, setFilters, sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
 
-console.log(filters)
+//console.log(filters)
 
 return (
 <div className="w3-container">

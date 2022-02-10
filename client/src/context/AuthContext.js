@@ -13,7 +13,7 @@ export default ({ children }) => {
     AuthService.checkAuthentication().then(data =>{
         setUser(data.user);
         setIsAuthenticated(data.isAuthenticated)
-            setIsLoaded(true);
+        setIsLoaded(true);
         });
     },[]);
    

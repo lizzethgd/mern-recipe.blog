@@ -1,8 +1,31 @@
 import avatar from "../assets/images/avatar6.png"
+import {useEffect, useContext, useState} from 'react'
+import UserService from '../services/UserService';
+import {AuthContext} from '../context/AuthContext';
+import {NavLink, useNavigate} from 'react-router-dom'
 
-const EditProfile = ({profile}) => {
+const EditProfile = () => {
 
-  console.log(profile)
+  const {isAuthenticated, user} = useContext(AuthContext);
+  const [updatedUser , setUpdatedUser] = useState({})
+  const history = useNavigate()
+
+  const handleChange = e => {
+    //let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
+     setUpdatedUser({ ...updatedUser, [e.target.id]: e.target.value })
+ }
+
+ const handleEnter = e => {
+
+  if (e.key.toLowerCase() === "enter") {
+    const form = e.target.form;
+    const index = [...form].indexOf(e.target);
+    console.log(index)
+    console.log(form)
+    form.elements[index + 1].focus();
+    e.preventDefault();
+  }
+};
 
 return (
 <div className=" w3-light-green  w3-center w3-padding-32">
@@ -18,13 +41,13 @@ return (
         <br/> 
         <br/> 
         <br/> 
-        <p ><i className="fa-solid fa-user fa-fw w3-margin-right w3-text-theme"></i><input /></p>
-        <p><i className="fa-solid fa-at fa-fw w3-margin-right w3-text-theme"></i> <input /></p>
-        <p><i className="fa-solid fa-key fa-fw w3-margin-right w3-text-theme"></i> <input /></p>
-        <p><i className="fa-regular fa-envelope fa-fw w3-margin-right w3-text-theme"></i> <input /></p>
+        <p style={{display: "flex"}}><i className="fa-solid fa-user fa-fw w3-margin-top w3-margin-right w3-text-theme " title='Name'/><input className="w3-input w3-border w3-half" type="text" id="firstName" value={user.firstName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/><input className="w3-input w3-border w3-half" type="text" id="lastName"value={user.lastName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
+       
+        <p style={{display: "flex"}}><i className="fa-solid fa-at fa-fw w3-margin-top w3-margin-right w3-text-theme" title='Username'/><input className="w3-input w3-border " type="text" id="username"value={user.username} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
+        <p style={{display: "flex"}}><i className="fa-regular fa-envelope fa-fw w3-margin-top w3-margin-right w3-text-theme" title='E-mail'/><input className="w3-input w3-border " type="text" id="email"value={user.email} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
         </div>
       </div>
-      <button className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black" to="/editprofile"><i className="fa-solid fa-paper-plane"/> Send</button>
+      <button className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>
      </div>
         <br/> 
    </div>

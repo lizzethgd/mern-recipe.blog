@@ -11,9 +11,10 @@ exports.verifyToken = async (req, res, next) => {
   try {
     const decoded = JWT.verify(token, _.JWT_SECRET);
     console.log(decoded)
-    req.userId = decoded.id;
 
-    const user = await User.findById(req.userId, { password: 0 });
+    const user = await User.findById(decoded.id, { password: 0 });
+
+    req.user = user
     
     if (!user) return res.status(404).json({ message: "User Not Found" });
     console.log("verificado ok")
@@ -29,16 +30,12 @@ exports.verifyToken = async (req, res, next) => {
   } 
 };
 
-
 exports.verifyUser = async (req, res, next) => {
     
    try {
-
     const {username, password} = req.body
 
     const user = await User.findOne({ username})
-
-    req.userId= user._id
     
     if (!user) return res.status(400).json({ message: "User Not Found" });
 
@@ -49,13 +46,27 @@ exports.verifyUser = async (req, res, next) => {
         token: null,
         message: "Invalid Password"
       });
-      
-        next();
-      
+   
+    user.password= null  
+
+    req.user= user
+  
+    next();  
       } catch (error) {
         return res.status(401).json({ message: "Unauthorized!, Error: " +error.message });
       } 
-  };
+};
+
+exports.authentication = async (req,res)=>{
+ 
+  try {  
+    const user = req.user
+    //const {username, role} = user  
+    //await res.status(200).json({isAuthenticated : true, user : {username,role}});
+    await res.status(200).json({isAuthenticated : true, user : user});
+  }catch (err) {console.log('error: '+err.message)}
+ 
+}
 
 exports.verifyOwnership = async (req, res, next) => {
   try {
@@ -65,20 +76,6 @@ exports.verifyOwnership = async (req, res, next) => {
     return res.status(401).json({ message: "Unauthorized!, Error: " +error.message });
   }
 }
-
-exports.authentication = async (req,res)=>{
- 
-  try {  
-    console.log("usuario: "+ req)
-    const user = await User.findById(req.userId);
-    console.log('authenticated user: '+user)
-    const {username, role} = user  
-  await res.status(200).json({isAuthenticated : true, user : {username,role}});
-  
-}catch (err) {console.log('error: '+err.message)}
- 
-}
-
 
 exports.blackList = (...inputs) => {
   return (req, res, next) => {

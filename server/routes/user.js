@@ -13,7 +13,7 @@ router.post('/register', authController.register)
 
 router.post('/login', authJWT.verifyUser, authController.login )
 
-router.get('/logout',  authJWT.verifyToken, authController.logout)
+router.get('/logout', authController.logout)
 
 router.get('/authentication', authJWT.verifyToken, authJWT.authentication )
 

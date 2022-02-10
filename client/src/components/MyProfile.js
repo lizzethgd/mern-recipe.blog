@@ -6,11 +6,11 @@ import {NavLink, useNavigate} from 'react-router-dom'
 
 const MyProfile = () => {
 
-   const {isAuthenticated, user, setIsAuthenticated, setUser} = useContext(AuthContext);
+   const {isAuthenticated, user} = useContext(AuthContext);
    const [profile , setProfile] = useState({})
    const history = useNavigate()  
 
-   useEffect(() => {
+  /*  useEffect(() => {
       (async () => { 
          try{
            const data =  await UserService.profile(user)
@@ -20,7 +20,7 @@ const MyProfile = () => {
            console.log(err)
        }
       }) () 
-   }, []);
+   }, []); */
    
 return (
 <div className=" w3-light-green  w3-center w3-padding-32">
@@ -36,13 +36,13 @@ return (
         <br/> 
         <br/>
         <div className="w3-container w3-margin w3-left-align">
-        <p ><i className="fa-solid fa-user fa-fw w3-margin-right w3-text-theme"/>Name: {profile.firstName} {profile.lastName}</p>
-        <p><i className="fa-solid fa-at fa-fw w3-margin-right w3-text-theme"/>Username: {profile.username}</p>
-        <p><i className="fa-regular fa-envelope fa-fw w3-margin-right w3-text-theme"/>Email: {profile.email}</p>
+        <p title='Name' ><i className="fa-solid fa-user fa-fw w3-margin-right w3-text-theme" />{user.firstName} {user.lastName}</p>
+        <p title='Username' ><i className="fa-solid fa-at fa-fw w3-margin-right w3-text-theme" />{user.username}</p>
+        <p title='E-mail'><i className="fa-regular fa-envelope fa-fw w3-margin-right w3-text-theme"/>{user.email}</p>
         </div>
       </div>
     </div>
-      <NavLink className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black" to="/editprofile"><i className="fa-solid fa-user-pen"/> Edit</NavLink>
+      <NavLink className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-user-pen"/> Edit</NavLink>
      </div>
    <br/> 
  </div>

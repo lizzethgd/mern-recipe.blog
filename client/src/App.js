@@ -21,8 +21,8 @@ return (
     <Route  exact path="/" element={<Home />} /> 
 
       <Route exact path='/' element={<UnPrivateRoute/>}>
-        <Route  exact   path="/login" element={<Login/>} /> 
-        <Route  path="/recipe" element={<Recipe/>} /> 
+        <Route exact path="/login" element={<Login/>} /> 
+        <Route path="/recipe" element={<Recipe/>} /> 
       </Route>
 
       <Route exact path='/' element={<PrivateRoute/>}>
