@@ -12,6 +12,7 @@ import EditProfile from './components/EditProfile';
 import EditRecipe from './components/EditRecipe';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 import PrivateRoute from './hocs/PrivateRoute';
+import EditPassword from './components/EditPassword';
 
 const App = () => {
 return (
@@ -32,6 +33,7 @@ return (
         <Route path="/addrecipe" element={<AddRecipe/>} />
         <Route path="/myprofile" element={<MyProfile/>} />
         <Route path="/editprofile" element={<EditProfile/>} />
+        <Route path="/editpassword" element={<EditPassword/>} />
         <Route path="/editrecipe" element={<EditRecipe/>} />
       </Route>
          
