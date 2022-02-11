@@ -26,7 +26,7 @@ exports.register = async (req,res) => {
     return res.status(200).json({ token });
    
     
-  }catch (err) {
+  } catch (err) {
   console.log(err.name+': '+err.message )
   let errorHandled = err
   err.name==='MongoError' ? errorHandled = DBError(err) : errorHandled
@@ -34,13 +34,12 @@ exports.register = async (req,res) => {
   }
 }
 
-
 exports.login = async (req, res) => {
 
   try {
     const user = req.user
 
-    console.log('el user: '+user)
+    console.log('login: '+user)
 
     //const {_id, username, role} = user
 
@@ -49,7 +48,9 @@ exports.login = async (req, res) => {
       });
 
      //await res.setHeader('x-access-token', token) 
-    await res.cookie('lizzethJWT', token, {httpOnly: true, sameSite:true})     
+    await res.cookie('lizzethJWT', token
+    //, {httpOnly: true, sameSite:true}
+    )     
     
     //await res.status(200).json({isAuthenticated : true, user : {username, role}});
 
@@ -63,7 +64,6 @@ exports.login = async (req, res) => {
 
 }
 
-
 exports.logout = async (req, res) => {
   //console.log(req.headers["x-access-token"])
     //await req.headers["x-access-token"] = '';  
@@ -75,11 +75,13 @@ exports.logout = async (req, res) => {
 
 exports.update = async (req, res) => {
   if (req.body.password) req.body.password = await User.encryptPassword(req.body.password)
+ 
   try {
     const updateUser = await User.findByIdAndUpdate(req.params.id, {
       $set: req.body
     },{new: true})
-    await res.status(200).json({success : true, user: updateUser});
+    const resUser =   await User.findById(updateUser._id, { password: 0 });
+    await res.status(200).json({success : true, user: resUser});
   } catch (err) {
     res.status(500).json(err.name+': '+err.message)
     console.log(err.name+': '+err.message);
@@ -89,8 +91,8 @@ exports.update = async (req, res) => {
 
 exports.delete = async(req, res) => {
   //console.log(req.headers["x-access-token"])
-    //await req.headers["x-access-token"] = '';  
-    try {
+  //await req.headers["x-access-token"] = '';  
+  try {
     await User.findByIdAndDelete(req.params.id)
     await res.status(200).json({success : true});
     console.log('User Deleted');

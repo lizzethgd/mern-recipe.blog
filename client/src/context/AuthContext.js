@@ -9,25 +9,30 @@ export default ({ children }) => {
     const [isAuthenticated,setIsAuthenticated] = useState(false);
     const [isLoaded,setIsLoaded] = useState(false);
 
-   useEffect(()=>{
-    AuthService.checkAuthentication().then(data =>{
+   useEffect(()=>{ 
+    (async () => { 
+        try{
+        const data = await AuthService.checkAuthentication()
+        console.log(data.user)
         setUser(data.user);
         setIsAuthenticated(data.isAuthenticated)
         setIsLoaded(true);
-        });
-    },[]);
+    }catch(err){
+        console.log(err)
+    }
+  }) () 
+},[]);
    
+console.log(user, isAuthenticated, isLoaded )
 
-    console.log(user, isAuthenticated, isLoaded )
-
-    return (
-        <div>
-            {isLoaded===false? <h1>Loading... </h1> : 
-            <AuthContext.Provider value={{user, setUser, isAuthenticated, setIsAuthenticated}}>
-                { children }
-            </AuthContext.Provider>}
-        </div>
-    )
+return (
+    <div>
+        {isLoaded===false? <h1>Loading... </h1> : 
+        <AuthContext.Provider value={{user, setUser, isAuthenticated, setIsAuthenticated}}>
+            { children }
+        </AuthContext.Provider>}
+    </div>
+)
 }
 
 

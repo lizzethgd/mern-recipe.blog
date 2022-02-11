@@ -10,6 +10,8 @@ const MyProfile = () => {
    const [profile , setProfile] = useState({})
    const history = useNavigate()  
 
+   console.log(user)
+
   /*  useEffect(() => {
       (async () => { 
          try{
@@ -23,7 +25,7 @@ const MyProfile = () => {
    }, []); */
    
 return (
-<div className=" w3-light-green  w3-center w3-padding-32">
+<div className=" w3-light-green w3-center w3-padding-32 w3-padding-top-64">
  <div className="w3-card w3-round w3-white w3-content">
    <div className="w3-container">
      <div className="w3-row padd  "  >

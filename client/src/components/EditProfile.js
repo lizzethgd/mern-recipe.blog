@@ -1,18 +1,24 @@
 import avatar from "../assets/images/avatar6.png"
 import {useEffect, useContext, useState} from 'react'
-import UserService from '../services/UserService';
+import AuthService from '../services/AuthService';
 import {AuthContext} from '../context/AuthContext';
 import {NavLink, useNavigate} from 'react-router-dom'
 
 const EditProfile = () => {
 
-  const {isAuthenticated, user} = useContext(AuthContext);
-  const [updatedUser , setUpdatedUser] = useState({})
+  const {isAuthenticated, user, setUser} = useContext(AuthContext);
+  const [updateUser , setUpdateUser] = useState({})
   const history = useNavigate()
 
+
+  useEffect(() => {
+    setUpdateUser(user)
+  }, [setUpdateUser])
+
   const handleChange = e => {
+    e.preventDefault()
     //let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
-     setUpdatedUser({ ...updatedUser, [e.target.id]: e.target.value })
+     setUpdateUser({ ...updateUser, [e.target.id]: e.target.value })
  }
 
  const handleEnter = e => {
@@ -27,9 +33,19 @@ const EditProfile = () => {
   }
 };
 
+const handleSubmit = (e) =>{
+  e.preventDefault()
+  AuthService.updateProfile(updateUser, user._id).then(data=> {
+    setUser(data.user);
+    history('/myprofile')
+  }
+  )
+  
+}
+
 return (
-<div className=" w3-light-green  w3-center w3-padding-32">
-   <div className="w3-card w3-round w3-light-grey  w3-content">
+<div className=" w3-light-green  w3-center w3-padding-32 w3-padding-top-64">
+   <form className="w3-card w3-round w3-light-grey  w3-content" onSubmit={handleSubmit}>
     <div className="w3-container">
       <div className="w3-row padd  "  >    
         <div className="w3-col m6 padd "> 
@@ -41,16 +57,16 @@ return (
         <br/> 
         <br/> 
         <br/> 
-        <p style={{display: "flex"}}><i className="fa-solid fa-user fa-fw w3-margin-top w3-margin-right w3-text-theme " title='Name'/><input className="w3-input w3-border w3-half" type="text" id="firstName" value={user.firstName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/><input className="w3-input w3-border w3-half" type="text" id="lastName"value={user.lastName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
+        <p style={{display: "flex"}}><i className="fa-solid fa-user fa-fw w3-margin-top w3-margin-right w3-text-theme " title='Name'/><input className="w3-input w3-border w3-half" type="text" id="firstName" value={updateUser.firstName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/><input className="w3-input w3-border w3-half" type="text" id="lastName"value={updateUser.lastName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
        
-        <p style={{display: "flex"}}><i className="fa-solid fa-at fa-fw w3-margin-top w3-margin-right w3-text-theme" title='Username'/><input className="w3-input w3-border " type="text" id="username"value={user.username} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
-        <p style={{display: "flex"}}><i className="fa-regular fa-envelope fa-fw w3-margin-top w3-margin-right w3-text-theme" title='E-mail'/><input className="w3-input w3-border " type="text" id="email"value={user.email} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
+        <p style={{display: "flex"}}><i className="fa-solid fa-at fa-fw w3-margin-top w3-margin-right w3-text-theme" title='Username'/><input className="w3-input w3-border " type="text" id="username"value={updateUser.username} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
+        <p style={{display: "flex"}}><i className="fa-regular fa-envelope fa-fw w3-margin-top w3-margin-right w3-text-theme" title='E-mail'/><input className="w3-input w3-border " type="text" id="email"value={updateUser.email} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
         </div>
       </div>
       <button className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>
      </div>
         <br/> 
-   </div>
+   </form>
 </div>
 )
 }
