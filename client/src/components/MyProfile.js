@@ -2,7 +2,7 @@ import avatar from "../assets/images/avatar6.png"
 import {useEffect, useContext, useState} from 'react'
 import UserService from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
-import {NavLink, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const MyProfile = () => {
 
@@ -44,7 +44,8 @@ return (
         </div>
       </div>
     </div>
-      <NavLink className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-user-pen"/> Edit</NavLink>
+    <Link className="w3-button w3-round w3-margin-left w3-right w3-padding-large w3-grey w3-hover-black" to={'/'}><i className="fa-solid fa-ban"/> Cancel</Link>  
+    <Link className="w3-button w3-round w3-margin-left w3-right w3-padding-large w3-deep-orange w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-user-pen"/> Edit</Link>
      </div>
    <br/> 
  </div>

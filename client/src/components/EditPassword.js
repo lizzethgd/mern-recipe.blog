@@ -8,6 +8,8 @@ const EditProfile = () => {
 
   const {isAuthenticated, user, setUser} = useContext(AuthContext);
   const [ updatePassword , setUpdatePassword] = useState({})
+  const [ inputType, setInputType] = useState('password')
+  const [ eyeSlash, setEyeSlash] = useState('-slash')
   const history = useNavigate()
 
   const handleChange = e => {
@@ -38,8 +40,9 @@ const handleSubmit = (e) =>{
   
 }
 
-const showPass = () => {
-
+const showText = () => {
+  setInputType(inputType==='password' ? 'text' : 'password')
+  setEyeSlash(eyeSlash==='-slash' ? '' : '-slash')
 }
 
 return (
@@ -58,22 +61,22 @@ return (
         <p style={{display: "flex"}}>
           <i className="fa-solid fa-unlock-keyhole fa-fw w3-margin-top w3-margin-right w3-text-theme" title=' password'/>
           <div className="w3-border" style={{display: "flex"}}>
-            <input className="w3-input" type="password" id="oldPassword" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='Old password'/>
-            <button className="fa-solid fa-eye-slash w3-input w3-text-theme w3-white" style={{width: '15%'}}/>
+            <input className="w3-input" type={inputType} id="oldPassword" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='Old password'/>
+            <i className={`fa-solid fa-eye${eyeSlash} fa-fw w3-input w3-text-theme w3-white `} style={{width: '15%', paddingTop: '12px'}} onClick={showText}/>
           </div>
           </p>
         <p style={{display: "flex"}}>
           <i className="fa-solid fa-lock fa-fw w3-margin-top w3-margin-right w3-text-theme" title='New password'/>
-          <div className="w3-border" style={{display: "flex"}}>
-            <input className="w3-input" type="password" id="username" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='New password'/>
-            <button className="fa-solid fa-eye-slash w3-input w3-text-theme w3-white" style={{width: '15%'}}/>
+          <div className="w3-border " style={{display: "flex"}}>
+            <input className="w3-input" type={inputType} id="username" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='New password'/>
+            <i className={`fa-solid fa-eye${eyeSlash}  w3-input w3-text-theme w3-white ` } style={{width: '15%', paddingTop: '12px'}} onClick={showText}/>
           </div>
         </p>
         <p style={{display: "flex"}}>
           <i className="fa-solid fa-lock fa-fw w3-margin-top w3-margin-right w3-text-theme" title='New password'/>
           <div className="w3-border" style={{display: "flex"}}>
-            <input className="w3-input" type="password" id="email" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='New password'/>
-            <button className="fa-solid fa-eye-slash w3-input w3-text-theme w3-white" style={{width: '15%'}}/>
+            <input className="w3-input" type={inputType} id="email" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='New password again'/>
+            <i className={`fa-solid fa-eye${eyeSlash} w3-input w3-text-theme w3-white`} style={{width: '15%', paddingTop: '12px'}} onClick={showText}/>
           </div>
         </p>
         </div>
