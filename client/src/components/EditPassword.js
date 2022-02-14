@@ -2,23 +2,18 @@ import avatar from "../assets/images/avatar6.png"
 import {useEffect, useContext, useState} from 'react'
 import AuthService from '../services/AuthService';
 import {AuthContext} from '../context/AuthContext';
-import {NavLink, useNavigate} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const EditProfile = () => {
 
   const {isAuthenticated, user, setUser} = useContext(AuthContext);
-  const [updateUser , setUpdateUser] = useState({})
+  const [ updatePassword , setUpdatePassword] = useState({})
   const history = useNavigate()
-
-
-  useEffect(() => {
-    setUpdateUser(user)
-  }, [updateUser, setUpdateUser])
 
   const handleChange = e => {
     e.preventDefault()
     //let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
-     setUpdateUser({ ...updateUser, [e.target.id]: e.target.value })
+     setUpdatePassword({ ... updatePassword, [e.target.id]: e.target.value })
  }
 
  const handleEnter = e => {
@@ -35,12 +30,16 @@ const EditProfile = () => {
 
 const handleSubmit = (e) =>{
   e.preventDefault()
-  AuthService.updateProfile(updateUser, user._id).then(data=> {
+  AuthService.updateProfile( updatePassword, user._id).then(data=> {
     setUser(data.user);
     history('/myprofile')
   }
   )
   
+}
+
+const showPass = () => {
+
 }
 
 return (
@@ -49,21 +48,37 @@ return (
     <div className="w3-container">
       <div className="w3-row padd  "  >    
         <div className="w3-col m6 padd "> 
-        <h4 className="w3-center">Edit password</h4>
+        <h4 className="w3-center">{user.firstName+' '+user.lastName}</h4>
         <p className="w3-center"><img src={avatar} className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
-        <input type="file" id="photo" />
         </div>
         <div className="w3-col m6 padd">
         <br/> 
         <br/> 
         <br/> 
-        <p style={{display: "flex"}}><i className="fa-solid fa-user fa-fw w3-margin-top w3-margin-right w3-text-theme " title='Name'/><input className="w3-input w3-border w3-half" type="text" id="firstName" value={updateUser.firstName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/><input className="w3-input w3-border w3-half" type="text" id="lastName"value={updateUser.lastName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
-       
-        <p style={{display: "flex"}}><i className="fa-solid fa-at fa-fw w3-margin-top w3-margin-right w3-text-theme" title='Username'/><input className="w3-input w3-border " type="text" id="username"value={updateUser.username} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
-        <p style={{display: "flex"}}><i className="fa-regular fa-envelope fa-fw w3-margin-top w3-margin-right w3-text-theme" title='E-mail'/><input className="w3-input w3-border " type="text" id="email"value={updateUser.email} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
+        <p style={{display: "flex"}}>
+          <i className="fa-solid fa-unlock-keyhole fa-fw w3-margin-top w3-margin-right w3-text-theme" title=' password'/>
+          <div className="w3-border" style={{display: "flex"}}>
+            <input className="w3-input" type="password" id="oldPassword" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='Old password'/>
+            <button className="fa-solid fa-eye-slash w3-input w3-text-theme w3-white" style={{width: '15%'}}/>
+          </div>
+          </p>
+        <p style={{display: "flex"}}>
+          <i className="fa-solid fa-lock fa-fw w3-margin-top w3-margin-right w3-text-theme" title='New password'/>
+          <div className="w3-border" style={{display: "flex"}}>
+            <input className="w3-input" type="password" id="username" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='New password'/>
+            <button className="fa-solid fa-eye-slash w3-input w3-text-theme w3-white" style={{width: '15%'}}/>
+          </div>
+        </p>
+        <p style={{display: "flex"}}>
+          <i className="fa-solid fa-lock fa-fw w3-margin-top w3-margin-right w3-text-theme" title='New password'/>
+          <div className="w3-border" style={{display: "flex"}}>
+            <input className="w3-input" type="password" id="email" onChange={e => handleChange(e)} onKeyDown={handleEnter} placeholder='New password'/>
+            <button className="fa-solid fa-eye-slash w3-input w3-text-theme w3-white" style={{width: '15%'}}/>
+          </div>
+        </p>
         </div>
       </div>
-      <button  className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black" ><i className="fa-solid fa-paper-plane"/> Send</button>  <NavLink className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black" to={'/myprofile'}>Cancel</NavLink>
+      <Link className="w3-button w3-round w3-margin-left w3-right w3-padding-large w3-grey w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-ban"/> Cancel</Link> <button className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>  
      </div>
         <br/> 
    </form>
