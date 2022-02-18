@@ -74,7 +74,12 @@ exports.authentication = async (req,res)=>{
 exports.verifyOwnership = async (req, res, next) => {
   try {
       if (!req.body._id === req.params.id) return res.status(500).json({ message: 'You can update only your account!' });
-        next();
+       if (req.body.oldPassword) {
+        const user = await User.findById(req.body._id)
+        const matchPassword = await User.comparePassword(req.body.oldPassword, user.password);
+        if (!matchPassword) return res.status(401).json({message: "Invalid Password"})
+      }
+      next();
   }catch (error) {
     return res.status(401).json({ message: "Unauthorized!, Error: " +error.message });
   }

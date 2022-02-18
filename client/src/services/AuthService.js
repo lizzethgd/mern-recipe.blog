@@ -48,19 +48,4 @@ checkAdmin : async ()=>{
     return { message: { msgBody: "UnAuthorized", msgError: true } };
 },
     
-updateProfile : async (updateUser, idAuth) => {
-  const res = await fetch(`user/update/${idAuth}`, {
-      method: 'PUT',
-      body: JSON.stringify(updateUser),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    if (res.status !== 401)
-      return res.json();
-    else
-      return { isAuthenticated: false, user: { } };
-
-}
-
 }

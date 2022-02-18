@@ -19,6 +19,8 @@ router.get('/authentication', authJWT.verifyToken, authJWT.authentication)
 
 router.put('/update/:id', authJWT.verifyOwnership, authController.update)
 
+router.put('/password/:id', authJWT.verifyUser, authController.update)
+
 router.put('/:id',  authJWT.verifyOwnership, authController.update)
 
 router.delete('/:id',  authJWT.verifyOwnership, authController.logout, authController.delete)

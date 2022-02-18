@@ -1,6 +1,6 @@
 import avatar from "../assets/images/avatar6.png"
 import {useEffect, useContext, useState} from 'react'
-import AuthService from '../services/AuthService';
+import UserService from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
 import {Link, useNavigate} from 'react-router-dom'
 
@@ -35,7 +35,7 @@ const EditProfile = () => {
 
 const handleSubmit = (e) =>{
   e.preventDefault()
-  AuthService.updateProfile(updateUser, user._id).then(data=> {
+ UserService.updateProfile(updateUser).then(data=> {
     setUser(data.user);
     history('/myprofile')
   }
