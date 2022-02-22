@@ -33,10 +33,6 @@ const EditPassword = () => {
     confirmPwShow: ['password', '-slash' ]
  */
 
-  //const {currentPwShow, newPwShow, confirmPwShow} = passwordsShow
-
-  console.log(passwordsShow.currentPwShow.typePass)
-
   const [message, setMessage] =useState('')
   const history = useNavigate()
 

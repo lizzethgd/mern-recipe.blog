@@ -21,6 +21,12 @@ const EditProfile = () => {
      setUpdateUser({ ...updateUser, [e.target.id]: e.target.value })
  }
 
+ const handleImage = e => {
+  console.log( e.target.files[0])
+  setUpdateUser({ ...updateUser, profilePic: e.target.files[0] })
+  console.log( updateUser.profilePic)
+};
+
  const handleEnter = e => {
 
   if (e.key.toLowerCase() === "enter") {
@@ -39,19 +45,21 @@ const handleSubmit = (e) =>{
     setUser(data.user);
     history('/myprofile')
   }
-  )
-  
+  ) 
 }
+
+console.log(user)
 
 return (
 <div className=" w3-light-green  w3-center w3-padding-32 w3-padding-top-64">
-   <form className="w3-card w3-round w3-light-grey w3-content" onSubmit={handleSubmit}>
+   <form className="w3-card w3-round w3-light-grey w3-content" method="put" onSubmit={handleSubmit} encType="multipart/form-data">
     <div className="w3-container">
       <div className="w3-row padd  "  >    
         <div className="w3-col m6 padd "> 
         <h4 className="w3-center">Edit profile</h4>
-        <p className="w3-center"><img src={avatar} className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
-        <input type="file" id="photo" />
+        <p className="w3-center">
+          <img src={updateUser.profilePic ? updateUser.profilePic : avatar}  className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
+        <input type="file" name="profilePic" accept=".png, .jpg, .jpeg" onChange={handleImage}/>
         </div>
         <div className="w3-col m6 padd">
         <br/> 

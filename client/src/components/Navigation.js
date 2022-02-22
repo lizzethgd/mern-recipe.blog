@@ -29,7 +29,7 @@ const Navigation = () => {
 
   const userLog = (
   <>
-    <button className="w3-button w3-padding-large" > <img src={avatar} className="w3-circle" style={{border: "2px solid #fff", height:"30px", width:"30px"}} alt="Avatar" /></button>     
+    <button className="w3-button w3-padding-large" > <img src={user.profilePic ? user.profilePic : avatar} className="w3-circle" style={{border: "2px solid #fff", height:"30px", width:"30px"}} alt="Avatar" /></button>     
     <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" style={{width: "100px", right: 0}}>
      <NavLink className="w3-bar-item w3-button" to="/myprofile">Profile</NavLink>
       <button className="w3-bar-item w3-button" onClick={onClickLogoutHandler}>LogOut</button>

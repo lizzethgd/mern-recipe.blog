@@ -1,7 +1,7 @@
 const JWT = require('jsonwebtoken')
 const User = require("../models/User");
 const _= process.env
-const DBError = require('../utils/DBError')
+//const imageUpload = require('../middelwares/imageUpload')
 
 exports.register = async (req,res) => {
   const {username, email, password,  profilePic, role, firstName, lastName} = req.body
@@ -74,9 +74,12 @@ exports.logout = async (req, res) => {
 
 
 exports.update = async (req, res) => {
-  if (req.body.password) req.body.password = await User.encryptPassword(req.body.password)
- 
+  
+  console.log(req.body)
+  
   try {
+  if (req.body.password) req.body.password = await User.encryptPassword(req.body.password)  
+  if (req.file) req.body.profilePic='imgUploads/'+req.file.filename
     const updateUser = await User.findByIdAndUpdate(req.params.id, {
       $set: req.body
     },{new: true})
@@ -168,3 +171,11 @@ exports.getUserFavorites = async (req, res) => {
     next()
   });
 }  */
+
+/*   if (req.file) {
+    try {
+      req.body.profilePic = req.file.filename
+    }catch(err){
+      console.log(err.name+': '+err.message);
+    }
+  } */

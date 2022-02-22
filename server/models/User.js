@@ -24,8 +24,7 @@ const userSchema = new mongoose.Schema(
     minlength : 6
   },
   profilePic: {
-    data: Buffer,
-    contentType: String
+    type: String,
   },
   role: {
     type : String,

@@ -25,8 +25,7 @@ const recipeSchema = new mongoose.Schema(
         default: []
     },
     photo: {
-        data: Buffer,
-        contentType: String
+      type: String,
     },
     ingredients: {
         type: Array,
