@@ -1,5 +1,5 @@
 import avatar from "../assets/images/avatar6.png"
-import {useEffect, useContext, useState} from 'react'
+import {useContext, useState} from 'react'
 import UserService from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
 import {Link, useNavigate} from 'react-router-dom'
@@ -23,13 +23,13 @@ const handleChange = e => {
 };
 
 const handleSubmit = (e) =>{
+  e.preventDefault()
   const formData = new FormData()
   formData.append('_id', updateUser._id)
   formData.append('firstName', updateUser.firstName)
   formData.append('lastName', updateUser.lastName)
   formData.append('email', updateUser.email)
   formData.append('profilePic', updateUser.profilePic )
-  e.preventDefault()
   console.log(formData)
  UserService.updateProfile(formData, user._id).then(data=> {
     setUser(data.user);
@@ -39,13 +39,13 @@ const handleSubmit = (e) =>{
 }
 
 const handleEnter = e => {
+  e.preventDefault();
   if (e.key.toLowerCase() === "enter") {
     const form = e.target.form;
     const index = [...form].indexOf(e.target);
-    console.log(index)
-    console.log(form)
+ /* console.log(index)
+    console.log(form) */
     form.elements[index + 1].focus();
-    e.preventDefault();
   }
 };
 

@@ -10,6 +10,10 @@ const Login = () => {
     const [userLogup, setUserLogup] = useState({username: '', password: ''}) 
     const {isAuthenticated, user, setIsAuthenticated, setUser} = useContext(AuthContext); 
     const [message,setMessage] = useState();
+    const [ inputTypeLogin, setInputTypeLogin] = useState('password')
+    const [ eyeSlashLogin, setEyeSlashLogin] = useState('-slash')
+    const [ inputTypeLogup, setInputTypeLogup] = useState('password')
+    const [ eyeSlashLogup, setEyeSlashLogup] = useState('-slash') 
 
     const history = useNavigate()  
 
@@ -81,6 +85,20 @@ const Login = () => {
         document.getElementById("log-container").style.display='none'
         history("/");
       }
+
+      const showLoginPass = e => {
+        e.preventDefault()
+        console.log( e.target)
+        setInputTypeLogin(inputTypeLogin==='password' ? 'text' : 'password')
+        setEyeSlashLogin(eyeSlashLogin==='-slash' ? '' : '-slash') 
+      }  
+
+      const showLogupPass = e => {
+        e.preventDefault()
+        console.log( e.target)
+        setInputTypeLogup(inputTypeLogup==='password' ? 'text' : 'password')
+        setEyeSlashLogup(eyeSlashLogup==='-slash' ? '' : '-slash') 
+      } 
   
     return (
 <div id="log-container" className="w3-modal w3-light-green" style={{display: 'block'}}>
@@ -91,10 +109,13 @@ const Login = () => {
         {message ? <p>{message}</p>: null}
             <h2 className="log-form-title" id="login" onClick={e => loginShow(e)}><span>or</span>Login </h2>
             <form onSubmit={handleSubmitLogin} target="_self">
-                <div className="log-form-holder">
-                    <input type="text" className="log-input" placeholder="Username" required name="username"  onChange={handleChangeLogin}/>
-                    <input type="password" className="log-input" placeholder="Password" required name="password"  onChange={handleChangeLogin}/>
-                </div>
+              <div className="log-form-holder">
+                <input type="text" className="log-input" placeholder="Username" required name="username"  onChange={handleChangeLogin}/>    
+                <div className="log-input " style={{display: "flex", padding: 0}} >
+                    <input  type={inputTypeLogin} className="log-input" placeholder='Password' required name="password" onChange={handleChangeLogin} />
+                    <i className={`fa-solid fa-eye${eyeSlashLogin} w3-text-theme `} name='showPass' style={{width: '15%', padding: '7px' , backgroundColor: 'transparent'}} onClick={showLoginPass}/>
+                </div>   
+              </div>
                 <button className="log-submit-btn"  type='submit'>Sign in</button>
             </form> 
         </div>
@@ -112,8 +133,11 @@ const Login = () => {
                         <input type="text" className="log-input" placeholder="E-mail" required name="email" onChange={handleChangeLogup}/>
 
                         <input type="text" className="log-input" placeholder="Username" required name="username" onChange={handleChangeLogup}/>
-                       
-                        <input type="password" className="log-input" placeholder="Password" required name="password" onChange={handleChangeLogup}/>
+                          
+                        <div className="log-input " style={{display: "flex", padding: 0}} >
+                         <input  type={inputTypeLogup} className="log-input" placeholder='Password' required name="password" onChange={handleChangeLogup} />
+                         <i className={`fa-solid fa-eye${eyeSlashLogup} w3-text-theme`} name='showPass' style={{width: '15%', padding: '7px'}} onClick={showLogupPass}/>
+                        </div>
                     </div>
                     <button className="log-submit-btn"type='submit'>Sign up</button>
                 </form>

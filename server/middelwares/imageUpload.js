@@ -1,4 +1,3 @@
-const { compareSync } = require('bcrypt');
 const multer  = require('multer');
 const path = require('path');
 
