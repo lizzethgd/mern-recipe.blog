@@ -16,8 +16,8 @@ app.use(cors());
 app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname, '/client/build')));
-//app.use('/imgUploads', express.static('imgUploads'));
-app.use('/imgUploads', express.static(path.join(__dirname, 'imgUploads')));
+app.use('/imgUploads', express.static('imgUploads'));
+//app.use('/imgUploads', express.static(path.join(__dirname, 'imgUploads')));
 
 // initialize routes
 app.use('/api/user', require('./server/routes/user'));

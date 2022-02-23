@@ -1,8 +1,11 @@
+const { compareSync } = require('bcrypt');
 const multer  = require('multer');
 const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+      console.log('elfileuplosad')
+      console.log(file)
       cb(null, './client/public/imgUploads')
     },
     filename:  (req, file, cb) => {

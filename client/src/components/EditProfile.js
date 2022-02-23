@@ -6,29 +6,39 @@ import {Link, useNavigate} from 'react-router-dom'
 
 const EditProfile = () => {
 
-  const {isAuthenticated, user, setUser} = useContext(AuthContext);
-  const [updateUser , setUpdateUser] = useState(user)
-  const history = useNavigate()
+const {isAuthenticated, user, setUser} = useContext(AuthContext);
+const [updateUser , setUpdateUser] = useState(user)
+const [imgUrl, setImgUrl] = useState('')
+const history = useNavigate()
 
-
-  /* useEffect(() => {
-    setUpdateUser(user)
-  }, [updateUser]) */
-
-  const handleChange = e => {
-    e.preventDefault()
-    //let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
-     setUpdateUser({ ...updateUser, [e.target.id]: e.target.value })
+const handleChange = e => {
+  e.preventDefault()
+  setUpdateUser({ ...updateUser, [e.target.id]: e.target.value })
  }
 
  const handleImage = e => {
-  console.log( e.target.files[0])
+  e.preventDefault()
+  setImgUrl(URL.createObjectURL(e.target.files[0]))
   setUpdateUser({ ...updateUser, profilePic: e.target.files[0] })
-  console.log( updateUser.profilePic)
 };
 
- const handleEnter = e => {
+const handleSubmit = (e) =>{
+  const formData = new FormData()
+  formData.append('_id', updateUser._id)
+  formData.append('firstName', updateUser.firstName)
+  formData.append('lastName', updateUser.lastName)
+  formData.append('email', updateUser.email)
+  formData.append('profilePic', updateUser.profilePic )
+  e.preventDefault()
+  console.log(formData)
+ UserService.updateProfile(formData, user._id).then(data=> {
+    setUser(data.user);
+    history('/myprofile')
+  }
+  ) 
+}
 
+const handleEnter = e => {
   if (e.key.toLowerCase() === "enter") {
     const form = e.target.form;
     const index = [...form].indexOf(e.target);
@@ -39,26 +49,17 @@ const EditProfile = () => {
   }
 };
 
-const handleSubmit = (e) =>{
-  e.preventDefault()
- UserService.updateProfile(updateUser).then(data=> {
-    setUser(data.user);
-    history('/myprofile')
-  }
-  ) 
-}
-
 console.log(user)
 
 return (
 <div className=" w3-light-green  w3-center w3-padding-32 w3-padding-top-64">
-   <form className="w3-card w3-round w3-light-grey w3-content" method="put" onSubmit={handleSubmit} encType="multipart/form-data">
+   <form className="w3-card w3-round w3-light-grey w3-content" onSubmit={handleSubmit} >
     <div className="w3-container">
       <div className="w3-row padd  "  >    
         <div className="w3-col m6 padd "> 
         <h4 className="w3-center">Edit profile</h4>
         <p className="w3-center">
-          <img src={updateUser.profilePic ? updateUser.profilePic : avatar}  className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
+          <img src={imgUrl ? imgUrl : (updateUser.profilePic ? updateUser.profilePic : avatar)}  className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
         <input type="file" name="profilePic" accept=".png, .jpg, .jpeg" onChange={handleImage}/>
         </div>
         <div className="w3-col m6 padd">

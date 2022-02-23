@@ -74,20 +74,22 @@ exports.logout = async (req, res) => {
 
 
 exports.update = async (req, res) => {
-  
+  console.log('elbody')
   console.log(req.body)
   
   try {
   if (req.body.password) req.body.password = await User.encryptPassword(req.body.password)  
-  if (req.file) req.body.profilePic='imgUploads/'+req.file.filename
+  if (req.file) 
+  { console.log(req.file)
+    req.body.profilePic='imgUploads/'+req.file.filename}
     const updateUser = await User.findByIdAndUpdate(req.params.id, {
       $set: req.body
     },{new: true})
     const resUser =   await User.findById(updateUser._id, { password: 0 });
     await res.status(200).json({success : true, user: resUser});
   } catch (err) {
-    res.status(500).json(err.name+': '+err.message)
-    console.log(err.name+': '+err.message);
+    res.status(500).json('error controller: '+err)
+    console.log('error controller: '+err);
   }
 }
 
