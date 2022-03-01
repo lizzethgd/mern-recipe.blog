@@ -1,6 +1,5 @@
-
-export const createLanguage = (userId, token, language) => {
-  return fetch(`language/create/${userId}`, {
+export const createLanguage = async (userId, token, language) => {
+  return await fetch(`language/create/${userId}`, {
     method: 'POST',
     headers: {
       Accept: 'application/json',

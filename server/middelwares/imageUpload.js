@@ -24,4 +24,4 @@ const fileFilter = (req, file, cb) => {
   
 const upload = multer({ storage,  fileFilter })
 
-module.exports = upload.single('profilePic')
+module.exports = upload.single('photo')

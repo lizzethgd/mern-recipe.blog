@@ -24,7 +24,7 @@ export default {
       const res = await fetch(`user/profile/${username}`)
       return res.json()
     }catch(err) {
-        console.log(err)
+        console.log('error in userService: '+err)
       }
     
     }

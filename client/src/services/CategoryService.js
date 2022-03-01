@@ -1,5 +1,5 @@
-export const createCategory = (userId, token, category) => {
-    return fetch(`category/create/${userId}`, {
+export const createCategory = async (userId, token, category) => {
+    return await fetch(`category/create/${userId}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

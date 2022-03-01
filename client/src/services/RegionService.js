@@ -1,5 +1,5 @@
-export const createRegion = (userId, token, region) => {
-    return fetch(`/region/create/${userId}`, {
+export const createRegion = async (userId, token, region) => {
+    return await fetch(`/region/create/${userId}`, {
       method: 'POST',
       headers: {
         Accept: 'application/json',

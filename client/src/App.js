@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route} from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Home from './components/Home';
@@ -15,15 +15,17 @@ import PrivateRoute from './hocs/PrivateRoute';
 import EditPassword from './components/EditPassword';
 
 const App = () => {
+  //const params = useParams()
 return (
   <BrowserRouter>
     <Navigation />
     <Routes >
-    <Route  exact path="/" element={<Home />} /> 
+    <Route  exact path="/" element={<Home />} />
+    <Route exact path='/:id' element={<Recipe  />} /> 
 
       <Route exact path='/' element={<UnPrivateRoute/>}>
         <Route exact path="/login" element={<Login/>} /> 
-        <Route path="/recipe" element={<Recipe/>} /> 
+       
       </Route>
 
       <Route exact path='/' element={<PrivateRoute/>}>
