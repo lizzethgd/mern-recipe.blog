@@ -19,17 +19,17 @@ const handleChange = e => {
  const handleImage = e => {
   e.preventDefault()
   setImgUrl(URL.createObjectURL(e.target.files[0]))
-  setUpdateUser({ ...updateUser, profilePic: e.target.files[0] })
+  setUpdateUser({ ...updateUser, photo: e.target.files[0] })
 };
 
-const handleSubmit = (e) =>{
+const handleSubmit = e =>{
   e.preventDefault()
   const formData = new FormData()
   formData.append('_id', updateUser._id)
   formData.append('firstName', updateUser.firstName)
   formData.append('lastName', updateUser.lastName)
   formData.append('email', updateUser.email)
-  formData.append('profilePic', updateUser.profilePic )
+  formData.append('photo', updateUser.photo )
   console.log(formData)
  UserService.updateProfile(formData, user._id).then(data=> {
     setUser(data.user);
@@ -59,8 +59,8 @@ return (
         <div className="w3-col m6 padd "> 
         <h4 className="w3-center">Edit profile</h4>
         <p className="w3-center">
-          <img src={imgUrl ? imgUrl : (updateUser.profilePic ? updateUser.profilePic : avatar)}  className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
-        <input type="file" name="profilePic" accept=".png, .jpg, .jpeg" onChange={handleImage}/>
+          <img src={imgUrl ? imgUrl : (updateUser.photo ? updateUser.photo : avatar)}  className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
+        <input type="file" name="photo" accept=".png, .jpg, .jpeg" onChange={handleImage}/>
         </div>
         <div className="w3-col m6 padd">
         <br/> 

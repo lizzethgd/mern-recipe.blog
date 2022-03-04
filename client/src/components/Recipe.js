@@ -1,18 +1,22 @@
 import miniavatar from "../assets/images/avatar6.png"
 import  "../assets/css/comment.scss"
 import {getRecipe} from '../services/RecipeService';
-import {useEffect, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
+import {AuthContext} from '../context/AuthContext';
 import {Link, useNavigate, useParams } from 'react-router-dom'
 
 const Recipe = () => {
+
+    const {user} = useContext(AuthContext)
+    const {id} = useParams()
 
     const [recipe, setRecipe] = useState({})
     const [ingredients, setIngredients] = useState([])
     const [steps, setSteps] = useState([])
     const [author, setAuthor] = useState({})
-
-    const {id} = useParams()
-    console.log(id)
+    const [comments, setComments] = useState([])
+    
+    console.log(user)
 
    useEffect(() => {
         (async () => { 
@@ -24,6 +28,7 @@ const Recipe = () => {
               setIngredients(data.ingredients)
               setSteps(data.steps)
               setAuthor(data.author)
+              setComments(data.comments)
             //})
           }catch(err){
             console.log('error in the page: '+err) 
@@ -74,11 +79,13 @@ return (
             )} 
         </ol>
         </div>
-        <Link className="w3-button w3-round  w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe"><i className="fa-solid fa-pen-to-square"/> Edit</Link>
+
+         {user._id===author._id ? <Link className="w3-button w3-round  w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{from: recipe}}><i className="fa-solid fa-pen-to-square"/> Edit</Link> : ''
+         }
     </div> 
 
     <div className="w3-container  w3-center w3-text-white w3-padding-16">  
-        Published by <img src={author.profilePic ? author.profilePic: miniavatar} className="w3-circle a-img"  alt="Avatar" /> {author.username} on 11/02/21 
+        Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {recipe.createdAt} 
         <p  className="w3-large"><i className="fa-regular fa-heart" style={{color: "red"}} /> &nbsp;&nbsp;  <i className="fa-solid fa-share-alt"/> &nbsp;&nbsp; <i className="fa-regular fa-star" style={{color: "blue"}}/></p>
         <div className="w3-container w3-padding-small"/>  
         <hr className="w3-clear" />
@@ -88,13 +95,18 @@ return (
        <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments</h4>
 
     <div className="w3-container padd">
-
-        <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding">
+      
+            {comments.map(comment =>
+         
+            (   <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding">
             <img src={miniavatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
-            <div className="w3-left"><span>John Doe</span><span className="w3-opacity">@nickname</span></div>
-            <small className="w3-opacity w3-right">1 min</small>
-            <span className="w3-justify w3-left">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span>
-        </div>
+            <div className="w3-left"><span>John Doe {comment.author}</span><span className="w3-opacity">@nickname</span></div>
+            <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
+            <span className="w3-justify w3-left">{comment.content}</span>
+            </div>
+            )
+                )}
+
 
      <div className="w3-container w3-round w3-padding-16">
         <img src={miniavatar} className="w3-left w3-circle c-img" style={{margin: "7px 8px 0 16px"}} alt="Avatar" />

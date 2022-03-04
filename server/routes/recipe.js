@@ -6,7 +6,7 @@ const { list, listfFiltered, read, create, remove, update, recipeById, photo } =
 // list 
 router.get('/recipes', list);
 router.get('/recipes/:categoryId/:languageId/:regionId', listfFiltered);
-router.post('/create/:userId', imageUpload, create)
+router.post('/create', imageUpload, create)
 router.get('/:id', recipeById)
 router.delete('/:id', remove)
 router.get('/photo/:id', photo)

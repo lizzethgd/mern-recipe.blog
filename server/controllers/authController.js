@@ -4,14 +4,14 @@ const _= process.env
 //const imageUpload = require('../middelwares/imageUpload')
 
 exports.register = async (req,res) => {
-  const {username, email, password,  profilePic, role, firstName, lastName} = req.body
+  const {username, email, password,  photo, role, firstName, lastName} = req.body
 
   try { 
     const newUser = new User({
       username,
       email,
       password: await User.encryptPassword(password),
-      profilePic,
+      photo,
       role, 
       firstName,
       lastName
@@ -76,12 +76,11 @@ exports.logout = async (req, res) => {
 exports.update = async (req, res) => {
   console.log('elbody')
   console.log(req.body)
-  
   try {
   if (req.body.password) req.body.password = await User.encryptPassword(req.body.password)  
   if (req.file) 
   { console.log(req.file)
-    req.body.profilePic='imgUploads/'+req.file.filename}
+    req.body.photo='imgUploads/'+req.file.filename}
     const updateUser = await User.findByIdAndUpdate(req.params.id, {
       $set: req.body
     },{new: true})
@@ -176,7 +175,7 @@ exports.getUserFavorites = async (req, res) => {
 
 /*   if (req.file) {
     try {
-      req.body.profilePic = req.file.filename
+      req.body.photo = req.file.filename
     }catch(err){
       console.log(err.name+': '+err.message);
     }

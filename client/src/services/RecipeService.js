@@ -28,16 +28,27 @@ try{
 
 }
 
-export const createRecipe = async (recipe, userId) => {
+export const updateRecipe = async (updateUser, id) => {
   try{
-  const res = await fetch(`recipe/create/${userId}`, {
+    const res = await fetch(`recipe/${id}`, {
+        method: 'PUT',
+        body: updateUser,
+      });
+      if (res.status !== 401)
+        return res.json();
+    }catch(err) {
+      console.log('error in recipeService: '+err)
+    }
+}
+
+export const createRecipe = async (recipe) => {
+  try{
+  const res = await fetch('recipe/create', {
     method: 'POST',
     body: recipe
   })
   if (res.status !== 401)
     return res.json();
-  else
-    return { isAuthenticated: false, user: { } }; 
   }catch(err) {
  console.log('error in recipeService: '+err)
 }

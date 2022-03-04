@@ -66,8 +66,6 @@ exports.recipeById = async(req, res) => {
    res.status(500).json(err.name+': '+err.message)
    console.log(err.name+': '+err.message);
  }
-  /*req.recipe.photo = undefined;
-  return res.json(req.recipe);*/
 } 
 
 /* exports.read = (req, res) => {
@@ -76,14 +74,17 @@ exports.recipeById = async(req, res) => {
 } */
 
 exports.create = async (req, res) => {
-  if (req.file) req.body.photo='imgUploads/'+req.file.filename
   try {
-    const recipe = new Recipe(req.body)
+    if (req.file) 
+    { console.log(req.file.filename)
+      req.body.photo='imgUploads/'+req.file.filename  }
+      console.log(req.body)
+    const recipe = await new Recipe(req.body)
       await recipe.save();
-      return res.status(200).json({recipe})
+      await res.status(200).json({success : true, recipe})
   }catch(err) {
     res.status(500).json('error controller: '+err)
-    console.log('error in userService: '+err)
+    console.log('error in controller '+err)
   }
 } 
 
@@ -99,6 +100,8 @@ exports.remove = async (req, res) => {
 }
 
 exports.update =  async (req, res) => {
+  console.log('elbody')
+  console.log(req.body)
   try {
     if (req.file) req.body.photo='imgUploads/'+req.file.filename
     const updateRecipe = await User.findByIdAndUpdate(req.params.id, {

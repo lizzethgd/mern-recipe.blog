@@ -31,7 +31,7 @@ return (
      <div className="w3-row padd  "  >
       <div className="w3-col m6 padd "> 
         <h4 className="w3-center">My Profile</h4>
-        <p className="w3-center"><img src={user.profilePic ? user.profilePic : avatar} className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
+        <p className="w3-center"><img src={user.photo ? user.photo : avatar} className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
       </div>
       <div className="w3-col m6 padd">
         <br/> 
