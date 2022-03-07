@@ -28,11 +28,11 @@ try{
 
 }
 
-export const updateRecipe = async (updateUser, id) => {
+export const updateRecipe = async (updateRecipe, id) => {
   try{
     const res = await fetch(`recipe/${id}`, {
         method: 'PUT',
-        body: updateUser,
+        body: updateRecipe,
       });
       if (res.status !== 401)
         return res.json();

@@ -8,39 +8,47 @@ import { getRegions } from '../services/RegionService';
 const EditRecipe = () => {
     const history = useNavigate()
     const location = useLocation()
+    const {from} = location.state 
 
-    const {from} = location.state
+    const [updateRecipe, setUpdateRecipe] = useState({
+        title: '',
+        description: '',
+        serves: '',
+        cookTime: [],
+        photo: '',
+        ingredients: [' ', ' '],
+        steps: [' ', ' '],
+        author: {},
+        category: {},
+        language: {},
+        region: {},
+        comments: {}
+        })    
 
-    console.log(from.category.name)
+    console.log(from)
 
-    const [recipe, setRecipe] = useState(from)
-
-  /*const [category, setCategory] = useState(category);  
-    const [language, setLanguage] = useState(languaje); 
-    const [region, setRegion] = useState(region);  */
-
-    const {title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region} = recipe 
-
-    const [categories, setCategories] = useState([]);  
-    const [languages, setLanguages] = useState([]); 
-    const [regions, setRegions] = useState([]); 
+    const [categories, setCategories] = useState([])
+    const [regions, setRegions] = useState([])
+    const [languages, setLanguages] = useState([])
 
 
      useEffect(() => {
         (async () => { 
-           try{
-             const categories =  await getCategories()
-             const languages = await getLanguages()
-             const regions = await getRegions()
-             setCategories(categories)
-             setLanguages(languages)
-             setRegions(regions)
+           try{   
+         setUpdateRecipe(from)     
+            const categories =  await getCategories()
+            const languages = await getLanguages()
+            const regions = await getRegions()
+            setCategories(categories)
+            setLanguages(languages)
+            setRegions(regions)
           }catch(err){
              console.log(err)
          }
         }) () 
-    // }, [sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
     },[])
+
+    const {title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, comments} = updateRecipe
 
     const handleSubmit = e =>{
         e.preventDefault()
@@ -48,69 +56,67 @@ const EditRecipe = () => {
         formData.append('title', updateRecipe.title)
         formData.append('description', updateRecipe.description)
         formData.append('serves', updateRecipe.serves)
-        formData.append('cookTime', updateRecipe.cookTime)
+        cookTime.forEach(i => formData.append("cookTime[]", i)) 
         formData.append('photo', updateRecipe.photo)
-        formData.append('ingredients', updateRecipe.ingredients)
-        formData.append('steps', updateRecipe.steps)
-        formData.append('author', updateRecipe.author)
+        ingredients.forEach(i => formData.append("ingredients[]", i))
+        steps.forEach(i => formData.append("steps[]", i))
         formData.append('category', updateRecipe.category)
         formData.append('language', updateRecipe.language)
         formData.append('region', updateRecipe.region)
         console.log(formData)
-      updateRecipe(formData, recipe._id).then(data=> {
-          setRecipe(data.recipe);
-          history(`/${recipe._id}`)
+      updateRecipe(formData, from._id).then(data=> {
+          setUpdateRecipe(data.recipe);
+          history(`/${from._id}`)
         }
         )  
-      }
-      
+    } 
      
      const handleChange = e => {
        let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
-        setRecipe({ ...recipe, [e.target.id]: value })
+        setUpdateRecipe({ ...updateRecipe, [e.target.id]: value })
     }
 
     const handleChangeCookTime = e =>{
         let values = cookTime
         e.target.id === "hh" ? values[0]=e.target.value :  values[1]=e.target.value
-        setRecipe({ ...recipe, cookTime: values }) 
+        setUpdateRecipe({ ...updateRecipe, cookTime: values }) 
         
     }
 
      const handleChangeIngredient = (e, i)=> {
         let values = ingredients
         values[i] = e.target.value
-        setRecipe({ ...recipe,  ingredients: values })
+        setUpdateRecipe({ ...updateRecipe,  ingredients: values })
     }
 
     const addIngredient = () => {
         let values = ingredients
         values.push('')
-        setRecipe({ ...recipe, ingredients: values })
+        setUpdateRecipe({ ...updateRecipe, ingredients: values })
     } 
 
     const delIngredient = (i) => {
         let values = ingredients
         values.splice(i, 1)
-        setRecipe({ ...recipe, ingredients: values })
+        setUpdateRecipe({ ...updateRecipe, ingredients: values })
     } 
 
     const handleChangeStep = (e, i)=> {
         let values = steps
         values[i] = e.target.value
-        setRecipe({ ...recipe,  steps: values })
+        setUpdateRecipe({ ...updateRecipe,  steps: values })
   }
     
     const addStep = () => {
         let values = steps
         values.push('')
-        setRecipe({ ...recipe, steps: values  })
+        setUpdateRecipe({ ...updateRecipe, steps: values  })
     } 
 
     const delStep  = (i) => {
        let values = steps
         values.splice(i, 1)
-        setRecipe({ ...recipe, steps: values })
+        setUpdateRecipe({ ...updateRecipe, steps: values })
     } 
 
     const handleEnter = e => {
@@ -125,21 +131,19 @@ const EditRecipe = () => {
         }
       };
 
-    const ingredientsInputs = recipe.ingredients.map((ingredient, i) =>
+    const ingredientsInputs = updateRecipe.ingredients.map((ingredient, i) =>
         <div key={i} className="w3-section ">
           <input className="w3-input" id={"ingredient "+i} style={{width:"93%", paddingTop:"0px"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} onKeyDown={handleEnter}/>
           <div className="w3-button w3-circle w3-right" style={{padding:0}} onClick={() => delIngredient(i)}><i className="fa fa-times-circle" /></div>
         </div>
     )
 
-    const stepsInputs = recipe.steps.map((step, i)=> 
+    const stepsInputs = updateRecipe.steps.map((step, i)=> 
         <li key={i} className="w3-section w3-large" >     
         <textarea className="w3-input" id={"step "+i} type="text" value={step} onChange={e => handleChangeStep(e, i)} onKeyDown={handleEnter}/>
         <div className="w3-button w3-circle w3-right w3-text-black" style={{padding:0}} onClick={() => delStep(i)}><i className="fa fa-times-circle" /></div>
         </li>
     )
-
-
 
 return (
     <div className="w3-container w3-light-green w3-padding-32" >
@@ -159,26 +163,26 @@ return (
             </div>
             <div className=" w3-third w3-left">
             <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>
-                <input type="file" id="photo" value={photo} onChange={e => handleChange(e)} onKeyDown={handleEnter}/>
+                <input type="file" id="photo" accept=".png, .jpg, .jpeg" onChange={handleChange} />
             </div>
         </div>
     <div className=" w3-section w3-row-padding w3-center" >
         <div className="w3-button w3-white" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
-        <select id='category' value={category.name}  onChange={handleChange}>
+        <select id='category' value={category._id}  onChange={handleChange}>
         {categories.map(category =>
             <option key={category._id} value={category._id} >{category.name}</option>
         )}
         </select>
         </div>
     <div className="w3-button w3-white "><i className="fa-solid fa-language w3-margin-right"></i>
-    <select id='language' value={language}  onChange={handleChange}>
+    <select id='language' value={language._id}  onChange={handleChange}>
     {languages.map(language =>
         <option key={language._id} value={language._id} >{language.name}</option>
     )}
   </select>
     </div>
     <div className="w3-button w3-white"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
-    <select id='region' value={region}  onChange={handleChange}>
+    <select id='region' value={region._id}  onChange={handleChange}>
   
     {regions.map(region =>
         <option key={region._id} value={region._id} >{region.name}</option>

@@ -68,16 +68,9 @@ exports.recipeById = async(req, res) => {
  }
 } 
 
-/* exports.read = (req, res) => {
-  req.recipe.photo = undefined;
-  return res.json(req.recipe);
-} */
-
 exports.create = async (req, res) => {
   try {
-    if (req.file) 
-    { console.log(req.file.filename)
-      req.body.photo='imgUploads/'+req.file.filename  }
+    if (req.file) req.body.photo='imgUploads/'+req.file.filename 
       console.log(req.body)
     const recipe = await new Recipe(req.body)
       await recipe.save();
@@ -87,17 +80,6 @@ exports.create = async (req, res) => {
     console.log('error in controller '+err)
   }
 } 
-
-exports.remove = async (req, res) => {
-  try {
-    await Recipe.findByIdAndDelete(req.params.id)
-    await res.status(200).json({success : true});
-    console.log('Recipe deleted');
-  } catch (err) {
-    res.status(500).json(err.name+': '+err.message)
-    console.log(err.name+': '+err.message);
-  }
-}
 
 exports.update =  async (req, res) => {
   console.log('elbody')
@@ -111,6 +93,17 @@ exports.update =  async (req, res) => {
   } catch (err) {
     res.status(500).json('error controller: '+err)
     console.log('error controller: '+err);
+  }
+}
+
+exports.remove = async (req, res) => {
+  try {
+    await Recipe.findByIdAndDelete(req.params.id)
+    await res.status(200).json({success : true});
+    console.log('Recipe deleted');
+  } catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
   }
 }
 

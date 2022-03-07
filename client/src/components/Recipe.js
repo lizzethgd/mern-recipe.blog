@@ -9,12 +9,34 @@ const Recipe = () => {
 
     const {user} = useContext(AuthContext)
     const {id} = useParams()
-
+/* 
     const [recipe, setRecipe] = useState({})
     const [ingredients, setIngredients] = useState([])
     const [steps, setSteps] = useState([])
+    const [cookTime, setCookTime] = useState([])
     const [author, setAuthor] = useState({})
-    const [comments, setComments] = useState([])
+    const [comments, setComments] = useState([]) 
+    const [category, setCategory] = useState({})
+    const [language, setLanguage] = useState({})
+    const [region, setRegion] = useState({}) */
+
+    const [recipe, setRecipe] = useState({
+        title: '',
+        description: '',
+        serves: '',
+        cookTime: [],
+        photo: '',
+        ingredients: [' ', ' '],
+        steps: [' ', ' '],
+        author: {},
+        category: {},
+        language: {},
+        region: {},
+        comments: [],
+        likes: []
+        }) 
+    
+    const {title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, comments, likes} = recipe
     
     console.log(user)
 
@@ -25,11 +47,6 @@ const Recipe = () => {
               const data = await getRecipe(id)
               console.log(data)
               setRecipe(data);
-              setIngredients(data.ingredients)
-              setSteps(data.steps)
-              setAuthor(data.author)
-              setComments(data.comments)
-            //})
           }catch(err){
             console.log('error in the page: '+err) 
          }
@@ -37,8 +54,6 @@ const Recipe = () => {
        ()
      }, [])  
 
-     
-  
 console.log(recipe)
 
 return (
@@ -46,14 +61,14 @@ return (
 
 <div className="w3-content w3-center w3-text-white padd" id="about">
     <img src="https://www.w3schools.com/w3images/avatar_hat.jpg" alt="Me" className="w3-image w3-padding" width="600" height="650" />
-    <h2 className="w3-center padd w3-text-white">{recipe.title}</h2> 
+    <h2 className="w3-center padd w3-text-white">{title}</h2> 
     {/*  <div className="w3-center w3-large desc">{recipe.description? recipe.description: null}</div> */}
     <div className=" w3-center r-icons">
-        <div className="r-icon"><i className="fa-solid fa-users"/> {recipe.serves? recipe.serves: null}</div>
-        <div className="r-icon"><i className="fa-solid fa-stopwatch " /> 2h 30min </div> 
-   {/*  <div className="r-icon"><i className="fa-solid fa-rectangle-list" /> {category.name} </div> */}
-             {/*   <div className="r-icon"><i className="fa-solid fa-language" /> {language.name} </div>  
-            <div className="r-icon"><i className="fa-solid fa-earth-americas "/> {region.name} </div>  */}
+        <div className="r-icon"><i className="fa-solid fa-users"/> {serves?  serves : '-.-'}</div>
+        <div className="r-icon"><i className="fa-solid fa-stopwatch " /> {cookTime.length!==0 ? cookTime[0]+':'+cookTime[1] : '-.-'} </div> 
+       <div className="r-icon"><i className="fa-solid fa-rectangle-list" /> {category.name} </div>
+        <div className="r-icon"><i className="fa-solid fa-language" /> {language.name} </div>  
+        <div className="r-icon"><i className="fa-solid fa-earth-americas "/> {region.name} </div> 
     </div> 
 </div> 
 
@@ -80,9 +95,9 @@ return (
         </ol>
         </div>
 
-         {user._id===author._id ? <Link className="w3-button w3-round  w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{from: recipe}}><i className="fa-solid fa-pen-to-square"/> Edit</Link> : ''
-         }
     </div> 
+
+{user._id===author._id ? <Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{from: recipe}}><i className="fa-solid fa-pen-to-square"/> Edit</Link> : ''}
 
     <div className="w3-container  w3-center w3-text-white w3-padding-16">  
         Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {recipe.createdAt} 
@@ -96,17 +111,16 @@ return (
 
     <div className="w3-container padd">
       
-            {comments.map(comment =>
-         
+        {(comments.length!==0 ) ? 
+            comments.map(comment =>
             (   <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding">
             <img src={miniavatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
-            <div className="w3-left"><span>John Doe {comment.author}</span><span className="w3-opacity">@nickname</span></div>
+            <div className="w3-left"><span>John Doe {comment.author}</span><span className="w3-opacity">@{comment.username}</span></div>
             <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
             <span className="w3-justify w3-left">{comment.content}</span>
             </div>
             )
-                )}
-
+        ): '' } 
 
      <div className="w3-container w3-round w3-padding-16">
         <img src={miniavatar} className="w3-left w3-circle c-img" style={{margin: "7px 8px 0 16px"}} alt="Avatar" />
@@ -117,8 +131,7 @@ return (
      </div>
     
     </div>
-
-    
+ 
     {/*<div className="w3-container w3-card w3-white w3-round w3-margin w3-padding"> 
         <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
         <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button> 
