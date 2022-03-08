@@ -1,14 +1,12 @@
 import avatar from "../assets/images/avatar6.png"
-import {useEffect, useContext, useState} from 'react'
-import UserService from '../services/UserService';
+import { useContext, useState} from 'react'
 import {AuthContext} from '../context/AuthContext';
-import {Link, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 const MyProfile = () => {
 
-   const {isAuthenticated, user} = useContext(AuthContext);
-   const [profile , setProfile] = useState({})
-   const history = useNavigate()  
+   const {user} = useContext(AuthContext);
+
 
    console.log(user)
 

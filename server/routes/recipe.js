@@ -10,7 +10,7 @@ router.post('/create', imageUpload, create)
 router.get('/:id', recipeById)
 router.delete('/:id', remove)
 router.get('/photo/:id', photo)
-router.put('/update/:id', imageUpload, update)
+router.put('/:id', imageUpload, update)
 //router.param("id", recipeById);
 
 module.exports = router;

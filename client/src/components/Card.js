@@ -7,6 +7,10 @@ import {Link} from 'react-router-dom'
 /* {author, date, title, pic, description, category, nLikes, nFavs } */
 const Card = ({recipe}) => {
 
+  
+
+  console.log(recipe)
+
     const [focus, setFocus] =  useState("")
 
     const showDescription = () =>{
@@ -16,12 +20,12 @@ const Card = ({recipe}) => {
     return (
     <div className={focus} >          
         <div className="card__head">
-          <img src={recipe.photo ? recipe.photo : miniAvatar} alt="Avatar" className="w3-left w3-circle w3-margin-right" />
+          <img src={recipe.author.photo ? recipe.author.photo : miniAvatar} alt="Avatar" style={{width: "30px" , height: "30px"}} className="w3-left w3-circle w3-margin-right" />
           <span className="w3-opacity" >{recipe.author.username} </span><i className="fa-regular fa-star w3-right litleIcon" title="Add to favs" style={{color : "orange"}}/>
           <div><small className="w3-opacity">{'date' }</small><i className="fa-solid fa-share-nodes w3-right litleIcon" title="share" style={{color : "blue"}}/></div>
         </div>
         <div className="card__image-holder" onClick={showDescription}>
-          <img className="card__image" src={miniAvatar} alt={recipe.title} />
+          <img className="card__image" src={recipe.photo ? recipe.photo : miniAvatar} alt={recipe.title} />
         </div>
         <div className="card__title">
            <h2>{recipe.title}</h2>

@@ -3,22 +3,12 @@ import  "../assets/css/comment.scss"
 import {getRecipe} from '../services/RecipeService';
 import {useContext, useEffect, useState} from 'react'
 import {AuthContext} from '../context/AuthContext';
-import {Link, useNavigate, useParams } from 'react-router-dom'
+import {Link, useParams } from 'react-router-dom'
 
 const Recipe = () => {
 
     const {user} = useContext(AuthContext)
     const {id} = useParams()
-/* 
-    const [recipe, setRecipe] = useState({})
-    const [ingredients, setIngredients] = useState([])
-    const [steps, setSteps] = useState([])
-    const [cookTime, setCookTime] = useState([])
-    const [author, setAuthor] = useState({})
-    const [comments, setComments] = useState([]) 
-    const [category, setCategory] = useState({})
-    const [language, setLanguage] = useState({})
-    const [region, setRegion] = useState({}) */
 
     const [recipe, setRecipe] = useState({
         title: '',
@@ -26,8 +16,8 @@ const Recipe = () => {
         serves: '',
         cookTime: [],
         photo: '',
-        ingredients: [' ', ' '],
-        steps: [' ', ' '],
+        ingredients: [],
+        steps: [],
         author: {},
         category: {},
         language: {},
@@ -60,9 +50,9 @@ return (
 <div className="w3-container w3-light-green w3-center padd" >
 
 <div className="w3-content w3-center w3-text-white padd" id="about">
-    <img src="https://www.w3schools.com/w3images/avatar_hat.jpg" alt="Me" className="w3-image w3-padding" width="600" height="650" />
+    <img src={photo ? photo : "https://www.w3schools.com/w3images/avatar_hat.jpg"} alt="Me" className="w3-image w3-padding" width="600" height="650" />
     <h2 className="w3-center padd w3-text-white">{title}</h2> 
-    {/*  <div className="w3-center w3-large desc">{recipe.description? recipe.description: null}</div> */}
+    <div className="w3-center w3-large desc">{description? description: null}</div> 
     <div className=" w3-center r-icons">
         <div className="r-icon"><i className="fa-solid fa-users"/> {serves?  serves : '-.-'}</div>
         <div className="r-icon"><i className="fa-solid fa-stopwatch " /> {cookTime.length!==0 ? cookTime[0]+':'+cookTime[1] : '-.-'} </div> 
@@ -78,8 +68,8 @@ return (
         <h3 className="w3-center">Ingredients</h3>
         <div style={{padding:"6px 16px"}}>
         <div className=" w3-white w3-padding" >
-            {ingredients.map(ingredient =>
-            <div className="w3-section">{ingredient}</div>
+            {ingredients.map((ingredient,i) =>
+            <div className="w3-section" key={i}>{ingredient}</div>
             )}    
         </div>
         </div>
@@ -89,8 +79,8 @@ return (
         <h3 className="w3-center">Preparation</h3>
         <ol>
             {  
-            steps.map(step =>
-            (<li><p className="w3-padding w3-white w3-justify w3-round">{step}</p></li>)
+            steps.map((step, i) =>
+            (<li key={i}><p className="w3-padding w3-white w3-justify w3-round">{step}</p></li>)
             )} 
         </ol>
         </div>
@@ -113,7 +103,7 @@ return (
       
         {(comments.length!==0 ) ? 
             comments.map(comment =>
-            (   <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding">
+            (   <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding" key={comment._id}>
             <img src={miniavatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
             <div className="w3-left"><span>John Doe {comment.author}</span><span className="w3-opacity">@{comment.username}</span></div>
             <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>

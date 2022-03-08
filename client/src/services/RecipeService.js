@@ -28,7 +28,7 @@ try{
 
 }
 
-export const updateRecipe = async (updateRecipe, id) => {
+export const editRecipe = async (updateRecipe, id) => {
   try{
     const res = await fetch(`recipe/${id}`, {
         method: 'PUT',

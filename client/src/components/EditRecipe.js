@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import {Link, useLocation, useNavigate } from 'react-router-dom'
-import {updateRecipe} from '../services/RecipeService';
+import {editRecipe} from '../services/RecipeService';
 import { getCategories } from '../services/CategoryService';
 import { getLanguages } from '../services/LanguageService';
 import { getRegions } from '../services/RegionService';
@@ -16,13 +16,11 @@ const EditRecipe = () => {
         serves: '',
         cookTime: [],
         photo: '',
-        ingredients: [' ', ' '],
-        steps: [' ', ' '],
-        author: {},
-        category: {},
-        language: {},
-        region: {},
-        comments: {}
+        ingredients: [],
+        steps: [],
+        category: '',
+        language: '',
+        region: '',
         })    
 
     console.log(from)
@@ -35,7 +33,7 @@ const EditRecipe = () => {
      useEffect(() => {
         (async () => { 
            try{   
-         setUpdateRecipe(from)     
+            setUpdateRecipe(from)     
             const categories =  await getCategories()
             const languages = await getLanguages()
             const regions = await getRegions()
@@ -48,30 +46,29 @@ const EditRecipe = () => {
         }) () 
     },[])
 
-    const {title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, comments} = updateRecipe
+    const {title, description, serves, cookTime, photo, ingredients, steps, category, language, region} = updateRecipe
 
     const handleSubmit = e =>{
         e.preventDefault()
        const formData = new FormData()
-        formData.append('title', updateRecipe.title)
-        formData.append('description', updateRecipe.description)
-        formData.append('serves', updateRecipe.serves)
-        cookTime.forEach(i => formData.append("cookTime[]", i)) 
-        formData.append('photo', updateRecipe.photo)
+        formData.append('title', title)
+        if (description!==undefined) formData.append('description', description)
+        if (serves!==undefined) formData.append('serves', serves) 
+        if (cookTime!==undefined) cookTime.forEach(i => formData.append("cookTime[]", i)) 
+        if (photo!==undefined) formData.append('photo', photo)
         ingredients.forEach(i => formData.append("ingredients[]", i))
         steps.forEach(i => formData.append("steps[]", i))
-        formData.append('category', updateRecipe.category)
-        formData.append('language', updateRecipe.language)
-        formData.append('region', updateRecipe.region)
-        console.log(formData)
-      updateRecipe(formData, from._id).then(data=> {
-          setUpdateRecipe(data.recipe);
-          history(`/${from._id}`)
+        formData.append('category', category._id)
+        formData.append('language', language._id)
+        formData.append('region', region._id)
+       editRecipe(formData, from._id).then(data=> {
+          history(`/${data.recipe._id}`)
         }
         )  
     } 
-     
+    
      const handleChange = e => {
+        console.log(updateRecipe)
        let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
         setUpdateRecipe({ ...updateRecipe, [e.target.id]: value })
     }
@@ -159,11 +156,11 @@ return (
             <label className="w3-third">N° serves: </label > <input className="w3-border" type="number" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={e => handleChange(e)} onKeyDown={handleEnter}/>
             </div>
             <div className=" w3-third ">
-                <label >CookTime: </label ><input leftclassName="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={(e) => handleChangeCookTime(e)} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
+                <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={(e) => handleChangeCookTime(e)} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
             </div>
             <div className=" w3-third w3-left">
             <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>
-                <input type="file" id="photo" accept=".png, .jpg, .jpeg" onChange={handleChange} />
+                <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handleChange} />
             </div>
         </div>
     <div className=" w3-section w3-row-padding w3-center" >
@@ -183,7 +180,6 @@ return (
     </div>
     <div className="w3-button w3-white"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
     <select id='region' value={region._id}  onChange={handleChange}>
-  
     {regions.map(region =>
         <option key={region._id} value={region._id} >{region.name}</option>
     )}

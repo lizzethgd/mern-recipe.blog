@@ -5,7 +5,7 @@ exports.list = async (req, res) => {
 
     try { 
       const recipes = await Recipe.find()
-      .populate('author', 'username')
+      .populate('author', { password:0, email:0, role:0, updatedAt:0 })
       .populate('category', 'name')
       .populate('language', 'name')
       .populate('region', 'name')
@@ -33,7 +33,7 @@ exports.listfFiltered = async (req, res) => {
     const recipes = await Recipe.find({
       filters
     })
-    .populate('author', 'username')
+    .populate('author')
     .populate('category', 'name')
     .populate('language', 'name')
     .populate('region', 'name')
@@ -82,11 +82,11 @@ exports.create = async (req, res) => {
 } 
 
 exports.update =  async (req, res) => {
-  console.log('elbody')
-  console.log(req.body)
   try {
     if (req.file) req.body.photo='imgUploads/'+req.file.filename
-    const updateRecipe = await User.findByIdAndUpdate(req.params.id, {
+    console.log('elbody')
+  console.log(req.body)
+    const updateRecipe = await Recipe.findByIdAndUpdate(req.params.id, {
       $set: req.body
     },{new: true})
     await res.status(200).json({success : true, recipe: updateRecipe});
