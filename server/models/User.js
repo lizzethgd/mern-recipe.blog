@@ -62,12 +62,19 @@ userSchema.virtual('recipes', {
   ref: 'Recipe',
   localField: '_id',
   foreignField: 'author'
-}); 
+});
 
 userSchema.virtual('favorites', {
   ref: 'Favorite',
   localField: '_id',
   foreignField: 'user'
 }); 
+
+userSchema.virtual('likes', {
+  ref: 'Like',
+  localField: '_id',
+  foreignField: 'user'
+}); 
+
 
 module.exports = mongoose.model('User', userSchema);

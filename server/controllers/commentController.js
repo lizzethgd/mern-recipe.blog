@@ -35,3 +35,24 @@ exports.update = async (req, res) => {
       console.log(err.name+': '+err.message);
     }
   }
+
+  exports.commentsByRecipe =  async (req, res) => {
+    try {
+      const comments = await Comment.find({recipe: req.params.recipeId})
+      .populate('author', { password:0, email:0, role:0, updatedAt:0 })
+      await res.status(200).json({success : true, comments : comments});
+    }catch (err) {
+      res.status(500).json('error controller: '+err)
+      console.log('error in controller '+err)
+  }
+}
+
+  exports.commentsByUser =  async (req, res) => {
+    try {
+      const comments = await Comment.find({author: req.params.userId})
+      await res.status(200).json({success : true, comments : comments});
+    }catch (err) {
+      res.status(500).json(err.name+': '+err.message)
+      console.log(err.name+': '+err.message);
+    }
+  }
