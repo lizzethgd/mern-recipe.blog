@@ -5,10 +5,9 @@ const commentSchema =new mongoose.Schema(
 {     
  content: {
     type: String,
+    trim: true,
     require: true,
     maxlength: 2000,
-    trim: true, 
-    unique: true
  },
  recipe: {
     type: ObjectId,
@@ -21,7 +20,8 @@ const commentSchema =new mongoose.Schema(
     require: true
 }
 }, 
-{ timestamps: true }
+{ timestamps: true,
+versionKey: false }
 );
 
 module.exports = mongoose.model("Comment", commentSchema);

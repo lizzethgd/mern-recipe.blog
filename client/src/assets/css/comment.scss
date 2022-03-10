@@ -38,7 +38,7 @@
 }
 
 .comment-container {
-    width: 95.1%;
+    width: 93.2%;
     height: 5em;
     outline: none;
     -moz-outline: none;
@@ -46,7 +46,7 @@
  
     textarea[type=text]{  
         padding: 8px;
-        width: 96%;
+        width: 95%;
         height: 100%;
         font-size: 17px;
         border: none;
@@ -56,6 +56,7 @@
     }
 
     .button {
+        width: 5%;
         padding:27px 12px 18px 8px;
         background: white;
         font-size: 21.5px;

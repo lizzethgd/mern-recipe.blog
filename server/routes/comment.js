@@ -3,7 +3,7 @@ const router = Router()
 
 const { create, remove, update, commentsByRecipe, commentsByUser } = require('../controllers/commentController');
 
-router.post('/create/:userId/:recipeId', create)
+router.post('/add', create)
 router.get('/:recipeId', commentsByRecipe)
 router.get('/:userId', commentsByUser)
 router.put('/:id', update)

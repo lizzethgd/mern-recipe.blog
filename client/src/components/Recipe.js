@@ -1,14 +1,20 @@
 import miniavatar from "../assets/images/avatar6.png"
 import  "../assets/css/comment.scss"
 import {getRecipe} from '../services/RecipeService';
+import {getRecipeComments, createComment} from '../services/CommentService';
 import {useContext, useEffect, useState} from 'react'
 import {AuthContext} from '../context/AuthContext';
-import {Link, useParams } from 'react-router-dom'
+import {Link, useParams , useNavigate} from 'react-router-dom'
 
 const Recipe = () => {
 
-    const {user} = useContext(AuthContext)
+    const {user, isAuthenticated} = useContext(AuthContext)
+    console.log(user)
     const {id} = useParams()
+
+    console.log(id)
+
+    const history = useNavigate()
 
     const [recipe, setRecipe] = useState({
         title: '',
@@ -22,29 +28,59 @@ const Recipe = () => {
         category: {},
         language: {},
         region: {},
-        comments: [],
         likes: []
         }) 
-    
-    const {title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, comments, likes} = recipe
-    
+
+    const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes} = recipe
     console.log(user)
 
+    const [comments, setComments] = useState([])
+
+    const [newComment, setComment] = useState({
+        content: '',
+        recipe: id,
+        author: user._id
+    })
+
+    const content = {newComment}
+   
    useEffect(() => {
         (async () => { 
           try{  
           //RecipeService.getRecipe(id).then(data=> {
-              const data = await getRecipe(id)
-              console.log(data)
-              setRecipe(data);
+              const data1 = await getRecipe(id)
+              setRecipe(data1);
+              const data2= await getRecipeComments(id)
+              setComments(data2); 
           }catch(err){
             console.log('error in the page: '+err) 
          }
         })
        ()
-     }, [])  
+     }, []) 
+     
+     
 
-console.log(recipe)
+    const handleSubmit = e => { 
+        e.preventDefault();
+        if (isAuthenticated)  {
+        createComment(newComment).then(data1=> {
+            getRecipeComments(id).then(data2=> {
+              setComments(data2) 
+            })
+        })
+     } 
+        else history('/login')
+      
+       
+      }  
+
+      const handleChange=  e => {
+        e.preventDefault();
+        setComment({...newComment, [e.target.id]: e.target.value })
+      }    
+
+console.log(newComment.content)
 
 return (
 <div className="w3-container w3-light-green w3-center padd" >
@@ -97,15 +133,15 @@ return (
     </div>
    
      
-       <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments</h4>
+       <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments  {comments.length}</h4>
 
     <div className="w3-container padd">
       
         {(comments.length!==0 ) ? 
             comments.map(comment =>
             (   <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding" key={comment._id}>
-            <img src={miniavatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
-            <div className="w3-left"><span>John Doe {comment.author}</span><span className="w3-opacity">@{comment.username}</span></div>
+            <img src={comment.author.photo ? comment.author.photo : miniavatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
+            <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">@{comment.author.username}</span></div>
             <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
             <span className="w3-justify w3-left">{comment.content}</span>
             </div>
@@ -113,10 +149,10 @@ return (
         ): '' } 
 
      <div className="w3-container w3-round w3-padding-16">
-        <img src={miniavatar} className="w3-left w3-circle c-img" style={{margin: "7px 8px 0 16px"}} alt="Avatar" />
+        <img src={user.photo ? user.photo : miniavatar} className="w3-left w3-circle a-img" style={{ margin: "7px 8px 0 16px"}} alt="Avatar" />
         <form className=" w3-white w3-left w3-card w3-round comment-container">
-            <textarea type="text"  id="comment" required/>
-            <i className=" w3-button  w3-right  w3-hover-white fa-solid fa-paper-plane  button"/>
+            <textarea type="text"  id="content" onChange={handleChange} required/>
+            <i className=" w3-button  w3-right  w3-hover-white fa-solid fa-paper-plane  button" onClick={handleSubmit}/>
         </form>
      </div>
     

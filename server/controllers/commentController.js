@@ -2,13 +2,14 @@ const Comment = require('../models/Comment');
 
 exports.create = async (req, res) => { 
     try {
-      const comment = new Comment(req.body)
+      const comment = await new Comment(req.body)
+      console.log(req.body)
       await comment.save()
-      await res.json(comment)
+      await res.status(200).json({success : true, comment: comment})
     }
     catch(err){
-        res.status(500).json(err.name+': '+err.message)
-        console.log(err.name+': '+err.message); 
+      res.status(500).json('error controller: '+err)
+      console.log('error in controller '+err) 
     }
 }
 
@@ -40,7 +41,7 @@ exports.update = async (req, res) => {
     try {
       const comments = await Comment.find({recipe: req.params.recipeId})
       .populate('author', { password:0, email:0, role:0, updatedAt:0 })
-      await res.status(200).json({success : true, comments : comments});
+      await res.status(200).json(comments);
     }catch (err) {
       res.status(500).json('error controller: '+err)
       console.log('error in controller '+err)

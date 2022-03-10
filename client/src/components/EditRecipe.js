@@ -117,14 +117,13 @@ const EditRecipe = () => {
     } 
 
     const handleEnter = e => {
-
+        e.preventDefault();
         if (e.key.toLowerCase() === "enter") {
           const form = e.target.form;
           const index = [...form].indexOf(e.target);
           console.log(index)
           console.log(form)
           form.elements[index + 1].focus();
-          e.preventDefault();
         }
       };
 
