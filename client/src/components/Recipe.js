@@ -67,6 +67,7 @@ const Recipe = () => {
         createComment(newComment).then(data1=> {
             getRecipeComments(id).then(data2=> {
               setComments(data2) 
+              setComment({...newComment, content : ''})
             })
         })
      } 
@@ -151,7 +152,7 @@ return (
      <div className="w3-container w3-round w3-padding-16">
         <img src={user.photo ? user.photo : miniavatar} className="w3-left w3-circle a-img" style={{ margin: "7px 8px 0 16px"}} alt="Avatar" />
         <form className=" w3-white w3-left w3-card w3-round comment-container">
-            <textarea type="text"  id="content" onChange={handleChange} required/>
+            <textarea type="text"  id="content" value={newComment.content} onChange={handleChange} required/>
             <i className=" w3-button  w3-right  w3-hover-white fa-solid fa-paper-plane  button" onClick={handleSubmit}/>
         </form>
      </div>
