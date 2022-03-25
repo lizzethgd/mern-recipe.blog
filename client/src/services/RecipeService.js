@@ -54,7 +54,7 @@ export const createRecipe = async (recipe) => {
 }
 }
 
-export const deleteRecipe = async (id) => {
+export const removeRecipe = async (id) => {
   try{
     const res = await fetch(`recipe/${id}`, {
         method: 'DELETE',

@@ -1,9 +1,9 @@
 const {Router} = require("express");
 const router = Router()
 
-const { create, remove, update, commentsByRecipe, commentsByUser } = require('../controllers/commentController');
+const { add, remove, update, commentsByRecipe, commentsByUser } = require('../controllers/commentController');
 
-router.post('/add', create)
+router.post('/add', add)
 router.get('/:recipeId', commentsByRecipe)
 router.get('/:userId', commentsByUser)
 router.put('/:id', update)

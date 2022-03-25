@@ -1,7 +1,8 @@
 import miniavatar from "../assets/images/avatar6.png"
 import  "../assets/css/comment.scss"
-import {getRecipe, deleteRecipe} from '../services/RecipeService';
-import {getRecipeComments, createComment} from '../services/CommentService';
+import {getRecipe, removeRecipe} from '../services/RecipeService';
+import {getRecipeComments, addComment, removeComment} from '../services/CommentService';
+import {addLike, deleteLike} from '../services/LikeService';
 import {useContext, useEffect, useState} from 'react'
 import {AuthContext} from '../context/AuthContext';
 import {Link, useParams , useNavigate} from 'react-router-dom'
@@ -64,28 +65,39 @@ const Recipe = () => {
     const handleSubmit = e => { 
         e.preventDefault();
         if (isAuthenticated)  {
-        createComment(newComment).then(data1=> {
-            getRecipeComments(id).then(data2=> {
-              setComments(data2) 
+        addComment(newComment)
+        .then(getRecipeComments(id)
+        .then(data=> {
+              setComments(data) 
               setComment({...newComment, content : ''})
             })
-        })
-     } 
+          )
+        } 
         else history('/login')
-      
-       
-      }  
+    }  
 
-      const handleChange=  e => {
+      const handleChange =  e => {
         e.preventDefault();
         setComment({...newComment, [e.target.id]: e.target.value })
       }  
       
-      const delRecipe = e => {
+      const deleteRecipe = e => {
         e.preventDefault()
-        deleteRecipe(id)
+        removeRecipe(id)
         history('/')
       }
+
+      const deleteComment = (e, commentId) => {
+        e.preventDefault()
+        removeComment(commentId)
+        getRecipeComments(id).then(data=> {
+            setComments(data)
+        })
+      }
+      
+    /*   const addLike = e => {
+
+      } */
 
 console.log(newComment.content)
 
@@ -133,7 +145,7 @@ return (
 { (user._id===author._id) 
 ? <><Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ from: recipe }}>
     <i className="fa-solid fa-pen-to-square" /> Edit</Link>
-  <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={delRecipe}>
+  <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={deleteRecipe}>
       <i className="fa-solid fa-ban"/> Delete</button></>
 : ''}
 
@@ -145,7 +157,7 @@ return (
     </div>
    
      
-       <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments  {comments.length}</h4>
+       <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments:  {comments.length}</h4>
 
     <div className="w3-container padd">
       
@@ -156,6 +168,9 @@ return (
             <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">@{comment.author.username}</span></div>
             <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
             <span className="w3-justify w3-left">{comment.content}</span>
+            {(user._id===comment.author._id) 
+            ? <i className="fa-solid fa-circle-xmark w3-right" onClick={(e) => deleteComment(e, comment._id)} style={{cursor: 'pointer', color: '#ff3d00'}} />
+            : '' }
             </div>
             )
         ): '' } 
@@ -164,7 +179,7 @@ return (
         <img src={user.photo ? user.photo : miniavatar} className="w3-left w3-circle a-img" style={{ margin: "7px 8px 0 16px"}} alt="Avatar" />
         <form className=" w3-white w3-left w3-card w3-round comment-container">
             <textarea type="text"  id="content" value={newComment.content} onChange={handleChange} required/>
-            <i className=" w3-button  w3-right  w3-hover-white fa-solid fa-paper-plane  button" onClick={handleSubmit}/>
+            <i className="w3-button w3-right w3-hover-white fa-solid fa-paper-plane button" style={{color: '#ff5722'}} onClick={handleSubmit}/>
         </form>
      </div>
     

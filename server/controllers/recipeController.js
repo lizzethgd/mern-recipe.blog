@@ -97,7 +97,7 @@ exports.remove = async (req, res) => {
   try {
     await Recipe.findByIdAndDelete(req.params.id)
     await res.status(200).json({success : true});
-    console.log('Recipe deleted');
+    console.log('Recipe succesfully deleted');
   } catch (err) {
     res.status(500).json(err.name+': '+err.message)
     console.log(err.name+': '+err.message);

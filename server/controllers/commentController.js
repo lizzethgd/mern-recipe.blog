@@ -1,11 +1,12 @@
 const Comment = require('../models/Comment');
 
-exports.create = async (req, res) => { 
+exports.add = async (req, res) => { 
     try {
-      const comment = await new Comment(req.body)
+      const newComment = await new Comment(req.body)
       console.log(req.body)
-      await comment.save()
-      await res.status(200).json({success : true, comment: comment})
+      await newComment.save()
+      await res.status(200).json({success : true})
+      console.log('Comment succesfully added');
     }
     catch(err){
       res.status(500).json('error controller: '+err)
@@ -16,7 +17,7 @@ exports.create = async (req, res) => {
 exports.remove = async (req, res) => {
     try {
         await Comment.findByIdAndDelete(req.params.id)
-        await res.status(200).json({message: "Comment succesfully deleted", success : true});
+        await res.status(200).json({success : true});
         console.log('Comment succesfully deleted');
       } catch (err) {
         res.status(500).json(err.name+': '+err.message)
