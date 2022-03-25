@@ -43,10 +43,10 @@ export const editRecipe = async (updateRecipe, id) => {
 
 export const createRecipe = async (recipe) => {
   try{
-  const res = await fetch('recipe/create', {
-    method: 'POST',
-    body: recipe
-  })
+    const res = await fetch('recipe/create', {
+      method: 'POST',
+      body: recipe,
+  });
   if (res.status !== 401)
     return res.json();
   }catch(err) {
@@ -54,4 +54,14 @@ export const createRecipe = async (recipe) => {
 }
 }
 
-
+export const deleteRecipe = async (id) => {
+  try{
+    const res = await fetch(`recipe/${id}`, {
+        method: 'DELETE',
+      });
+      if (res.status !== 401)
+        return res.json();
+    }catch(err) {
+      console.log('error in recipeService: '+err)
+    }
+}

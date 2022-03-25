@@ -12,7 +12,7 @@ const recipeSchema = new mongoose.Schema(
     description: {
       type: String,
       trim: true,
-      maxlength: 500
+      maxlength: 1000
     },
     serves: {
       type: Number,

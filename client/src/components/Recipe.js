@@ -1,6 +1,6 @@
 import miniavatar from "../assets/images/avatar6.png"
 import  "../assets/css/comment.scss"
-import {getRecipe} from '../services/RecipeService';
+import {getRecipe, deleteRecipe} from '../services/RecipeService';
 import {getRecipeComments, createComment} from '../services/CommentService';
 import {useContext, useEffect, useState} from 'react'
 import {AuthContext} from '../context/AuthContext';
@@ -79,7 +79,13 @@ const Recipe = () => {
       const handleChange=  e => {
         e.preventDefault();
         setComment({...newComment, [e.target.id]: e.target.value })
-      }    
+      }  
+      
+      const delRecipe = e => {
+        e.preventDefault()
+        deleteRecipe(id)
+        history('/')
+      }
 
 console.log(newComment.content)
 
@@ -124,7 +130,12 @@ return (
 
     </div> 
 
-{user._id===author._id ? <Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{from: recipe}}><i className="fa-solid fa-pen-to-square"/> Edit</Link> : ''}
+{ (user._id===author._id) 
+? <><Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ from: recipe }}>
+    <i className="fa-solid fa-pen-to-square" /> Edit</Link>
+  <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={delRecipe}>
+      <i className="fa-solid fa-ban"/> Delete</button></>
+: ''}
 
     <div className="w3-container  w3-center w3-text-white w3-padding-16">  
         Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {recipe.createdAt} 

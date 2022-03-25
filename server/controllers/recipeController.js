@@ -69,9 +69,9 @@ exports.create = async (req, res) => {
   try {
     if (req.file) req.body.photo='imgUploads/'+req.file.filename 
       console.log(req.body)
-    const recipe = await new Recipe(req.body)
-      await recipe.save();
-      await res.status(200).json({success : true, recipe})
+    const newRecipe = await new Recipe(req.body)
+      await newRecipe.save();
+      await res.status(200).json({success : true, recipe: newRecipe})
   }catch(err) {
     res.status(500).json('error controller: '+err)
     console.log('error in controller '+err)
