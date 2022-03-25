@@ -215,7 +215,10 @@ return (
         </div>
         
         </div>
-        <div className="w3-center w3-padding-16"><button type="submit" className="w3-button w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button></div>
+        <div className="w3-center w3-padding-16">
+            <button type="submit" className="w3-button w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button>
+            <Link  className="w3-button w3-gray" style={{marginLeft: '15px'}} to={`/${from._id}`} > Cancel <i className="fa-solid fa-ban" /></Link>
+            </div>
     </form>  
     </div>
     )
