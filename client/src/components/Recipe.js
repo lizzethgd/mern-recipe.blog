@@ -3,103 +3,130 @@ import  "../assets/css/comment.scss"
 import {getRecipe, removeRecipe} from '../services/RecipeService';
 import {getRecipeComments, addComment, removeComment} from '../services/CommentService';
 import {addLike, deleteLike} from '../services/LikeService';
-import {useContext, useEffect, useState} from 'react'
+import {useContext, useEffect, useState, useCallback} from 'react'
 import {AuthContext} from '../context/AuthContext';
 import {Link, useParams , useNavigate} from 'react-router-dom'
 
 const Recipe = () => {
 
-    const {user, isAuthenticated} = useContext(AuthContext)
-    console.log(user)
-    const {id} = useParams()
+  const {user, isAuthenticated} = useContext(AuthContext)
+  console.log(user)
+  const {id} = useParams()
 
-    console.log(id)
+  console.log(id)
 
-    const history = useNavigate()
+  const history = useNavigate()
 
-    const [recipe, setRecipe] = useState({
-        title: '',
-        description: '',
-        serves: '',
-        cookTime: [],
-        photo: '',
-        ingredients: [],
-        steps: [],
-        author: {},
-        category: {},
-        language: {},
-        region: {},
-        likes: []
-        }) 
+  const [recipe, setRecipe] = useState({
+      title: '',
+      description: '',
+      serves: '',
+      cookTime: [],
+      photo: '',
+      ingredients: [],
+      steps: [],
+      author: {},
+      category: {},
+      language: {},
+      region: {},
+      likes: []
+      }) 
 
-    const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes} = recipe
-    console.log(user)
+  const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes} = recipe
+  console.log(user)
 
-    const [comments, setComments] = useState([])
+  const [comments, setComments] = useState([])
 
-    const [newComment, setComment] = useState({
-        content: '',
-        recipe: id,
-        author: user._id
-    })
+  const [newComment, setComment] = useState({
+      content: '',
+      recipe: id,
+      author: user._id
+  })
 
-    const content = {newComment}
-   
-   useEffect(() => {
-        (async () => { 
-          try{  
-          //RecipeService.getRecipe(id).then(data=> {
-              const data1 = await getRecipe(id)
-              setRecipe(data1);
-              const data2= await getRecipeComments(id)
-              setComments(data2); 
-          }catch(err){
-            console.log('error in the page: '+err) 
-         }
-        })
-       ()
-     }, []) 
-     
-     
+  const [like, setLike] = useState({
+      recipe : id,
+      user: user._id
+  })
 
-    const handleSubmit = e => { 
-        e.preventDefault();
-        if (isAuthenticated)  {
-        addComment(newComment)
-        .then(getRecipeComments(id)
-        .then(data=> {
-              setComments(data) 
-              setComment({...newComment, content : ''})
-            })
-          )
-        } 
-        else history('/login')
-    }  
+  const [heart, setHeart] = useState('regular')
 
-      const handleChange =  e => {
-        e.preventDefault();
-        setComment({...newComment, [e.target.id]: e.target.value })
-      }  
-      
-      const deleteRecipe = e => {
-        e.preventDefault()
-        removeRecipe(id)
-        history('/')
-      }
+  const initPage = useCallback(async () => {
+    const data1 = await getRecipe(id)
+    setRecipe(data1);
+    const data2= await getRecipeComments(id)
+    setComments(data2); 
+    setHeart(likes.some(like => like.user === user._id) ? 'solid' : 'regular')
+}, [recipe, setRecipe]);
+  
+  useEffect(() => {
+        try{  
+        //RecipeService.getRecipe(id).then(data=> {
+            initPage()
+        }catch(err){
+          console.log('error in the page: '+err) 
+        }
+    }, []) 
 
-      const deleteComment = (e, commentId) => {
-        e.preventDefault()
-        removeComment(commentId)
-        getRecipeComments(id).then(data=> {
-            setComments(data)
-        })
-      }
-      
-    /*   const addLike = e => {
+  const handleSubmit = e => { 
+      e.preventDefault();
+      if (isAuthenticated)  {
+      addComment(newComment)
+      .then(getRecipeComments(id)
+      .then(data=> {
+            setComments(data) 
+            setComment({...newComment, content : ''})
+          })
+        )
+      } 
+      else history('/login')
+  }  
 
-      } */
+  const handleChange =  e => {
+      e.preventDefault();
+      setComment({...newComment, [e.target.id]: e.target.value })
+  }  
+    
+  const deleteRecipe = e => {
+      e.preventDefault()
+      removeRecipe(id)
+      history('/')
+  }
 
-console.log(newComment.content)
+  const deleteComment = (e, commentId) => {
+      e.preventDefault()
+      removeComment(commentId)
+      getRecipeComments(id).then(data=> {
+          setComments(data)
+      })
+  }
+    
+/*   const giveLike = e => {
+    e.preventDefault()
+    if (isAuthenticated)  {
+     if (likes.some(like => like.user !== user.id)){
+      addLike(like)
+      setHeart('solid')}
+      } 
+    else history('/login')
+  } */
+  
+  const handleLike = e => {
+    e.preventDefault()
+    if (isAuthenticated)  {
+      const hasLike = likes.find(like => like.user===user._id)
+      console.log(hasLike)
+      if (hasLike===undefined){
+          addLike(like)
+          //setHeart('solid')
+        }else{
+        deleteLike(hasLike._id)
+        //setHeart('regular') 
+        }
+        initPage()
+    }else history('/login')
+  }
+
+console.log(recipe)
 
 return (
 <div className="w3-container w3-light-green w3-center padd" >
@@ -149,41 +176,41 @@ return (
       <i className="fa-solid fa-ban"/> Delete</button></>
 : ''}
 
-    <div className="w3-container  w3-center w3-text-white w3-padding-16">  
-        Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {recipe.createdAt} 
-        <p  className="w3-large"><i className="fa-regular fa-heart" style={{color: "red"}} /> &nbsp;&nbsp;  <i className="fa-solid fa-share-alt"/> &nbsp;&nbsp; <i className="fa-regular fa-star" style={{color: "blue"}}/></p>
-        <div className="w3-container w3-padding-small"/>  
-        <hr className="w3-clear" />
-    </div>
+  <div className="w3-container  w3-center w3-text-white w3-padding-16">  
+      Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {recipe.createdAt} 
+      <p  className="w3-large"><i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike} /> {likes.length>0 ? likes.length : ''} &nbsp;&nbsp;  <i className="fa-solid fa-share-alt"/> &nbsp;&nbsp; <i className="fa-regular fa-star" style={{color: "blue"}}/></p>
+      <div className="w3-container w3-padding-small"/>  
+      <hr className="w3-clear" />
+  </div>
    
      
-       <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments:  {comments.length}</h4>
+  <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments:  {comments.length}</h4>
 
-    <div className="w3-container padd">
+  <div className="w3-container padd">
       
-        {(comments.length!==0 ) ? 
-            comments.map(comment =>
-            (   <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding" key={comment._id}>
-            <img src={comment.author.photo ? comment.author.photo : miniavatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
-            <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">@{comment.author.username}</span></div>
-            <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
-            <span className="w3-justify w3-left">{comment.content}</span>
-            {(user._id===comment.author._id) 
-            ? <i className="fa-solid fa-circle-xmark w3-right" onClick={(e) => deleteComment(e, comment._id)} style={{cursor: 'pointer', color: '#ff3d00'}} />
-            : '' }
-            </div>
-            )
-        ): '' } 
+    {(comments.length!==0 ) ? 
+        comments.map(comment =>
+        (   <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding" key={comment._id}>
+        <img src={comment.author.photo ? comment.author.photo : miniavatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
+        <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">@{comment.author.username}</span></div>
+        <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
+        <span className="w3-justify w3-left">{comment.content}</span>
+        {(user._id===comment.author._id) 
+        ? <i className="fa-solid fa-circle-xmark w3-right" onClick={(e) => deleteComment(e, comment._id)} style={{cursor: 'pointer', color: '#ff3d00'}} />
+        : '' }
+        </div>
+        )
+    ): '' } 
 
-     <div className="w3-container w3-round w3-padding-16">
+    <div className="w3-container w3-round w3-padding-16">
         <img src={user.photo ? user.photo : miniavatar} className="w3-left w3-circle a-img" style={{ margin: "7px 8px 0 16px"}} alt="Avatar" />
         <form className=" w3-white w3-left w3-card w3-round comment-container">
             <textarea type="text"  id="content" value={newComment.content} onChange={handleChange} required/>
             <i className="w3-button w3-right w3-hover-white fa-solid fa-paper-plane button" style={{color: '#ff5722'}} onClick={handleSubmit}/>
         </form>
-     </div>
-    
     </div>
+    
+  </div>
  
     {/*<div className="w3-container w3-card w3-white w3-round w3-margin w3-padding"> 
         <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
