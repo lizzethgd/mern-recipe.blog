@@ -23,8 +23,7 @@ exports.remove = async (req, res) => {
         res.status(500).json(err.name+': '+err.message)
         console.log(err.name+': '+err.message);
       }
-  }
-
+}
 
 exports.update = async (req, res) => {
     try {
@@ -38,7 +37,7 @@ exports.update = async (req, res) => {
     }
   }
 
-  exports.commentsByRecipe =  async (req, res) => {
+exports.commentsByRecipe =  async (req, res) => {
     try {
       const comments = await Comment.find({recipe: req.params.recipeId})
       .populate('author', { password:0, email:0, role:0, updatedAt:0 })
@@ -49,7 +48,7 @@ exports.update = async (req, res) => {
   }
 }
 
-  exports.commentsByUser =  async (req, res) => {
+exports.commentsByUser =  async (req, res) => {
     try {
       const comments = await Comment.find({author: req.params.userId})
       await res.status(200).json({success : true, comments : comments});

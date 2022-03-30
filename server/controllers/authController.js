@@ -72,7 +72,6 @@ exports.logout = async (req, res) => {
     console.log("LOGOUT!!!!!!!!!!");
 }
 
-
 exports.update = async (req, res) => {
   console.log('elbody')
   console.log(req.body)
@@ -134,17 +133,16 @@ exports.getUserById = async(req, res) => {
   
 }
 
-
 exports.getUserRecipes = async (req, res) => {
   try { 
    const user = await User.findById(req.params.id)
    await user.populate('recipes')
   // await user.populated('recipes')
    await  res.status(200).json(user.recipes);
-}catch (err) {
+  }catch (err) {
   res.status(500).json(err.name+': '+err.message)
   console.log(err.name+': '+err.message);
-}
+  }
 }
 
 exports.getUserFavorites = async (req, res) => {
@@ -153,30 +151,8 @@ exports.getUserFavorites = async (req, res) => {
    await user.populate('favorites')
   // await user.populated('recipes')
    await  res.status(200).json(user.favorites);
-}catch (err) {
+  }catch (err) {
   res.status(500).json(err.name+': '+err.message)
   console.log(err.name+': '+err.message);
+  }
 }
-}
-
-/*  exports.userById = (req, res, next, id) => {
-  User.findById(id).
-  populate('recipe')
-  exec((err,user) => {
-    if(err||!user) {
-      return res.status(400).json({
-        error: "User not found"
-      });
-    }
-    req.user = user;
-    next()
-  });
-}  */
-
-/*   if (req.file) {
-    try {
-      req.body.photo = req.file.filename
-    }catch(err){
-      console.log(err.name+': '+err.message);
-    }
-  } */

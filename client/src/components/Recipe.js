@@ -3,6 +3,7 @@ import  "../assets/css/comment.scss"
 import {getRecipe, removeRecipe} from '../services/RecipeService';
 import {getRecipeComments, addComment, removeComment} from '../services/CommentService';
 import {addLike, deleteLike} from '../services/LikeService';
+import {addFavorite, deleteFavorite} from '../services/FavoriteService';
 import {useContext, useEffect, useState, useCallback} from 'react'
 import {AuthContext} from '../context/AuthContext';
 import {Link, useParams , useNavigate} from 'react-router-dom'
@@ -29,10 +30,11 @@ const Recipe = () => {
       category: {},
       language: {},
       region: {},
-      likes: []
+      likes: [],
+      favorites: []
       }) 
 
-  const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes} = recipe
+  const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes, favorites} = recipe
   console.log(user)
 
   const [comments, setComments] = useState([])
@@ -43,25 +45,26 @@ const Recipe = () => {
       author: user._id
   })
 
-  const [like, setLike] = useState({
-      recipe : id,
-      user: user._id
-  })
+  const relation = { recipe : id, user: user._id }
 
   const [heart, setHeart] = useState('regular')
+
+  const [bookmark, setBookmark] = useState('regular')
 
   const initRecipe = useCallback(async () => {
     const data = await getRecipe(id)
     const dataLikes = await data.likes
+    const dataFavorites = await data.favorites
     setRecipe(data);
     setHeart(dataLikes.some(like => like.user === user._id) ? 'solid' : 'regular')
-}, [recipe, setRecipe, heart, setHeart]);
+    setBookmark(dataFavorites.some(favorite => favorite.user === user._id) ? 'solid' : 'regular')
+  }, [recipe, setRecipe, heart, setHeart, bookmark, setBookmark]);
 
 
-const initComments = useCallback(async () => {
+  const initComments = useCallback(async () => {
     const data= await getRecipeComments(id)
     setComments(data);
-}, [comments, setComments]);
+  }, [comments, setComments]);
 
   
   useEffect(() => {
@@ -71,7 +74,7 @@ const initComments = useCallback(async () => {
         }catch(err){
           console.log('error in the page: '+err) 
         }
-    }, []) 
+  }, []) 
 
   const addAComment = e => { 
       e.preventDefault();
@@ -83,8 +86,7 @@ const initComments = useCallback(async () => {
             setComment({...newComment, content : ''})
           })
         )
-      } 
-      else history('/login')
+      } else history('/login')
   }  
 
   const handleChange =  e => {
@@ -105,27 +107,39 @@ const initComments = useCallback(async () => {
   }
     
   const handleLike = e => {
-    e.preventDefault()
-    if (isAuthenticated)  {
-      const hasLike = likes.find(like => like.user===user._id)
-      console.log(hasLike)
-      if (hasLike===undefined){
-          addLike(like)
-          //setHeart('solid')
+      e.preventDefault()
+      if (isAuthenticated)  {
+        const hasLike = likes.find(like => like.user===user._id)
+        console.log(hasLike)
+        if (hasLike===undefined){
+          addLike(relation)
         }else{
         deleteLike(hasLike._id)
-        //setHeart('regular') 
         }
         initRecipe()
-    }else history('/login')
+      } else history('/login')
   }
+
+  const handleFavorite = e => {
+      e.preventDefault()
+      if (isAuthenticated)  {
+        const hasFavorite = favorites.find(favorite => favorite.user===user._id)
+        console.log(hasFavorite)
+        if (hasFavorite===undefined){
+          addFavorite(relation)
+        }else{
+        deleteFavorite(hasFavorite._id)
+        }
+        initRecipe()
+      } else history('/login')
+  } 
 
 console.log(recipe)
 
 return (
 <div className="w3-container w3-light-green w3-center padd" >
 
-<div className="w3-content w3-center w3-text-white padd" id="about">
+  <div className="w3-content w3-center w3-text-white padd" id="about">
     <img src={photo ? photo : "https://www.w3schools.com/w3images/avatar_hat.jpg"} alt="Me" className="w3-image w3-padding" width="600" height="650" />
     <h2 className="w3-center padd w3-text-white">{title}</h2> 
     <div className="w3-center w3-large desc">{description? description: null}</div> 
@@ -136,48 +150,50 @@ return (
         <div className="r-icon"><i className="fa-solid fa-language" /> {language.name} </div>  
         <div className="r-icon"><i className="fa-solid fa-earth-americas "/> {region.name} </div> 
     </div> 
-</div> 
+  </div> 
 
-<div className="w3-row padd  w3-text-white "  >
+  <div className="w3-row padd  w3-text-white "  >
         
-        <div className="w3-col m6 padd ">  
-        <h3 className="w3-center">Ingredients</h3>
-        <div style={{padding:"6px 16px"}}>
+    <div className="w3-col m6 padd ">  
+      <h3 className="w3-center">Ingredients</h3>
+      <div style={{padding:"6px 16px"}}>
         <div className=" w3-white w3-padding" >
             {ingredients.map((ingredient,i) =>
             <div className="w3-section" key={i}>{ingredient}</div>
             )}    
         </div>
-        </div>
-        </div>
+      </div>
+    </div>
         
-        <div className="w3-col m6 padd">
-        <h3 className="w3-center">Preparation</h3>
-        <ol>
-            {  
-            steps.map((step, i) =>
-            (<li key={i}><p className="w3-padding w3-white w3-justify w3-round">{step}</p></li>)
-            )} 
-        </ol>
-        </div>
+    <div className="w3-col m6 padd">
+      <h3 className="w3-center">Preparation</h3>
+      <ol>
+        { steps.map((step, i) =>
+        (<li key={i}><p className="w3-padding w3-white w3-justify w3-round">{step}</p></li>)
+        )} 
+      </ol>
+    </div>
 
-    </div> 
+  </div> 
 
-{ (user._id===author._id) 
-? <><Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ from: recipe }}>
-    <i className="fa-solid fa-pen-to-square" /> Edit</Link>
-  <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={deleteRecipe}>
-      <i className="fa-solid fa-ban"/> Delete</button></>
-: ''}
+  { (user._id===author._id) 
+  ? <><Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ from: recipe }}>
+      <i className="fa-solid fa-pen-to-square" /> Edit</Link>
+    <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={deleteRecipe}>
+        <i className="fa-solid fa-ban"/> Delete</button></>
+  : ''}
 
   <div className="w3-container  w3-center w3-text-white w3-padding-16">  
-      Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {recipe.createdAt} 
-      <p  className="w3-large"><i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike} /> {likes.length>0 ? likes.length : ''} &nbsp;&nbsp;  <i className="fa-solid fa-share-alt"/> &nbsp;&nbsp; <i className="fa-regular fa-star" style={{color: "blue"}}/></p>
-      <div className="w3-container w3-padding-small"/>  
-      <hr className="w3-clear" />
+    Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {recipe.createdAt} 
+    <p className="w3-large">
+        <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;  
+        <i className="fa-solid fa-share-alt"/> &nbsp;&nbsp; 
+        <i className={`fa-${bookmark} fa-bookmark`} style={{color: "darkblue"}} onClick={handleFavorite}/> {favorites.length > 0 ? favorites.length : ''}
+    </p>
+    <div className="w3-container w3-padding-small"/>  
+    <hr className="w3-clear" />
   </div>
-   
-     
+       
   <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments:  {comments.length}</h4>
 
   <div className="w3-container padd">

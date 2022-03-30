@@ -5,6 +5,7 @@ exports.add = async (req, res) => {
       const favorite = new Favorite(req.body)
       await favorite.save()
       await res.json(favorite)
+      console.log('Favorite succesfully added')
     }
     catch(err){
         res.status(500).json(err.name+': '+err.message)

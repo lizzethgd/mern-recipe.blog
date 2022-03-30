@@ -25,14 +25,4 @@ exports.remove = async (req, res) => {
   }
 
 
-  exports.likeByUser = async (req, res) => {
-    try {
-        const like = await Like.findOne({user: req.params.userId, recipe: req.params.recipeId})
-        console.log(like)
-        await res.status(200).json({like});
-        //console.log('Like succesfully deleted');
-      } catch (err) {
-        res.status(500).json(err.name+': '+err.message)
-        console.log(err.name+': '+err.message);
-      }
-  } 
+ 

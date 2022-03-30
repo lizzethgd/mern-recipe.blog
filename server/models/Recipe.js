@@ -80,4 +80,10 @@ recipeSchema.virtual('likes', {
   foreignField: 'recipe'
 }); 
 
+recipeSchema.virtual('favorites', {
+  ref: 'Favorite',
+  localField: '_id',
+  foreignField: 'recipe'
+}); 
+
 module.exports = mongoose.model("Recipe", recipeSchema);

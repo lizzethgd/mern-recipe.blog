@@ -2,67 +2,65 @@ const Recipe = require('../models/Recipe');
 const { errorHandler } = require('../helpers/dberrorHandler');
 
 exports.list = async (req, res) => {
-
-    try { 
-      const recipes = await Recipe.find()
-      .populate('author', { password:0, email:0, role:0, updatedAt:0 })
-      .populate('category', 'name')
-      .populate('language', 'name')
-      .populate('region', 'name')
-      .populate('likes', 'user')
+  try { 
+    const recipes = await Recipe.find()
+    .populate('author', { password:0, email:0, role:0, updatedAt:0 })
+    .populate('category', 'name')
+    .populate('language', 'name')
+    .populate('region', 'name')
+    .populate('likes', 'user')
+    .populate('favorites', 'user')
     /*   .exec((err, recipes)) */
-      await res.status(200).json(recipes);
-      console.log(recipes.length)
+    await res.status(200).json(recipes);
+    console.log(recipes.length)
    }catch (err) {
      res.status(500).json(err.name+': '+err.message)
      console.log(err.name+': '+err.message);
    }
 }
 
-
 exports.listfFiltered = async (req, res) => {
+    console.log(req.params)
+    const filters = {}
+    if (req.params.categoryId!=="") {filters.category=req.params.categoryId }
+    if (req.params.languageId!=="") {filters.language=req.params.languageId }
+    if (req.params.regionId!=="") {filters.language=req.params.regionId }
 
-  console.log(req.params)
-  const filters = {}
-  if (req.params.categoryId!=="") {filters.category=req.params.categoryId }
-  if (req.params.languageId!=="") {filters.language=req.params.languageId }
-  if (req.params.regionId!=="") {filters.language=req.params.regionId }
-
-  try { 
-    const recipes = await Recipe.find({
-      filters
-    })
+    try { 
+    const recipes = await Recipe.find({filters})
     .populate('author')
     .populate('category', 'name')
     .populate('language', 'name')
     .populate('region', 'name')
     .populate('likes', 'user')
+    .populate('favorites', 'user')
   /*   .exec((err, recipes)) */
     await res.status(200).json(recipes);
     console.log(recipes.length)
- }catch (err) {
-   res.status(500).json(err.name+': '+err.message)
-   console.log(err.name+': '+err.message);
- }
+  }catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+  }
 
 }
 
 exports.recipeById = async(req, res) => {
-  try { 
+    try { 
     const recipe = await Recipe.findById(req.params.id)
     .populate('author')
     .populate('category', 'name')
     .populate('language', 'name')
     .populate('region', 'name')
     .populate('likes', 'user')
+    .populate('favorites', 'user')
     /* req.recipe = recipe;
       next(); */
       console.log(recipe) 
     await res.status(200).json(recipe);
- }catch (err) {
-   res.status(500).json(err.name+': '+err.message)
-   console.log(err.name+': '+err.message);
- }
+    }catch (err) {
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
+    }
 } 
 
 exports.create = async (req, res) => {
@@ -103,18 +101,6 @@ exports.remove = async (req, res) => {
     console.log(err.name+': '+err.message);
   }
 }
-/* 
-exports.getRecipeComments = async (req, res) => {
-    try { 
-     const recipe = await Recipe.findById(req.params.id)
-     await recipe.populate('comments')
-    // await user.populated('recipes')
-     await  res.status(200).json(recipe.comments);
-  }catch (err) {
-    res.status(500).json(err.name+': '+err.message)
-    console.log(err.name+': '+err.message);
-  }
-} */
 
 exports.getRecipeLikes = async (req, res) => {
     try { 
@@ -134,6 +120,6 @@ exports.photo = (req, res, next ) => {
     return res.send(req.recipe.photo.data)
   }
   next();
-  }
+}
   
    

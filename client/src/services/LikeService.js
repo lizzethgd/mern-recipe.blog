@@ -12,7 +12,7 @@ export const addLike = async (like) => {
     if (res.status !== 401)
       return res.json();
     }catch(err) {
-   console.log('error in commentService: '+err)
+   console.log('error in likeService: '+err)
   }
 }
 
@@ -24,6 +24,6 @@ export const deleteLike = async (id) => {
         if (res.status !== 401)
           return res.json();
       }catch(err) {
-        console.log('error in recipeService: '+err)
+        console.log('error in likeService: '+err)
       }
 } 

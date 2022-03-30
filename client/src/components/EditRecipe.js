@@ -128,7 +128,7 @@ const EditRecipe = () => {
       };
 
     const ingredientsInputs = updateRecipe.ingredients.map((ingredient, i) =>
-        <div key={i} className="w3-section ">
+        <div key={i} className="w3-section" >
           <input className="w3-input" id={"ingredient "+i} style={{width:"93%", paddingTop:"0px"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} onKeyDown={handleEnter}/>
           <div className="w3-button w3-circle w3-right" style={{padding:0}} onClick={() => delIngredient(i)}><i className="fa fa-times-circle" /></div>
         </div>
@@ -142,14 +142,16 @@ const EditRecipe = () => {
     )
 
 return (
-    <div className="w3-container w3-light-green w3-padding-32" >
+<div className="w3-container w3-light-green w3-padding-32" >
  
     <form  className="w3-padding w3-light-grey w3-card" onSubmit={handleSubmit}>
       
-      <div className="w3-content w3-padding-large" id="about">
+    <div className="w3-content w3-padding-large" id="about">
+        
         <h2 className="w3-center">Recipe</h2> 
         <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Title" id="title" value={title} onChange={e => handleChange(e)} onKeyDown={handleEnter} required/></div>
         <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Description"  id="description" value={description} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></div>
+        
         <div className=" w3-section w3-row-padding " >
             <div className=" w3-quarter ">
             <label className="w3-third">N° serves: </label > <input className="w3-border" type="number" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={e => handleChange(e)} onKeyDown={handleEnter}/>
@@ -162,66 +164,65 @@ return (
                 <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handleChange} />
             </div>
         </div>
-    <div className=" w3-section w3-row-padding w3-center" >
-        <div className="w3-button w3-white" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
-        <select id='category' value={category._id}  onChange={handleChange}>
-        {categories.map(category =>
-            <option key={category._id} value={category._id} >{category.name}</option>
-        )}
-        </select>
+
+        <div className=" w3-section w3-row-padding w3-center" >
+            <div className="w3-button w3-white" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
+                <select id='category' value={category._id}  onChange={handleChange}>
+                {categories.map(category =>
+                    <option key={category._id} value={category._id} >{category.name}</option>
+                )}
+                </select>
+            </div>
+            <div className="w3-button w3-white "><i className="fa-solid fa-language w3-margin-right"></i>
+                <select id='language' value={language._id}  onChange={handleChange}>
+                {languages.map(language =>
+                    <option key={language._id} value={language._id} >{language.name}</option>
+                )}
+                </select>
+            </div>
+            <div className="w3-button w3-white"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
+                <select id='region' value={region._id}  onChange={handleChange}>
+                {regions.map(region =>
+                    <option key={region._id} value={region._id} >{region.name}</option>
+                )}
+                </select>
+            </div>
         </div>
-    <div className="w3-button w3-white "><i className="fa-solid fa-language w3-margin-right"></i>
-    <select id='language' value={language._id}  onChange={handleChange}>
-    {languages.map(language =>
-        <option key={language._id} value={language._id} >{language.name}</option>
-    )}
-  </select>
     </div>
-    <div className="w3-button w3-white"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
-    <select id='region' value={region._id}  onChange={handleChange}>
-    {regions.map(region =>
-        <option key={region._id} value={region._id} >{region.name}</option>
-    )}
-  </select>
-    </div>
-        </div>
-      </div>
         
-        <div className="w3-row">
+    <div className="w3-row">
     
         <div className="w3-half w3-padding-large" >
           <h3 className="w3-center">Ingredients</h3>
            <div style={{padding:"6px 16px"}}> 
-            
-            <div className=" w3-white w3-padding" >
-                {ingredientsInputs}
-           
-            <div className="w3-section">
-                <div className="w3-button" onClick={addIngredient}><i className="fa fa-plus"/></div>
-            </div>
-           </div>
-           
+                <div className=" w3-white w3-padding" >
+                    {ingredientsInputs}
+                    <div className="w3-section">
+                        <div className="w3-button" onClick={addIngredient}><i className="fa fa-plus"/></div>
+                    </div>
+                </div>
           </div>  
         </div>
     
         <div className="w3-half w3-padding-large" >
-         <h3 className="w3-center">Steps</h3>
-         <ol style={{padding:"0px 16px"}}>
-    
-         {stepsInputs}
-          <div className="w3-button w3-white" onClick={addStep}><i className="fa fa-plus"/></div>
-        
-         </ol> 
+            <h3 className="w3-center">Steps</h3>
+            <ol style={{padding:"0px 16px"}}>
+                {stepsInputs}
+                <div className="w3-button w3-white" onClick={addStep}><i className="fa fa-plus"/></div>
+            </ol> 
         </div>
         
-        </div>
-        <div className="w3-center w3-padding-16">
+    </div>
+
+    <div className="w3-center w3-padding-16">
             <button type="submit" className="w3-button w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button>
             <Link  className="w3-button w3-gray" style={{marginLeft: '15px'}} to={`/${from._id}`} > Cancel <i className="fa-solid fa-ban" /></Link>
-            </div>
-    </form>  
     </div>
-    )
+
+    </form> 
+
+</div>
+)
 }
 
 
