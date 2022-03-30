@@ -50,24 +50,30 @@ const Recipe = () => {
 
   const [heart, setHeart] = useState('regular')
 
-  const initPage = useCallback(async () => {
-    const data1 = await getRecipe(id)
-    setRecipe(data1);
-    const data2= await getRecipeComments(id)
-    setComments(data2); 
-    setHeart(likes.some(like => like.user === user._id) ? 'solid' : 'regular')
-}, [recipe, setRecipe]);
+  const initRecipe = useCallback(async () => {
+    const data = await getRecipe(id)
+    const dataLikes = await data.likes
+    setRecipe(data);
+    setHeart(dataLikes.some(like => like.user === user._id) ? 'solid' : 'regular')
+}, [recipe, setRecipe, heart, setHeart]);
+
+
+const initComments = useCallback(async () => {
+    const data= await getRecipeComments(id)
+    setComments(data);
+}, [comments, setComments]);
+
   
   useEffect(() => {
         try{  
-        //RecipeService.getRecipe(id).then(data=> {
-            initPage()
+          initRecipe()
+          initComments()
         }catch(err){
           console.log('error in the page: '+err) 
         }
     }, []) 
 
-  const handleSubmit = e => { 
+  const addAComment = e => { 
       e.preventDefault();
       if (isAuthenticated)  {
       addComment(newComment)
@@ -95,21 +101,9 @@ const Recipe = () => {
   const deleteComment = (e, commentId) => {
       e.preventDefault()
       removeComment(commentId)
-      getRecipeComments(id).then(data=> {
-          setComments(data)
-      })
+      initComments()
   }
     
-/*   const giveLike = e => {
-    e.preventDefault()
-    if (isAuthenticated)  {
-     if (likes.some(like => like.user !== user.id)){
-      addLike(like)
-      setHeart('solid')}
-      } 
-    else history('/login')
-  } */
-  
   const handleLike = e => {
     e.preventDefault()
     if (isAuthenticated)  {
@@ -122,7 +116,7 @@ const Recipe = () => {
         deleteLike(hasLike._id)
         //setHeart('regular') 
         }
-        initPage()
+        initRecipe()
     }else history('/login')
   }
 
@@ -202,21 +196,16 @@ return (
         )
     ): '' } 
 
-    <div className="w3-container w3-round w3-padding-16">
+    <div className="w3-container w3-round w3-padding-16" >
         <img src={user.photo ? user.photo : miniavatar} className="w3-left w3-circle a-img" style={{ margin: "7px 8px 0 16px"}} alt="Avatar" />
         <form className=" w3-white w3-left w3-card w3-round comment-container">
             <textarea type="text"  id="content" value={newComment.content} onChange={handleChange} required/>
-            <i className="w3-button w3-right w3-hover-white fa-solid fa-paper-plane button" style={{color: '#ff5722'}} onClick={handleSubmit}/>
+            <i className="w3-button w3-right w3-hover-white fa-solid fa-paper-plane button" style={{color: '#ff5722'}} onClick={addAComment}/>
         </form>
     </div>
     
   </div>
- 
-    {/*<div className="w3-container w3-card w3-white w3-round w3-margin w3-padding"> 
-        <p contenteditable="true" class="w3-border w3-padding">Status: Feeling Blue</p>
-        <button type="button" class="w3-button w3-theme"><i class="fa fa-pencil"></i>  Post</button> 
-      </div> */}
-
+  
 </div>
     )
 }
