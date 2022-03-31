@@ -43,7 +43,7 @@ const Navigation = () => {
     <>
        <NavLink className="w3-bar-item w3-button w3-hide-small w3-right w3-padding-large w3-hover-white" to="/login">Login / Register <i className="fa-solid fa-right-to-bracket"/></NavLink>
     </>
-    )
+  )
 
   const userLinksTop = (
   <>

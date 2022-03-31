@@ -16,16 +16,28 @@ export const getAllRecipes = async (filters) => {
   console.log(filters)
   const {categoryId, languageId, regionId } = filters
   console.log(categoryId)
-try{
+  try{
   //const res = await fetch(`recipe/recipes/${categoryId}/${languageId}/${regionId}`)
   const res = await fetch('recipe/recipes')
   console.log(res)
   return res.json()
 
-}catch(err) {
+  }catch(err) {
     console.log('error in recipeService: '+err)
- }
+  }
+}
 
+export const getRecipeByUser = async (id) => {
+  console.log(id)
+  try{
+  //const res = await fetch(`recipe/recipes/${categoryId}/${languageId}/${regionId}`)
+  const res = await fetch(`recipe/author/${id}`)
+  console.log(res)
+  return res.json()
+
+  }catch(err) {
+    console.log('error in recipeService: '+err)
+  }
 }
 
 export const editRecipe = async (updateRecipe, id) => {
@@ -50,8 +62,8 @@ export const createRecipe = async (recipe) => {
   if (res.status !== 401)
     return res.json();
   }catch(err) {
- console.log('error in recipeService: '+err)
-}
+    console.log('error in recipeService: '+err)
+  }
 }
 
 export const removeRecipe = async (id) => {

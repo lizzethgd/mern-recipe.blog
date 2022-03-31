@@ -19,6 +19,44 @@ exports.list = async (req, res) => {
    }
 }
 
+exports.recipesByUser = async(req, res) => {
+  try { 
+  const recipes = await Recipe.find({author: req.params.id})
+  .populate('author')
+  .populate('category', 'name')
+  .populate('language', 'name')
+  .populate('region', 'name')
+  .populate('likes', 'user')
+  .populate('favorites', 'user')
+  /* req.recipe = recipe;
+    next(); */
+    console.log(recipes) 
+  await res.status(200).json(recipes);
+  }catch (err) {
+  res.status(500).json(err.name+': '+err.message)
+  console.log(err.name+': '+err.message);
+  }
+} 
+
+exports.favRecipesByUser = async(req, res) => {
+  try { 
+  const recipes = await Recipe.find({author: req.params.id})
+  .populate('author')
+  .populate('category', 'name')
+  .populate('language', 'name')
+  .populate('region', 'name')
+  .populate('likes', 'user')
+  .populate('favorites', 'user')
+  /* req.recipe = recipe;
+    next(); */
+    console.log(recipes) 
+  await res.status(200).json(recipes);
+  }catch (err) {
+  res.status(500).json(err.name+': '+err.message)
+  console.log(err.name+': '+err.message);
+  }
+} 
+
 exports.listfFiltered = async (req, res) => {
     console.log(req.params)
     const filters = {}
