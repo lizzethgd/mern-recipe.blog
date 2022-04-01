@@ -59,7 +59,9 @@ const recipeSchema = new mongoose.Schema(
         type: ObjectId,
         ref: 'Region',
         require: true
-    }
+    },
+    likes: [],
+    favorites: []
 }, 
  {  timestamps: true, 
     versionKey: false,  
@@ -74,7 +76,7 @@ recipeSchema.virtual('comments', {
   foreignField: 'recipe'
 }); 
 
-recipeSchema.virtual('likes', {
+/* recipeSchema.virtual('likes', {
   ref: 'Like',
   localField: '_id',
   foreignField: 'recipe'
@@ -85,5 +87,5 @@ recipeSchema.virtual('favorites', {
   localField: '_id',
   foreignField: 'recipe'
 }); 
-
+ */
 module.exports = mongoose.model("Recipe", recipeSchema);

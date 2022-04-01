@@ -14,7 +14,7 @@ const Recipe = () => {
   console.log(user)
   const {id} = useParams()
 
-  console.log(id)
+  console.log(id+' y    '+user._id)
 
   const history = useNavigate()
 
@@ -56,8 +56,10 @@ const Recipe = () => {
     const dataLikes = await data.likes
     const dataFavorites = await data.favorites
     setRecipe(data);
-    setHeart(dataLikes.some(like => like.user === user._id) ? 'solid' : 'regular')
-    setBookmark(dataFavorites.some(favorite => favorite.user === user._id) ? 'solid' : 'regular')
+    //setHeart(dataLikes.some(like => like._id === user._id) ? 'solid' : 'regular')
+    setHeart(dataLikes.includes(user._id) ? 'solid' : 'regular')
+    //setBookmark(dataFavorites.some(favorite => favorite._id === user._id) ? 'solid' : 'regular')
+    setBookmark(dataFavorites.includes(user._id) ? 'solid' : 'regular')
   }, [recipe, setRecipe, heart, setHeart, bookmark, setBookmark]);
 
 
@@ -109,12 +111,13 @@ const Recipe = () => {
   const handleLike = e => {
       e.preventDefault()
       if (isAuthenticated)  {
-        const hasLike = likes.find(like => like.user===user._id)
+        //const hasLike = likes.some(like => like._id === user._id)
+        const hasLike = likes.includes(user._id)
         console.log(hasLike)
-        if (hasLike===undefined){
-          addLike(relation)
+        if (hasLike){
+          deleteLike(id, user._id)
         }else{
-        deleteLike(hasLike._id)
+          addLike(id, user._id)
         }
         initRecipe()
       } else history('/login')
@@ -123,12 +126,13 @@ const Recipe = () => {
   const handleFavorite = e => {
       e.preventDefault()
       if (isAuthenticated)  {
-        const hasFavorite = favorites.find(favorite => favorite.user===user._id)
+        //const hasFavorite = favorites.some(favorite => favorite._id === user._id)
+        const hasFavorite = favorites.includes(user._id)
         console.log(hasFavorite)
-        if (hasFavorite===undefined){
-          addFavorite(relation)
+        if (hasFavorite){
+          deleteFavorite(id, user._id)
         }else{
-        deleteFavorite(hasFavorite._id)
+          addFavorite(id, user._id)
         }
         initRecipe()
       } else history('/login')
@@ -188,7 +192,7 @@ return (
     <p className="w3-large">
         <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;  
         <i className="fa-solid fa-share-alt"/> &nbsp;&nbsp; 
-        <i className={`fa-${bookmark} fa-bookmark`} style={{color: "darkblue"}} onClick={handleFavorite}/> {favorites.length > 0 ? favorites.length : ''}
+        <i className={`fa-${bookmark} fa-bookmark`} style={{color: "darkblue", cursor: 'pointer'}} onClick={handleFavorite}/> {favorites.length > 0 ? favorites.length : ''}
     </p>
     <div className="w3-container w3-padding-small"/>  
     <hr className="w3-clear" />

@@ -3,7 +3,7 @@ const router = Router()
 
 const { add, remove} = require('../controllers/likeController');
 
-router.post('/add', add)
-router.delete('/:id', remove)
+router.put('/add/:recipeId/:userId', add)
+router.delete('/remove/:recipeId/:userId', remove)
 
 module.exports = router;

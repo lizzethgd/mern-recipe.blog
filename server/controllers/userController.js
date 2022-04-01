@@ -25,9 +25,9 @@ exports.getUserById = async(req, res) => {
     }
 }
   
-exports.getUserRecipes = async (req, res) => {
+/* exports.getUserRecipes = async (req, res) => {
     try { 
-     const user = await User.findById(req.params.id)
+     const user = User.findById(req.params.id)
      await user.populate('recipes')
     // await user.populated('recipes')
      await  res.status(200).json(user.recipes);
@@ -39,7 +39,7 @@ exports.getUserRecipes = async (req, res) => {
   
 exports.getUserFavorites = async (req, res) => {
     try { 
-     const user = await User.findById(req.params.id)
+     const user = User.findById(req.params.id)
      await user.populate('favorites')
     // await user.populated('recipes')
      await  res.status(200).json(user.favorites);
@@ -47,4 +47,4 @@ exports.getUserFavorites = async (req, res) => {
     res.status(500).json(err.name+': '+err.message)
     console.log(err.name+': '+err.message);
     }
-}
+} */

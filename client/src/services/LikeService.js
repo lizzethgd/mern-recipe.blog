@@ -1,13 +1,13 @@
-export const addLike = async (like) => {
+export const addLike = async (recipeId, userId) => {
     try{
-        console.log(like)
-    const res = await fetch('like/add', {
-       method: 'POST',
-       body: JSON.stringify(like),
+        console.log(recipeId, userId)
+    const res = await fetch(`like/add/${recipeId}/${userId}`, {
+       method: 'PUT',
+       body: JSON.stringify(),
         headers: {
           'Content-Type': 'application/json'
         }  
-        //body: comment
+        //body: comment 
     })
     if (res.status !== 401)
       return res.json();
@@ -16,9 +16,9 @@ export const addLike = async (like) => {
   }
 }
 
-export const deleteLike = async (id) => {
+export const deleteLike = async (recipeId, userId) => {
     try{
-      const res = await fetch(`like/${id}`, {
+      const res = await fetch(`like/remove/${recipeId}/${userId}`, {
           method: 'DELETE',
         });
         if (res.status !== 401)

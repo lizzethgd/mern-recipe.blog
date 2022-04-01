@@ -1,43 +1,45 @@
-import '../assets/css/cards.scss'
-import Card from './Card';
-import { useState, useEffect } from "react";
-import {calculateRange, sliceData} from "../helpers/funtions.js"
+import CardsList from './CardsList';
+import Numeration from './Numeration';
+import { useState, useMemo, useEffect, useContext } from "react";
+import {sliceData, pagination} from "../helpers/funtions.js"
+import {AuthContext} from '../context/AuthContext';
+import {favoritesByUser} from '../services/FavoriteService';
 
 const MyFavorites = () => {
-    return (
-        <div className="w3-container w3-light-green w3-center w3-padding-16">
+    const {isAuthenticated, user, setUser} = useContext(AuthContext);
+    const [totalPages, setTotalPages] = useState(); //total number of pages 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSlice, setPageSlice] = useState( []); //data slice per page
+    const [pagesNumeration, setPagesNumeration] = useState([]); //tipe of numeration
+   
+    const pageSize = 2 
+    const sibling = 1
+  
+    useEffect(() => {
+     (async () => { 
+        try{
+          const data =  await favoritesByUser(user._id)
+          const totalPages = Math.ceil(data.length / pageSize);
+          const slice = await sliceData(data, currentPage, pageSize)
+          setTotalPages(totalPages)
+          setPageSlice(slice)
+          setPagesNumeration(pagination(totalPages, sibling, currentPage))
+       }catch(err){
+          console.log(err)
+      }
+     }) () 
+  }, [sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
+  
+  
+  return (
+  <div className="w3-container">
+      
+  <CardsList pageSlice={pageSlice}/>
+  
+  <Numeration totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} pagesNumeration={pagesNumeration}/>
     
-        <div className="w3-section w3-padding-16">
-              <span className="w3-margin-right">Filter:</span> 
-              <button className="w3-button w3-black">ALL</button>
-              <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-rectangle-list w3-margin-right"></i>Category</button>
-              <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-language w3-margin-right"></i>Language</button>
-              <button className="w3-button w3-white w3-hide-small"><i className="fa-solid fa-globe w3-margin-right"></i>Region</button>
-        </div>
-        
-         <div className="cards__container">
-            <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2} />
-            <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
-            <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
-            <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
-            <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
-            <Card author="John Doe" date="1 min" title="Card title" pic="https://source.unsplash.com/300x225/?desert" description=" This grid is an attempt to make something nice that works on touch devices." category="Dessert" nLikes={3} nFavs={2}/>
-        
-        </div> 
-         
-         <div className="w3-padding-32">    
-            <div className="w3-bar">
-                <a href="#" className="w3-bar-item w3-button w3-hover-black">«</a>
-                <a href="#" className="w3-bar-item w3-black w3-button">1</a>
-                <a href="#" className="w3-bar-item w3-button w3-hover-black">2</a>
-                <a href="#" className="w3-bar-item w3-button w3-hover-black">3</a>
-                <a href="#" className="w3-bar-item w3-button w3-hover-black">4</a>
-                <a href="#" className="w3-bar-item w3-button w3-hover-black">»</a>
-            </div>
-          </div>
-          
-          </div> 
-    )
+    </div> 
+      )
 }
 
 export default MyFavorites

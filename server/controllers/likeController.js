@@ -1,5 +1,34 @@
-const Like = require('../models/Like');
+const Recipe = require('../models/Recipe');
 
+exports.add = async (req, res) => { 
+  console.log(req.params.recipeId)
+  console.log(req.params.userId)
+  try {
+    await Recipe.findByIdAndUpdate(req.params.recipeId, {
+      $push: {likes: req.params.userId}
+    },{new: true})
+    await res.status(200).json({success : true});
+    console.log('Like succesfully added');
+  } catch (err) {
+    res.status(500).json('error controller: '+err)
+    console.log('error controller: '+err);
+  }
+}
+
+exports.remove = async (req, res) => { 
+  try {
+     await Recipe.findByIdAndUpdate(req.params.recipeId, {
+      $pull: {likes: req.params.userId}
+    },{new: true})
+    await res.status(200).json({success : true});
+    console.log('Like succesfully deleted');
+  } catch (err) {
+    res.status(500).json('error controller: '+err)
+    console.log('error controller: '+err);
+  }
+}
+
+/* 
 exports.add = async (req, res) => { 
     try {
       const like = new Like(req.body)
@@ -22,7 +51,8 @@ exports.remove = async (req, res) => {
         res.status(500).json(err.name+': '+err.message)
         console.log(err.name+': '+err.message);
       }
-  }
+  } 
+  */
 
 
  
