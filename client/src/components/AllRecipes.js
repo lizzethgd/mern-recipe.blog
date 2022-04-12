@@ -1,7 +1,7 @@
 import Filter from './Filter';
 import CardsList from './CardsList';
 import Numeration from './Numeration';
-import { useState, useMemo, useEffect, useContext } from "react";
+import { useState, useCallback, useEffect, useContext } from "react";
 import {sliceData, pagination} from "../helpers/funtions.js"
 import {getAllRecipes} from '../services/RecipeService';
 
@@ -11,34 +11,38 @@ const AllRecipes = () => {
   const [pageSlice, setPageSlice] = useState( []); //data slice per page
   const [pagesNumeration, setPagesNumeration] = useState([]); //tipe of numeration
   const [filters, setFilters] = useState({
-    category: '',
-    language: '',
-    region: ''
+    category: 'ND',
+    language: 'ND',
+    region: 'ND'
 })
 
   const pageSize = 2 
   const sibling = 1
 
-  useEffect(() => {
+  const init = useCallback(async () => {
+    const data =  await getAllRecipes(filters)
+    const totalPages = Math.ceil(data.length / pageSize);
+    setTotalPages(totalPages)
+    setPageSlice(sliceData(data, currentPage, pageSize))
+    setPagesNumeration(pagination(totalPages, sibling, currentPage))
+  }, [filters, totalPages, pageSlice, pagesNumeration, currentPage])
+
+useEffect(() => {
    (async () => { 
       try{
-        const data =  await getAllRecipes(filters)
-        const totalPages = Math.ceil(data.length / pageSize);
-        setTotalPages(totalPages)
-        setPageSlice(sliceData(data, currentPage, pageSize))
-        setPagesNumeration(pagination(totalPages, sibling, currentPage))
+        init()
      }catch(err){
         console.log(err)
     }
    }) () 
-}, [filters, setFilters, sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
+}, [filters]);
 
 console.log(filters)
 
 return (
 <div className="w3-container">
 
-<Filter filters={filters} setFilters={setFilters}/> 
+<Filter filters={filters} setFilters={setFilters} /> 
     
 <CardsList pageSlice={pageSlice}/>
 

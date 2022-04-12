@@ -7,9 +7,7 @@ import {Link} from 'react-router-dom'
 /* {author, date, title, pic, description, category, nLikes, nFavs } */
 const Card = ({recipe}) => {
 
-  
-
-  console.log(recipe)
+  //console.log(recipe)
 
     const [focus, setFocus] =  useState("")
 

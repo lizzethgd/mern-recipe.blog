@@ -9,7 +9,6 @@ const Filter = ({filters, setFilters}) => {
     const [categories, setCategories] = useState([]);  
     const [languages, setLanguages] = useState([]); 
     const [regions, setRegions] = useState([]); 
-   
 
     useEffect(() => {
         (async () => { 
@@ -29,11 +28,10 @@ const Filter = ({filters, setFilters}) => {
 
     const handleChange = e => {
         e.preventDefault();
-        if (e.target.value === 0) {
-            setFilters({...filters, [e.target.name]: ''}) 
-        }
         setFilters({...filters, [e.target.name]: e.target.value})
     }
+
+   //
     
 return (   
 <div className="w3-section w3-padding-16">

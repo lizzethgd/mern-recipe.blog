@@ -13,12 +13,12 @@ try{
 }
 
 export const getAllRecipes = async (filters) => {
+
   console.log(filters)
-  const {categoryId, languageId, regionId } = filters
-  console.log(categoryId)
+  const {category, language, region } = filters
   try{
-  //const res = await fetch(`recipe/recipes/${categoryId}/${languageId}/${regionId}`)
-  const res = await fetch('recipe/recipes')
+  const res = await fetch(`recipe/recipes/${category}/${language}/${region}`)
+  //const res = await fetch('recipe/recipes')
   console.log(res)
   return res.json()
 

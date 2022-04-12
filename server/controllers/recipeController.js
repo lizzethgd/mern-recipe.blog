@@ -36,38 +36,19 @@ exports.recipesByUser = async(req, res) => {
   }
 } 
 
-exports.favRecipesByUser = async(req, res) => {
-  const id = req.params.userId
-  try { 
-  const recipes = await Recipe.find()
-  .populate('author')
-  .populate('category', 'name')
-  .populate('language', 'name')
-  .populate('region', 'name')
-  //.populate('likes', 'user')
-  //.populate('favorites', 'user')
-  //.populate({ path: 'favorites', 'user': {$in: id}})
-  /* req.recipe = recipe;
-    next(); */
-    console.log(recipes)
-    
-  const favRecipes = 
-  await res.status(200).json(recipes);
-  }catch (err) {
-  res.status(500).json(err.name+': '+err.message)
-  console.log(err.name+': '+err.message);
-  }
-} 
-
 exports.listfFiltered = async (req, res) => {
+    console.log('params')
     console.log(req.params)
     const filters = {}
-    if (req.params.categoryId!=="") {filters.category=req.params.categoryId }
-    if (req.params.languageId!=="") {filters.language=req.params.languageId }
-    if (req.params.regionId!=="") {filters.language=req.params.regionId }
+   if (req.params.category!=='ND') {filters.category=req.params.category}
+    if (req.params.language!=='ND') {filters.language=req.params.language }
+    if (req.params.region!=='ND') {filters.region=req.params.region } 
+   /*  req.params.category===' ' ?  null : filters.category=req.params.category
+   req.params.language===' ' ? null :  filters.language=req.params.language 
+  req.params.region===' ' ? null :  filters.region=req.params.region  */
 
     try { 
-    const recipes = await Recipe.find({filters})
+    const recipes = await Recipe.find(filters)
     .populate('author')
     .populate('category', 'name')
     .populate('language', 'name')
@@ -76,6 +57,7 @@ exports.listfFiltered = async (req, res) => {
     //.populate('favorites', 'user')
   /*   .exec((err, recipes)) */
     await res.status(200).json(recipes);
+    console.log(filters)
     console.log(recipes.length)
   }catch (err) {
     res.status(500).json(err.name+': '+err.message)
