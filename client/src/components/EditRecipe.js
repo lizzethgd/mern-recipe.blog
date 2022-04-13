@@ -129,14 +129,14 @@ const EditRecipe = () => {
 
     const ingredientsInputs = updateRecipe.ingredients.map((ingredient, i) =>
         <div key={i} className="w3-section" >
-          <input className="w3-input" id={"ingredient "+i} style={{width:"93%", paddingTop:"0px"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} onKeyDown={handleEnter}/>
+          <input className="w3-input" id={"ingredient "+i} style={{width:"93%", paddingTop:"0px"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} />
           <div className="w3-button w3-circle w3-right" style={{padding:0}} onClick={() => delIngredient(i)}><i className="fa fa-times-circle" /></div>
         </div>
     )
 
     const stepsInputs = updateRecipe.steps.map((step, i)=> 
         <li key={i} className="w3-section w3-large" >     
-        <textarea className="w3-input" id={"step "+i} type="text" value={step} onChange={e => handleChangeStep(e, i)} onKeyDown={handleEnter}/>
+        <textarea className="w3-input" id={"step "+i} type="text" value={step} onChange={e => handleChangeStep(e, i)}/>
         <div className="w3-button w3-circle w3-right w3-text-black" style={{padding:0}} onClick={() => delStep(i)}><i className="fa fa-times-circle" /></div>
         </li>
     )
@@ -149,15 +149,15 @@ return (
     <div className="w3-content w3-padding-large" id="about">
         
         <h2 className="w3-center">Recipe</h2> 
-        <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Title" id="title" value={title} onChange={e => handleChange(e)} onKeyDown={handleEnter} required/></div>
-        <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Description"  id="description" value={description} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></div>
+        <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Title" id="title" value={title} onChange={e => handleChange(e)}  required/></div>
+        <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Description"  id="description" value={description} onChange={e => handleChange(e)} /></div>
         
         <div className=" w3-section w3-row-padding " >
             <div className=" w3-quarter ">
-            <label className="w3-third">N° serves: </label > <input className="w3-border" type="number" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={e => handleChange(e)} onKeyDown={handleEnter}/>
+            <label className="w3-third">N° serves: </label > <input className="w3-border" type="number" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={e => handleChange(e)} />
             </div>
             <div className=" w3-third ">
-                <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={(e) => handleChangeCookTime(e)} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
+                <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={(e) => handleChangeCookTime(e)} /><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} /> 
             </div>
             <div className=" w3-third w3-left">
             <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>

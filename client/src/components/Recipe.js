@@ -34,7 +34,7 @@ const Recipe = () => {
       favorites: []
       }) 
 
-  const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes, favorites} = recipe
+  const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes, favorites, createdAt } = recipe
   console.log(user)
 
   const [comments, setComments] = useState([])
@@ -188,7 +188,7 @@ return (
   : ''}
 
   <div className="w3-container  w3-center w3-text-white w3-padding-16">  
-    Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {recipe.createdAt} 
+    Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {new Date(createdAt).toLocaleDateString()} 
     <p className="w3-large">
         <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;  
         <i className="fa-solid fa-share-alt"/> &nbsp;&nbsp; 

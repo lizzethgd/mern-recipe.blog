@@ -40,12 +40,9 @@ exports.listfFiltered = async (req, res) => {
     console.log('params')
     console.log(req.params)
     const filters = {}
-   if (req.params.category!=='ND') {filters.category=req.params.category}
+    if (req.params.category!=='ND') {filters.category=req.params.category}
     if (req.params.language!=='ND') {filters.language=req.params.language }
     if (req.params.region!=='ND') {filters.region=req.params.region } 
-   /*  req.params.category===' ' ?  null : filters.category=req.params.category
-   req.params.language===' ' ? null :  filters.language=req.params.language 
-  req.params.region===' ' ? null :  filters.region=req.params.region  */
 
     try { 
     const recipes = await Recipe.find(filters)
