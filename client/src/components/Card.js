@@ -1,35 +1,77 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 //import '../assets/css/cards.scss'
 import miniAvatar from "../assets/images/avatar6.png"
-import {Link} from 'react-router-dom'
-
+import {Link, useNavigate} from 'react-router-dom'
+import {AuthContext} from '../context/AuthContext';
+import {addLike, deleteLike} from '../services/LikeService';
+import {addFavorite, deleteFavorite} from '../services/FavoriteService';
 
 /* {author, date, title, pic, description, category, nLikes, nFavs } */
 const Card = ({recipe}) => {
 
-  //console.log(recipe)
+    const {user, isAuthenticated} = useContext(AuthContext)
 
-    const [focus, setFocus] =  useState("")
+    const [open, setOpen] =  useState("")
+
+    const [heart, setHeart] = useState('regular')
+
+    const [bookmark, setBookmark] = useState('regular')
+
+    const history = useNavigate()
 
     const showDescription = () =>{
-        focus==="" ? setFocus("focused") : setFocus("")
-      }    
+        open==="" ? setOpen("opened") : setOpen("")
+    } 
+      
+    const handleLike = e => {
+        e.preventDefault()
+        if (isAuthenticated)  {
+          //const hasLike = likes.some(like => like._id === user._id)
+          const hasLike = recipe.likes.includes(user._id)
+          console.log(hasLike)
+          if (hasLike){
+            deleteLike(recipe._id, user._id)
+          }else{
+            addLike(recipe._id, user._id)
+          }
+          //initRecipe()
+        } else history('/login')
+    }
+  
+    const handleFavorite = e => {
+        e.preventDefault()
+        if (isAuthenticated)  {
+          //const hasFavorite = favorites.some(favorite => favorite._id === user._id)
+          const hasFavorite = recipe.favorites.includes(user._id)
+          console.log(hasFavorite)
+          if (hasFavorite){
+            deleteFavorite(recipe._id, user._id)
+          }else{
+            addFavorite(recipe._id, user._id)
+          }
+          //initRecipe()
+        } else history('/login')
+    }   
       
     return (
-    <div className={focus} >          
+    <div className={open} >          
         <div className="card__head">
-          <img src={recipe.author.photo ? recipe.author.photo : miniAvatar} alt="Avatar" style={{width: "30px" , height: "30px"}} className="w3-left w3-circle w3-margin-right" />
-          <span className="w3-opacity" >{recipe.author.username} </span><i className="fa-regular fa-star w3-right litleIcon" title="Add to favs" style={{color : "orange"}}/>
-          <div><small className="w3-opacity">{'date' }</small><i className="fa-solid fa-share-nodes w3-right litleIcon" title="share" style={{color : "blue"}}/></div>
+          <div className="head__left">
+            <img src={recipe.author.photo ? recipe.author.photo : miniAvatar} alt="Avatar" className="w3-circle" />
+            <span className="w3-opacity" > @{recipe.author.username} </span>
+          </div>
+          <div className="head__right" >
+            <i className="fa-solid fa-share-nodes litleIcon" title="Share" style={{color : "blue"}} />
         </div>
-        <div className="card__image-holder" onClick={showDescription}>
-          <img className="card__image" src={recipe.photo ? recipe.photo : miniAvatar} alt={recipe.title} />
+        </div>
+        <div className="card__image" onClick={showDescription}>
+          <img src={recipe.photo ? recipe.photo : miniAvatar} alt={recipe.title} />
         </div>
         <div className="card__title">
            <h2>{recipe.title}</h2>
            <div className="icons">
-             <i className="fa-solid fa-heart " style={{color : "red"}} title="Liked" />{recipe.nLikes}
-             <i className="fa-solid fa-star " style={{color : "orange", paddingLeft: "5rem"}} title="Favorited"/>{recipe.nFavs}
+             <i className={`fa-${heart} fa-heart`} style={{color : "red", cursor: "pointer"}} title="Liked" onClick={handleLike}/>{recipe.likes.length > 0 ? recipe.likes.length : ''}
+             <i className={`fa-${bookmark} fa-bookmark`} style={{color : "orange", paddingLeft: "5rem", cursor: "pointer"}} title="Favorited" onClick={handleFavorite}/>{recipe.favorites.length > 0 ? recipe.favorites.length : ''}
            </div>
            <div className="toggle__info card__btn" onClick={showDescription}>
             <span className="leftLine"></span>

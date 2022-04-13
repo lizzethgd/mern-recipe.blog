@@ -45,8 +45,6 @@ const Recipe = () => {
       author: user._id
   })
 
-  const relation = { recipe : id, user: user._id }
-
   const [heart, setHeart] = useState('regular')
 
   const [bookmark, setBookmark] = useState('regular')
