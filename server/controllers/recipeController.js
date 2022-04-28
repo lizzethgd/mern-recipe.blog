@@ -50,9 +50,6 @@ exports.listfFiltered = async (req, res) => {
     .populate('category', 'name')
     .populate('language', 'name')
     .populate('region', 'name')
-    //.populate('likes', 'user')
-    //.populate('favorites', 'user')
-  /*   .exec((err, recipes)) */
     await res.status(200).json(recipes);
     console.log(filters)
     console.log(recipes.length)

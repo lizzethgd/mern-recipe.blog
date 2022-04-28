@@ -1,4 +1,4 @@
-import {useState, useContext} from 'react'
+import {useState, useContext, useEffect} from 'react'
 //import '../assets/css/cards.scss'
 import miniAvatar from "../assets/images/avatar6.png"
 import {Link, useNavigate} from 'react-router-dom'
@@ -8,6 +8,7 @@ import {addFavorite, deleteFavorite} from '../services/FavoriteService';
 
 /* {author, date, title, pic, description, category, nLikes, nFavs } */
 const Card = ({recipe}) => {
+
 
     const {user, isAuthenticated} = useContext(AuthContext)
 
@@ -22,11 +23,21 @@ const Card = ({recipe}) => {
     const showDescription = () =>{
         open==="" ? setOpen("opened") : setOpen("")
     } 
+
+  useEffect(() => {
+      try{  
+        if (isAuthenticated){
+        setHeart(recipe.likes.includes(user._id) ? 'solid' : 'regular')
+        setBookmark(recipe.favorites.includes(user._id) ? 'solid' : 'regular')
+      }
+      }catch(err){
+        console.log('error in the card component: '+err) 
+      }
+}, []) 
       
     const handleLike = e => {
         e.preventDefault()
         if (isAuthenticated)  {
-          //const hasLike = likes.some(like => like._id === user._id)
           const hasLike = recipe.likes.includes(user._id)
           console.log(hasLike)
           if (hasLike){
@@ -34,14 +45,13 @@ const Card = ({recipe}) => {
           }else{
             addLike(recipe._id, user._id)
           }
-          //initRecipe()
+          history(0)
         } else history('/login')
     }
   
     const handleFavorite = e => {
         e.preventDefault()
         if (isAuthenticated)  {
-          //const hasFavorite = favorites.some(favorite => favorite._id === user._id)
           const hasFavorite = recipe.favorites.includes(user._id)
           console.log(hasFavorite)
           if (hasFavorite){
@@ -49,10 +59,11 @@ const Card = ({recipe}) => {
           }else{
             addFavorite(recipe._id, user._id)
           }
-          //initRecipe()
+          history(0)
         } else history('/login')
     }   
       
+    console.log(recipe._id)
     return (
     <div className={open} >          
         <div className="card__head">
@@ -61,7 +72,7 @@ const Card = ({recipe}) => {
             <span className="w3-opacity" > @{recipe.author.username} </span>
           </div>
           <div className="head__right" >
-            <i className="fa-solid fa-share-nodes litleIcon" title="Share" style={{color : "blue"}} />
+             <Link className="w3-hover-text-deep-orange" style={{color : "blue"}} to="/share"><i className="fa-solid fa-share-nodes" title="Share"  /></Link>
         </div>
         </div>
         <div className="card__image" onClick={showDescription}>

@@ -23,7 +23,6 @@ const Filter = ({filters, setFilters}) => {
              console.log(err)
          }
         }) () 
-    // }, [sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
     },[])
 
     const handleChange = e => {
@@ -31,12 +30,15 @@ const Filter = ({filters, setFilters}) => {
         setFilters({...filters, [e.target.name]: e.target.value})
     }
 
-   //
+   const unfilter = e =>{
+         e.preventDefault();
+        setFilters({category: 'ND', language: 'ND',region: 'ND'})
+   }
     
 return (   
 <div className="w3-section w3-padding-16">
     <span className="w3-margin-right">Filter:</span> 
-    <button className="w3-button w3-black">ALL</button>
+    <button className="w3-button w3-black" onClick={unfilter}>ALL</button>
     <div className="w3-button w3-white" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
     <select name='category' value={filters.category}  onChange={handleChange}>
     <option value=''>Categories</option>

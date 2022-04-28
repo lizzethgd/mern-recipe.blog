@@ -14,7 +14,7 @@ const Recipe = () => {
   console.log(user)
   const {id} = useParams()
 
-  console.log(id+' y    '+user._id)
+  console.log(id)
 
   const history = useNavigate()
 
@@ -35,14 +35,14 @@ const Recipe = () => {
       }) 
 
   const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes, favorites, createdAt } = recipe
-  console.log(user)
+
 
   const [comments, setComments] = useState([])
 
-  const [newComment, setComment] = useState({
+  const [newComment, setNewComment] = useState({
       content: '',
       recipe: id,
-      author: user._id
+      author: ''
   })
 
   const [heart, setHeart] = useState('regular')
@@ -54,10 +54,10 @@ const Recipe = () => {
     const dataLikes = await data.likes
     const dataFavorites = await data.favorites
     setRecipe(data);
-    //setHeart(dataLikes.some(like => like._id === user._id) ? 'solid' : 'regular')
+    if (isAuthenticated){
     setHeart(dataLikes.includes(user._id) ? 'solid' : 'regular')
-    //setBookmark(dataFavorites.some(favorite => favorite._id === user._id) ? 'solid' : 'regular')
-    setBookmark(dataFavorites.includes(user._id) ? 'solid' : 'regular')
+    setBookmark(dataFavorites.includes(user._id) ? 'solid' : 'regular')}
+    setNewComment({...newComment, author: user._id})
   }, [recipe, setRecipe, heart, setHeart, bookmark, setBookmark]);
 
 
@@ -83,7 +83,7 @@ const Recipe = () => {
       .then(getRecipeComments(id)
       .then(data=> {
             setComments(data) 
-            setComment({...newComment, content : ''})
+            setNewComment({...newComment, content : ''})
           })
         )
       } else history('/login')
@@ -91,7 +91,7 @@ const Recipe = () => {
 
   const handleChange =  e => {
       e.preventDefault();
-      setComment({...newComment, [e.target.id]: e.target.value })
+      setNewComment({...newComment, [e.target.id]: e.target.value })
   }  
     
   const deleteRecipe = e => {
@@ -188,8 +188,8 @@ return (
   <div className="w3-container  w3-center w3-text-white w3-padding-16">  
     Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {new Date(createdAt).toLocaleDateString()} 
     <p className="w3-large">
-        <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;  
-        <i className="fa-solid fa-share-alt"/> &nbsp;&nbsp; 
+        <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;&nbsp;   
+        <Link className="w3-button w3-hover-white w3-hover-text-deep-orange" to="/share"><i className="fa-solid fa-share-alt"/></Link> &nbsp;&nbsp;&nbsp;  
         <i className={`fa-${bookmark} fa-bookmark`} style={{color: "darkblue", cursor: 'pointer'}} onClick={handleFavorite}/> {favorites.length > 0 ? favorites.length : ''}
     </p>
     <div className="w3-container w3-padding-small"/>  

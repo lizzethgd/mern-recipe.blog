@@ -35,7 +35,7 @@ useEffect(() => {
         console.log(err)
     }
    }) () 
-}, [filters]);
+}, [filters, currentPage, totalPages]);
 
 console.log(filters)
 

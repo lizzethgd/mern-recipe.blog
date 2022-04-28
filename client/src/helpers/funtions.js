@@ -74,4 +74,3 @@ export const pagination = (totalCount, siblingCount,currentPage) => {
  
   }
 
-  

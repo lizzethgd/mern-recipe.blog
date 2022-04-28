@@ -39,11 +39,6 @@ $darkGrey: #4f585e;
     transform: scale(1.1);
   }
 
-  .littleIcon{
-    font-size: large;
-    cursor: pointer; //posiblemente eliminar
-  }
-
   .card__head{
     background: $white;
     border-radius: 5px 5px 0 0;
@@ -58,6 +53,7 @@ $darkGrey: #4f585e;
 
     .head__right{
       cursor: pointer;
+      font-size: large;
     }
 
   }  

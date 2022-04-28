@@ -13,6 +13,7 @@ import EditRecipe from './components/EditRecipe';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 import PrivateRoute from './hocs/PrivateRoute';
 import EditPassword from './components/EditPassword';
+import Share from './components/Share'
 
 const App = () => {
   //const params = useParams()
@@ -21,10 +22,12 @@ return (
     <Navigation />
     <Routes >
       <Route  exact path="/" element={<Home />} />
-      <Route exact path='/:id' element={<Recipe  />} /> 
+      <Route exact path='/share' element={<Share  />} />
+      <Route exact path='/:id' element={<Recipe  />} />
     
       <Route exact path='/' element={<UnPrivateRoute/>}>
         <Route exact path="/login" element={<Login/>} /> 
+       
       </Route>
 
       <Route exact path='/' element={<PrivateRoute/>}>
