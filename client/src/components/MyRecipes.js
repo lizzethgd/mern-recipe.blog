@@ -29,7 +29,7 @@ const MyRecipes = () => {
         console.log(err)
     }
    }) () 
-}, [sliceData, pagination, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
+}, [user._id, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
 
 
 return (

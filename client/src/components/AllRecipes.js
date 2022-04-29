@@ -21,11 +21,12 @@ const AllRecipes = () => {
 
   const init = useCallback(async () => {
     const data =  await getAllRecipes(filters)
+    console.log(data.length)
     const totalPages = Math.ceil(data.length / pageSize);
     setTotalPages(totalPages)
     setPageSlice(sliceData(data, currentPage, pageSize))
     setPagesNumeration(pagination(totalPages, sibling, currentPage))
-  }, [filters, totalPages, pageSlice, pagesNumeration, currentPage])
+  }, [filters, currentPage, pageSize, sibling])
 
 useEffect(() => {
    (async () => { 
@@ -35,7 +36,7 @@ useEffect(() => {
         console.log(err)
     }
    }) () 
-}, [filters, currentPage, totalPages]);
+}, [init, filters, currentPage, totalPages]);
 
 console.log(filters)
 

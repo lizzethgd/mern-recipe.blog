@@ -36,7 +36,6 @@ const Recipe = () => {
 
   const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes, favorites, createdAt } = recipe
 
-
   const [comments, setComments] = useState([])
 
   const [newComment, setNewComment] = useState({
@@ -55,16 +54,17 @@ const Recipe = () => {
     const dataFavorites = await data.favorites
     setRecipe(data);
     if (isAuthenticated){
-    setHeart(dataLikes.includes(user._id) ? 'solid' : 'regular')
-    setBookmark(dataFavorites.includes(user._id) ? 'solid' : 'regular')}
+      setHeart(dataLikes.includes(user._id) ? 'solid' : 'regular')
+      setBookmark(dataFavorites.includes(user._id) ? 'solid' : 'regular')
+    }
     setNewComment({...newComment, author: user._id})
-  }, [recipe, setRecipe, heart, setHeart, bookmark, setBookmark]);
+  }, [id, user._id, isAuthenticated, setRecipe, setHeart, setBookmark, newComment, setNewComment]);
 
 
   const initComments = useCallback(async () => {
     const data= await getRecipeComments(id)
     setComments(data);
-  }, [comments, setComments]);
+  }, [id, setComments]);
 
   
   useEffect(() => {
@@ -72,9 +72,9 @@ const Recipe = () => {
           initRecipe()
           initComments()
         }catch(err){
-          console.log('error in the page: '+err) 
+          console.log('error in the cardList component: '+err) 
         }
-  }, []) 
+  }, [initRecipe, initComments]) 
 
   const addAComment = e => { 
       e.preventDefault();
@@ -110,14 +110,14 @@ const Recipe = () => {
       e.preventDefault()
       if (isAuthenticated)  {
         //const hasLike = likes.some(like => like._id === user._id)
-        const hasLike = likes.includes(user._id)
-        console.log(hasLike)
-        if (hasLike){
+        const hasUserLik = likes.includes(user._id)
+        console.log(hasUserLik)
+        if (hasUserLik){
           deleteLike(id, user._id)
         }else{
           addLike(id, user._id)
         }
-        initRecipe()
+    
       } else history('/login')
   }
 
@@ -125,14 +125,14 @@ const Recipe = () => {
       e.preventDefault()
       if (isAuthenticated)  {
         //const hasFavorite = favorites.some(favorite => favorite._id === user._id)
-        const hasFavorite = favorites.includes(user._id)
-        console.log(hasFavorite)
-        if (hasFavorite){
+        const hasUserFav = favorites.includes(user._id)
+        console.log(hasUserFav)
+        if (hasUserFav){
           deleteFavorite(id, user._id)
         }else{
           addFavorite(id, user._id)
         }
-        initRecipe()
+      
       } else history('/login')
   } 
 
@@ -179,7 +179,7 @@ return (
   </div> 
 
   { (user._id===author._id) 
-  ? <><Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ from: recipe }}>
+  ? <><Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ dispatch: recipe }}>
       <i className="fa-solid fa-pen-to-square" /> Edit</Link>
     <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={deleteRecipe}>
         <i className="fa-solid fa-ban"/> Delete</button></>

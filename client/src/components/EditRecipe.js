@@ -8,7 +8,7 @@ import { getRegions } from '../services/RegionService';
 const EditRecipe = () => {
     const history = useNavigate()
     const location = useLocation()
-    const {from} = location.state 
+    const {dispatch} = location.state 
 
     const [updateRecipe, setUpdateRecipe] = useState({
         title: '',
@@ -23,7 +23,7 @@ const EditRecipe = () => {
         region: '',
         })    
 
-    console.log(from)
+    console.log(dispatch)
 
     const [categories, setCategories] = useState([])
     const [regions, setRegions] = useState([])
@@ -33,7 +33,7 @@ const EditRecipe = () => {
      useEffect(() => {
         (async () => { 
            try{   
-            setUpdateRecipe(from)     
+            setUpdateRecipe(dispatch)     
             const categories =  await getCategories()
             const languages = await getLanguages()
             const regions = await getRegions()
@@ -44,7 +44,7 @@ const EditRecipe = () => {
              console.log(err)
          }
         }) () 
-    },[])
+    },[dispatch])
 
     const {title, description, serves, cookTime, photo, ingredients, steps, category, language, region} = updateRecipe
 
@@ -61,7 +61,7 @@ const EditRecipe = () => {
         formData.append('category', category._id)
         formData.append('language', language._id)
         formData.append('region', region._id)
-       editRecipe(formData, from._id).then(data=> {
+       editRecipe(formData, dispatch._id).then(data=> {
           history(`/${data.recipe._id}`)
         }
         )  
@@ -216,7 +216,7 @@ return (
 
     <div className="w3-center w3-padding-16">
             <button type="submit" className="w3-button w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button>
-            <Link  className="w3-button w3-gray" style={{marginLeft: '15px'}} to={`/${from._id}`} > Cancel <i className="fa-solid fa-ban" /></Link>
+            <Link  className="w3-button w3-gray" style={{marginLeft: '15px'}} to={`/${dispatch._id}`} > Cancel <i className="fa-solid fa-ban" /></Link>
     </div>
 
     </form> 
