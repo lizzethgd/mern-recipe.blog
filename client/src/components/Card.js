@@ -10,7 +10,7 @@ import {AuthContext} from '../context/AuthContext';
 const Card = ({dispatch}) => {
 
     const {user, isAuthenticated} = useContext(AuthContext)
-
+    
     const [recipe, setRecipe] = useState(dispatch) 
 
     const [open, setOpen] =  useState("")
@@ -33,7 +33,7 @@ const Card = ({dispatch}) => {
       setHeart(dataLikes.includes(user._id) ? 'solid' : 'regular')
       setBookmark(dataFavorites.includes(user._id) ? 'solid' : 'regular')
     }  
-  }, [user._id, isAuthenticated, recipe, setHeart, setBookmark]); 
+  }, [user, isAuthenticated, recipe, setHeart, setBookmark]); 
 
  useEffect(() => {
        try{  

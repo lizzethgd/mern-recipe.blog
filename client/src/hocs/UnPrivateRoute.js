@@ -7,7 +7,7 @@ const UnPrivateRoute = ()=>{
     const {isAuthenticated} = useContext(AuthContext);
     console.log(isAuthenticated)
     return(
-        !isAuthenticated ? <Outlet />:  <Navigate to='/' />
+        !isAuthenticated ? <Outlet />: '' 
     )
 }
 

@@ -13,10 +13,9 @@ export default ({ children }) => {
     (async () => { 
         try{
         const data = await AuthService.checkAuthentication()
-        //console.log(data.user)
         setUser(data.user);
         setIsAuthenticated(data.isAuthenticated)
-        setIsLoaded(true);
+        setIsLoaded(true)
     }catch(err){
         console.log(err)
     }

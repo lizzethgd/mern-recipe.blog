@@ -4,7 +4,9 @@ const _= process.env
 
 exports.verifyToken = async (req, res, next) => {
     
-  const token=  req.cookies['lizzethJWT']
+  const token = req.headers["authorization"];
+
+  console.log('content: '+token)
 
   if (!token) return res.status(403).json({ message: "No token provided" });
 
@@ -19,10 +21,6 @@ exports.verifyToken = async (req, res, next) => {
     if (!user) return res.status(404).json({ message: "User Not Found" });
     console.log("verificado ok")
         
-    //const username=userFound.username, role=userFound.role
-    
-    //return res.status(200).json({isAuthenticated : true, user : {username, role}});
-  
     next();
   
   } catch (error) {
@@ -47,11 +45,8 @@ exports.verifyUser = async (req, res, next) => {
         message: "Invalid Password"
       });
 
-
    const resUser =   await User.findById(user._id, { password: 0 });
    
-    //user.password= null  
-
     req.user= resUser
   
     next();  

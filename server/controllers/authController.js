@@ -1,7 +1,6 @@
 const JWT = require('jsonwebtoken')
 const User = require("../models/User");
 const _= process.env
-//const imageUpload = require('../middelwares/imageUpload')
 
 exports.register = async (req,res) => {
   const {username, email, password,  photo, role, firstName, lastName} = req.body
@@ -41,18 +40,14 @@ exports.login = async (req, res) => {
 
     console.log('login: '+user)
 
-    //const {_id, username, role} = user
-
     const token = JWT.sign({ id: user._id },_.JWT_SECRET, {
         expiresIn: _.JWT_EXPIRES // 24 hours
       });
 
-     //await res.setHeader('x-access-token', token) 
-    await res.cookie('lizzethJWT', token
+    await res.setHeader('Authorization', token
+    //await res.cookie('lizzethJWT', token
     //, {httpOnly: true, sameSite:true}
     )     
-    
-    //await res.status(200).json({isAuthenticated : true, user : {username, role}});
 
     await res.status(200).json({isAuthenticated : true, user : user}); 
      
@@ -65,9 +60,9 @@ exports.login = async (req, res) => {
 }
 
 exports.logout = async (req, res) => {
-  //console.log(req.headers["x-access-token"])
+
+  await res.setHeader('Authorization', '')
     //await req.headers["x-access-token"] = '';  
-    await res.clearCookie('lizzethJWT');
     await res.json({user: {}, success : true})
     console.log("LOGOUT!!!!!!!!!!");
 }
@@ -92,8 +87,7 @@ exports.update = async (req, res) => {
 }
 
 exports.delete = async(req, res) => {
-  //console.log(req.headers["x-access-token"])
-  //await req.headers["x-access-token"] = '';  
+
   try {
     await User.findByIdAndDelete(req.params.id)
     await res.status(200).json({success : true});

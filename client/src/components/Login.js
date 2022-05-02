@@ -30,11 +30,11 @@ const Login = () => {
     const handleSubmitLogin =  (e) => {
         e.preventDefault();
             AuthService.authLogin(userLogin).then(data=>{
-                console.log(data);
-                const { isAuthenticated,user} = data;
+                const { isAuthenticated,user} = data;    
                 if(isAuthenticated){
                     setUser(user);
                     setIsAuthenticated(isAuthenticated);
+                    localStorage.setItem('AuthData', JSON.stringify(data))
                     history('/');
                 }
                 else
