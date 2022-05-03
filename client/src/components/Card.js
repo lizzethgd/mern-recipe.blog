@@ -33,7 +33,7 @@ const Card = ({dispatch}) => {
       setHeart(dataLikes.includes(user._id) ? 'solid' : 'regular')
       setBookmark(dataFavorites.includes(user._id) ? 'solid' : 'regular')
     }  
-  }, [user, isAuthenticated, recipe, setHeart, setBookmark]); 
+  }, [user, isAuthenticated, recipe]); 
 
  useEffect(() => {
        try{  

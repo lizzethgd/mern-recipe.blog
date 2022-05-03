@@ -27,6 +27,18 @@ export const getAllRecipes = async (filters) => {
   }
 }
 
+export const recipesBySearch = async (search) => {
+  console.log(search)
+  try{
+  const res = await fetch(`recipe/recipes/${search}`)
+  console.log(res)
+  return res.json()
+
+  }catch(err) {
+    console.log('error in recipeService: '+err)
+  }
+}
+
 export const getRecipeByUser = async (id) => {
   console.log(id)
   try{

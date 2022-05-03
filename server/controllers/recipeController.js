@@ -60,6 +60,21 @@ exports.listfFiltered = async (req, res) => {
 
 }
 
+exports.recipesSearch = async(req, res) => {
+  const search = req.params.search
+  try {
+  const recipes= await Recipe.find({$or: [ { title : { $regex: search }}, { description : { $regex: search }}, { ingredients : { $regex: search }}, { steps : { $regex: search }}]})
+  .populate('author')
+  .populate('category', 'name')
+  .populate('language', 'name')
+  .populate('region', 'name') 
+await res.status(200).json(recipes);
+  }catch (err) {
+  res.status(500).json(err.name+': '+err.message)
+  console.log(err.name+': '+err.message);
+  }
+}
+
 exports.create = async (req, res) => {
   try {
     if (req.file) req.body.photo='imgUploads/'+req.file.filename 
@@ -107,10 +122,7 @@ exports.recipeById = async(req, res) => {
   .populate('language', 'name')
   .populate('region', 'name')
   //.populate('likes', 'user')
-  //.populate('favorites', 'user')
-  /* req.recipe = recipe;
-    next(); */
-    console.log(recipe) 
+  //.populate('favorites', 'user') 
   await res.status(200).json(recipe);
   }catch (err) {
   res.status(500).json(err.name+': '+err.message)

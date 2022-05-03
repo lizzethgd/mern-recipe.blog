@@ -14,6 +14,7 @@ import UnPrivateRoute from './hocs/UnPrivateRoute';
 import PrivateRoute from './hocs/PrivateRoute';
 import EditPassword from './components/EditPassword';
 import Share from './components/Share'
+import MySearch from './components/MySearch';
 
 const App = () => {
   //const params = useParams()
@@ -24,6 +25,7 @@ return (
       <Route  exact path="/" element={<Home />} />
       <Route exact path='/share' element={<Share  />} />
       <Route exact path='/:id' element={<Recipe  />} />
+      <Route exact path='/mysearch' element={<MySearch  />} />
     
       <Route exact path='/' element={<UnPrivateRoute/>}>
         <Route exact path="/login" element={<Login/>} /> 

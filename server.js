@@ -36,10 +36,7 @@ app.use(function(err, req, res, next){
 });
 
 // Database setup
-mongoose.connect(process.env.DATABASE, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(process.env.DATABASE, {})
 .then(() => { console.log("Conected to mongoDB")})
 .catch((err) => console.log(err));
 

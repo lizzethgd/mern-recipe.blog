@@ -29,14 +29,12 @@ const AllRecipes = () => {
   }, [filters, currentPage, pageSize, sibling])
 
 useEffect(() => {
-   (async () => { 
       try{
         init()
      }catch(err){
         console.log(err)
     }
-   }) () 
-}, [init, filters, currentPage, totalPages]);
+}, [init]);
 
 console.log(filters)
 

@@ -32,7 +32,7 @@ const recipeSchema = new mongoose.Schema(
         trim: true,
         require: true,
         default: [],
-        maxlength: 2000,
+        maxlength: 2000
     },
     steps: {
         type: Array,
@@ -64,9 +64,11 @@ const recipeSchema = new mongoose.Schema(
     favorites: []
 }, 
  {  timestamps: true, 
-    versionKey: false,  
+    versionKey: false, 
+    autoIndex: false,
     toJSON: {virtuals: true}, 
-    toObject: { virtuals: true } 
+    toObject: { virtuals: true },
+    //mappings: {dynamic: true } 
   }
 );
 
@@ -76,16 +78,6 @@ recipeSchema.virtual('comments', {
   foreignField: 'recipe'
 }); 
 
-/* recipeSchema.virtual('likes', {
-  ref: 'Like',
-  localField: '_id',
-  foreignField: 'recipe'
-}); 
-
-recipeSchema.virtual('favorites', {
-  ref: 'Favorite',
-  localField: '_id',
-  foreignField: 'recipe'
-}); 
- */
 module.exports = mongoose.model("Recipe", recipeSchema);
+
+
