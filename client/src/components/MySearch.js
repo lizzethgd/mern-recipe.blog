@@ -1,15 +1,15 @@
 import CardsList from './CardsList';
 import Numeration from './Numeration';
-import { useState, useCallback, useEffect, useContext } from "react";
-import {useLocation, useNavigate } from 'react-router-dom'
+import { useState, useCallback, useEffect} from "react";
 import {sliceData, pagination} from "../helpers/funtions.js"
 //import {AuthContext} from '../context/AuthContext';
 import {recipesBySearch} from '../services/RecipeService';
 
 const MySearch = () => {
-    //const {isAuthenticated, user, setUser} = useContext(AuthContext);
-    const location = useLocation()
-    const {dispatch} = location.state 
+
+    //const {dispatch} = location.state 
+
+    const dispatch = localStorage.getItem('search')
     const [totalPages, setTotalPages] = useState(); //total number of pages 
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSlice, setPageSlice] = useState( []); //data slice per page
@@ -34,7 +34,7 @@ const MySearch = () => {
        }catch(err){
           console.log(err)
       }
-  }, [init]);
+  }, [ init]);
   
   
   return (

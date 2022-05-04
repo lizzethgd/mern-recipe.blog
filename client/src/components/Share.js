@@ -1,5 +1,3 @@
-import {useState, useContext} from 'react'
-import AuthService from '../services/AuthService';
 import {useNavigate } from "react-router-dom";
 
 import {
@@ -31,7 +29,7 @@ import {
     WhatsappIcon,
   } from "react-share";
 
-const Share = () => {
+const ShareModal = () => {
 
     const history = useNavigate()
 
@@ -40,6 +38,7 @@ const Share = () => {
         history(-1);
       }
   return (
+
 <div id="share-container" className="w3-modal w3-light-green" style={{display: 'block'}}>
     <button className="w3-button w3-deep-orange w3-large  w3-display-topright" title="Close Modal Image" onClick={onClouseFullSizeImage} ><i className="fa-solid fa-rectangle-xmark"/></button>
     <div className="w3-modal-content w3-animate-zoom ">
@@ -152,4 +151,4 @@ const Share = () => {
   )
 }
 
-export default Share
+export default ShareModal

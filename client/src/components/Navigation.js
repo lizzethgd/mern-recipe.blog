@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react'
-import {useNavigate, NavLink } from "react-router-dom";
+import {useNavigate, NavLink, useLocation, Link} from "react-router-dom";
 import AuthService from '../services/AuthService'
 import {AuthContext} from '../context/AuthContext';
 import avatar from "../assets/images/avatar6.png"
@@ -9,9 +9,9 @@ import '../assets/css/nav.scss'
 
 const Navigation = () => {
 
-  const {isAuthenticated, user, setIsAuthenticated, setUser} = useContext(AuthContext);  
+  const location = useLocation();
 
-  //console.log(isAuthenticated +' ' +user,)
+  const {isAuthenticated, user, setIsAuthenticated, setUser} = useContext(AuthContext);  
 
   const [search, setSearch] = useState('')
 
@@ -37,11 +37,12 @@ const Navigation = () => {
     setSearch(e.target.value)
   } 
 
-  /* const handleSubmit = e => {
+ const handleSubmit = e => {
   e.preventDefault();
-  recipesBySearch(search)
-  history('/search')
-  } */
+  if (search!=='')
+  {localStorage.setItem('search', search)
+  location.pathname!=='/mysearch'? history('/mysearch') : history(0)}
+  } 
 
   const userLog = (
   <>
@@ -84,7 +85,7 @@ return (
   
     <div className="w3-bar-item w3-right  w3-hide-small search-container ">
       <input type="text" placeholder="Search recipe..  " id="search" onChange={handleChange} required/>
-      <NavLink className="w3-bar-item  w3-button w3-hide-small w3-right  w3-hover-white fa-solid fa-magnifying-glass button" to="/mysearch" state={{ dispatch: search }}/>
+      <button className="w3-bar-item  w3-button w3-hide-small w3-right  w3-hover-white fa-solid fa-magnifying-glass button" onClick={handleSubmit} /* to='/mysearch' state={{ dispatch: search }} *//>
     </div>
  
  </div>
