@@ -1,5 +1,3 @@
-import {useNavigate } from "react-router-dom";
-
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -29,19 +27,15 @@ import {
     WhatsappIcon,
   } from "react-share";
 
-const ShareModal = () => {
+const ShareModal = ({ show, hide}) => {
 
-    const history = useNavigate()
+  const modalDisplay = show ? 'block' : 'none'   
 
-    const onClouseFullSizeImage = () => {
-        document.getElementById("share-container").style.display='none'
-        history(-1);
-      }
-  return (
-
-<div id="share-container" className="w3-modal w3-light-green" style={{display: 'block'}}>
-    <button className="w3-button w3-deep-orange w3-large  w3-display-topright" title="Close Modal Image" onClick={onClouseFullSizeImage} ><i className="fa-solid fa-rectangle-xmark"/></button>
+  return(
+<div id="share-container" className="w3-modal w3-light-green" style={{display: modalDisplay}} >
+   
     <div className="w3-modal-content w3-animate-zoom ">
+    <button className="w3-button w3-deep-orange w3-large  w3-display-topright" title="Close Modal Image" onClick={hide} /*onClick={onClouseFullSizeImage}*/ ><i className="fa-solid fa-rectangle-xmark"/></button>
     <EmailShareButton
         url={"https://peing.net/ja/"}
         quote={"フェイスブックはタイトルが付けれるようです"}
@@ -147,8 +141,9 @@ const ShareModal = () => {
       ><MailruIcon size={32} round={true} /> 
       </MailruShareButton>
     </div>
-</div>    
-  )
+</div>)
+{/*  </>, document.body    
+  ) : null */}
 }
 
 export default ShareModal

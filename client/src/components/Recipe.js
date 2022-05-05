@@ -7,6 +7,7 @@ import {addFavorite, deleteFavorite} from '../services/FavoriteService';
 import {useContext, useEffect, useState, useCallback} from 'react'
 import {AuthContext} from '../context/AuthContext';
 import {Link, useParams , useNavigate} from 'react-router-dom'
+import ShareModal from './ShareModal'
 
 const Recipe = () => {
 
@@ -66,7 +67,7 @@ const Recipe = () => {
     setComments(data);
   }, [id, setComments]);
 
-  
+
   useEffect(() => {
         try{  
           initRecipe()
@@ -136,6 +137,9 @@ const Recipe = () => {
       } else history('/login')
   } 
 
+  const [modalShow, setModalShow] = useState(false);
+  const modalToggle = () => setModalShow(!modalShow);
+
 console.log(recipe)
 
 return (
@@ -189,7 +193,7 @@ return (
     Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {new Date(createdAt).toLocaleDateString()} 
     <p className="w3-large">
         <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;&nbsp;   
-        <Link className="w3-button w3-hover-white w3-hover-text-deep-orange" to="/share"><i className="fa-solid fa-share-alt"/></Link> &nbsp;&nbsp;&nbsp;  
+        <i className="w3-button w3-hover-white w3-hover-text-deep-orange fa-solid fa-share-alt" onClick={modalToggle}/>
         <i className={`fa-${bookmark} fa-bookmark`} style={{color: "darkblue", cursor: 'pointer'}} onClick={handleFavorite}/> {favorites.length > 0 ? favorites.length : ''}
     </p>
     <div className="w3-container w3-padding-small"/>  
@@ -223,6 +227,8 @@ return (
     </div>
     
   </div>
+
+ <ShareModal show={modalShow} hide={modalToggle} /> : 
   
 </div>
     )

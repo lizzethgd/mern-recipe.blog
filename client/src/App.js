@@ -13,7 +13,7 @@ import EditRecipe from './components/EditRecipe';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 import PrivateRoute from './hocs/PrivateRoute';
 import EditPassword from './components/EditPassword';
-import Share from './components/Share'
+import ShareModal from './components/ShareModal'
 import MySearch from './components/MySearch';
 
 const App = () => {
@@ -23,7 +23,7 @@ return (
     <Navigation />
     <Routes >
       <Route  exact path="/" element={<Home />} />
-      <Route exact path='/share' element={<Share  />} />
+       {/*<Route exact path='/share' element={<Share  />} /> */}
       <Route exact path='/:id' element={<Recipe  />} />
       <Route exact path='/mysearch' element={<MySearch  />} />
     
