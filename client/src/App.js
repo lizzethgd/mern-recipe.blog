@@ -13,7 +13,6 @@ import EditRecipe from './components/EditRecipe';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 import PrivateRoute from './hocs/PrivateRoute';
 import EditPassword from './components/EditPassword';
-import ShareModal from './components/ShareModal'
 import MySearch from './components/MySearch';
 
 const App = () => {

@@ -1,11 +1,11 @@
 import miniavatar from "../assets/images/avatar6.png"
 import  "../assets/css/comment.scss"
-import {getRecipe, removeRecipe} from '../services/RecipeService';
-import {getRecipeComments, addComment, removeComment} from '../services/CommentService';
-import {addLike, deleteLike} from '../services/LikeService';
-import {addFavorite, deleteFavorite} from '../services/FavoriteService';
+import {getRecipe, removeRecipe} from '../services/RecipeService'
+import {getRecipeComments, addComment, removeComment} from '../services/CommentService'
+import {addLike, deleteLike} from '../services/LikeService'
+import {addFavorite, deleteFavorite} from '../services/FavoriteService'
 import {useContext, useEffect, useState, useCallback} from 'react'
-import {AuthContext} from '../context/AuthContext';
+import {AuthContext} from '../context/AuthContext'
 import {Link, useParams , useNavigate} from 'react-router-dom'
 import ShareModal from './ShareModal'
 
@@ -228,7 +228,7 @@ return (
     
   </div>
 
- <ShareModal show={modalShow} hide={modalToggle} /> : 
+ <ShareModal show={modalShow} hide={modalToggle} /> 
   
 </div>
     )

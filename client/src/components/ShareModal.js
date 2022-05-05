@@ -27,17 +27,19 @@ import {
     WhatsappIcon,
   } from "react-share";
 
-const ShareModal = ({ show, hide}) => {
+const ShareModal = ({ showModal, hideModal}) => {
 
-  const modalDisplay = show ? 'block' : 'none'   
+  const modalDisplay = showModal ? 'block' : 'none'  
+  
+  //const newURL = localStorage.getItem('shareUrl')
 
   return(
 <div id="share-container" className="w3-modal w3-light-green" style={{display: modalDisplay}} >
    
     <div className="w3-modal-content w3-animate-zoom ">
-    <button className="w3-button w3-deep-orange w3-large  w3-display-topright" title="Close Modal Image" onClick={hide} /*onClick={onClouseFullSizeImage}*/ ><i className="fa-solid fa-rectangle-xmark"/></button>
+    <button className="w3-button w3-deep-orange w3-large  w3-display-topright" title="Close Modal Image" onClick={hideModal} /*onClick={onClouseFullSizeImage}*/ ><i className="fa-solid fa-rectangle-xmark"/></button>
     <EmailShareButton
-        url={"https://peing.net/ja/"}
+        url={'github.com/lizzethgd'}
         quote={"フェイスブックはタイトルが付けれるようです"}
         hashtag={"#hashtag"}
         description={"aiueo"}
@@ -46,7 +48,7 @@ const ShareModal = ({ show, hide}) => {
     </EmailShareButton>
     <br />
     <FacebookShareButton
-        url={"https://peing.net/ja/"}
+        url={'https://github.com/lizzethgd'}
         quote={"フェイスブックはタイトルが付けれるようです"}
         hashtag={"#hashtag"}
         description={"aiueo"}
@@ -142,8 +144,6 @@ const ShareModal = ({ show, hide}) => {
       </MailruShareButton>
     </div>
 </div>)
-{/*  </>, document.body    
-  ) : null */}
 }
 
 export default ShareModal

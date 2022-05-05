@@ -34,6 +34,7 @@ useEffect(() => {
      }catch(err){
         console.log(err)
     }
+
 }, [init]);
 
 console.log(filters)

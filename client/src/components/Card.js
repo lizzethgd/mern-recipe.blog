@@ -7,7 +7,7 @@ import {addFavorite, deleteFavorite} from '../services/FavoriteService';
 import {Link, useNavigate} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext';
 
-const Card = ({dispatch}) => {
+const Card = ({dispatch, toggle}) => {
 
     const {user, isAuthenticated} = useContext(AuthContext)
     
@@ -24,6 +24,11 @@ const Card = ({dispatch}) => {
     const showDescription = () =>{
         open==="" ? setOpen("opened") : setOpen("")
     } 
+
+    /* const modalShow = () => {
+      toggle()
+      localStorage.setItem('shareUrl', 'https://github.com/lizzethgd')
+    } */
 
   //const { title, description, serves, cookTime, photo, author, likes, favorites, createdAt } = recipe
   const initCard = useCallback(async() => {
@@ -84,7 +89,7 @@ return (
             <span className="w3-opacity" > @{recipe.author.username} </span>
           </div>
           <div className="head__right" >
-             <Link className="w3-hover-text-deep-orange" style={{color : "blue"}} to="/share"><i className="fa-solid fa-share-nodes" title="Share"  /></Link>
+             <span className="w3-hover-text-deep-orange" style={{color : "blue"}} onClick={toggle}><i className="fa-solid fa-share-nodes" title="Share"  /></span>
         </div>
         </div>
         <div className="card__image" onClick={showDescription}>
