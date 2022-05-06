@@ -1,3 +1,4 @@
+import '../assets/css/share.scss'
 import {
     EmailShareButton,
     FacebookShareButton,
@@ -29,15 +30,20 @@ import {
 
 const ShareModal = ({ showModal, hideModal}) => {
 
-  const modalDisplay = showModal ? 'block' : 'none'  
+  const {show, newURL} = showModal
+
+  const modalDisplay = show ? 'block' : 'none'  
   
   //const newURL = localStorage.getItem('shareUrl')
 
   return(
-<div id="share-container" className="w3-modal w3-light-green" style={{display: modalDisplay}} >
+<div id="share-container" className="w3-modal" style={{display: modalDisplay}} >
    
-    <div className="w3-modal-content w3-animate-zoom ">
-    <button className="w3-button w3-deep-orange w3-large  w3-display-topright" title="Close Modal Image" onClick={hideModal} /*onClick={onClouseFullSizeImage}*/ ><i className="fa-solid fa-rectangle-xmark"/></button>
+    <div className="w3-modal-content w3-animate-zoom w3-round-large w3-light-grey modal_content">
+    <div className="modal_head"><span className='titles'>Share</span><i className="fa-solid fa-xmark w3-button w3-deep-orange w3-large w3-display-topright close" title="Close" onClick={hideModal}/></div>
+    <hr className='hr-1' />
+    <div className='modal_body'>
+    <div className='social_div'>
     <EmailShareButton
         url={'github.com/lizzethgd'}
         quote={"フェイスブックはタイトルが付けれるようです"}
@@ -45,17 +51,21 @@ const ShareModal = ({ showModal, hideModal}) => {
         description={"aiueo"}
         className="Demo__some-network__share-button"
     ><EmailIcon size={32} round={true} />
+    <p>Email</p>
     </EmailShareButton>
-    <br />
+    </div>
+    <div className='social_div'>
     <FacebookShareButton
-        url={'https://github.com/lizzethgd'}
+        url={newURL}
         quote={"フェイスブックはタイトルが付けれるようです"}
         hashtag={"#hashtag"}
         description={"aiueo"}
         className="Demo__some-network__share-button"
-    ><FacebookIcon size={32} round={true} /> Facebookでshare
+    ><FacebookIcon size={32} round={true} />
+    <p>Facebook</p> 
     </FacebookShareButton>
-    <br />
+    </div>
+    <div className='social_div'>
     <FacebookMessengerShareButton
         url={"https://peing.net/ja/"}
         quote={"フェイスブックはタイトルが付けれるようです"}
@@ -63,8 +73,10 @@ const ShareModal = ({ showModal, hideModal}) => {
         description={"aiueo"}
         className="Demo__some-network__share-button"
     > <FacebookMessengerIcon size={32} round={true} />
+    <p>Messenger</p> 
     </FacebookMessengerShareButton>
-    <br />
+    </div>
+    <div className='social_div'>
      <WhatsappShareButton
         url={"https://peing.net/ja/"}
         quote={"フェイスブックはタイトルが付けれるようです"}
@@ -72,25 +84,32 @@ const ShareModal = ({ showModal, hideModal}) => {
         description={"aiueo"}
         className="Demo__some-network__share-button"
     > <WhatsappIcon size={32} round={true} />
+    <p>Whatsapp</p> 
     </WhatsappShareButton>
-    <br />
+    </div>
+    <div className='social_div'> 
     <TwitterShareButton
-        title={"test"}
         url={"https://peing.net/ja/"}
+        quote={"フェイスブックはタイトルが付けれるようです"}
         hashtags={["hashtag1", "hashtag2"]}
-      ><TwitterIcon size={32} round={true} /> Twitterでもshare
+        description={"aiueo"}
+        className="Demo__some-network__share-button"
+      ><TwitterIcon size={32} round={true} />
+     <p>Twitter</p> 
       </TwitterShareButton>
-      <br />   
+     </div> 
+     <div className='social_div'>  
     <TelegramShareButton
         url={"https://peing.net/ja/"}
         quote={"フェイスブックはタイトルが付けれるようです"}
         hashtag={"#hashtag"}
         description={"aiueo"}
         className="Demo__some-network__share-button"
-    > 
-    <TelegramIcon size={32} round={true} />
+    ><TelegramIcon size={32} round={true} />
+     <p>Telegram</p> 
     </TelegramShareButton>
-    <br />
+    </div>
+    <div className='social_div'>
     <LinkedinShareButton
         url={"https://peing.net/ja/"}
         quote={"フェイスブックはタイトルが付けれるようです"}
@@ -98,35 +117,41 @@ const ShareModal = ({ showModal, hideModal}) => {
         description={"aiueo"}
         className="Demo__some-network__share-button"
     > <LinkedinIcon size={32} round={true} />
+    <p>Linkedin</p> 
     </LinkedinShareButton>
-    <br /> 
+    </div>
+    <div className='social_div'>
     <RedditShareButton
         url={"https://peing.net/ja/"}
         quote={"フェイスブックはタイトルが付けれるようです"}
         hashtag={"#hashtag"}
         description={"aiueo"}
         className="Demo__some-network__share-button"
-    > 
-    <RedditIcon size={32} round={true} />
+    ><RedditIcon size={32} round={true} />
+    <p>Reddit</p> 
     </RedditShareButton>
-    <br />
+    </div>
+    <div className='social_div'>
     <PinterestShareButton
         url={"https://peing.net/ja/"}
         quote={"フェイスブックはタイトルが付けれるようです"}
         hashtag={"#hashtag"}
         description={"aiueo"}
         className="Demo__some-network__share-button"
-    > 
-    <PinterestIcon size={32} round={true} />
+    > <PinterestIcon size={32} round={true} />
+    <p>Pinteres</p> 
     </PinterestShareButton>
-    <br />   
+    </div>
+    <div className='social_div'>  
     <TumblrShareButton
         title={"test"}
         url={"https://peing.net/ja/"}
         hashtags={["hashtag1", "hashtag2"]}
       > <TumblrIcon size={32} round={true} />
+       <p>Tumblr</p> 
     </TumblrShareButton>
-    <br />
+    </div>
+    <div className='social_div'>
      <VKShareButton
         url={"https://peing.net/ja/"}
         quote={"フェイスブックはタイトルが付けれるようです"}
@@ -134,14 +159,29 @@ const ShareModal = ({ showModal, hideModal}) => {
         description={"aiueo"}
         className="Demo__some-network__share-button"
     > <VKIcon size={32} round={true} />
-    </VKShareButton> 
-    <br />
+     <p>VK</p> 
+    </VKShareButton>
+    </div>
+    <div className='social_div'>
       <MailruShareButton
         title={"test"}
         url={"https://peing.net/ja/"}
         hashtags={["hashtag1", "hashtag2"]}
-      ><MailruIcon size={32} round={true} /> 
+      ><MailruIcon size={32} round={true} />
+      <p>Mailru</p>  
       </MailruShareButton>
+      </div>
+      </div>
+      <hr className='hr-2'/>  
+     <div className='modal_footer'>
+      <label className="titles" >Page Link <span className="message"></span></label>
+        <div className="url_copy">
+          <input className="url_input" type="url" placeholder="https://www.arcardio.app/acodyseyy"
+          id="myInput" aria-describedby="inputGroup-sizing-default"  />
+            <botton className="fa-solid fa-clone copy_url" /* onClick={} */ title="copy url"/>
+        </div>
+      </div> 
+    
     </div>
 </div>)
 }

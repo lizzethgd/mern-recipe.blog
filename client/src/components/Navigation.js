@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react'
-import {useNavigate, NavLink, useLocation, Link} from "react-router-dom";
+import {useNavigate, NavLink, useLocation} from "react-router-dom";
 import AuthService from '../services/AuthService'
 import {AuthContext} from '../context/AuthContext';
 import avatar from "../assets/images/avatar6.png"
@@ -83,9 +83,9 @@ return (
   
   { !isAuthenticated ? null  : userLinksTop }
   
-    <div className="w3-bar-item w3-right  w3-hide-small search-container ">
+    <div className="w3-bar-item w3-right w3-hide-small search-container ">
       <input type="text" placeholder="Search recipe..  " id="search" onChange={handleChange} required/>
-      <button className="w3-bar-item  w3-button w3-hide-small w3-right  w3-hover-white fa-solid fa-magnifying-glass button" onClick={handleSubmit} /* to='/mysearch' state={{ dispatch: search }} *//>
+      <button className="w3-bar-item  w3-button w3-hide-small w3-right  w3-hover-white fa-solid fa-magnifying-glass button" onClick={handleSubmit} />
     </div>
  
  </div>

@@ -1,5 +1,4 @@
 import {useState, useContext, useEffect, useCallback} from 'react'
-//import '../assets/css/cards.scss'
 import miniAvatar from "../assets/images/avatar6.png"
 import {getRecipe} from '../services/RecipeService';
 import {addLike, deleteLike} from '../services/LikeService';
