@@ -36,6 +36,14 @@ const ShareModal = ({ showModal, hideModal}) => {
   
   //const newURL = localStorage.getItem('shareUrl')
 
+  const copyURL = () => {
+      const url = document.getElementById('inputURL')
+      console.log(url)
+      url.select()
+      document.execCommand('copy')
+      //navigator.clipboard.writeText(newURL)
+  }
+
   return(
 <div id="share-container" className="w3-modal" style={{display: modalDisplay}} >
    
@@ -176,9 +184,9 @@ const ShareModal = ({ showModal, hideModal}) => {
      <div className='modal_footer'>
       <label className="titles" >Page Link <span className="message"></span></label>
         <div className="url_copy">
-          <input className="url_input" type="url" placeholder="https://www.arcardio.app/acodyseyy"
-          id="myInput" aria-describedby="inputGroup-sizing-default"  />
-            <botton className="fa-solid fa-clone copy_url" /* onClick={} */ title="copy url"/>
+          <input className="url_input" id="inputURL" type="url" /* placeholder={newURL} */
+          aria-describedby="inputGroup-sizing-default" value={newURL} />
+            <botton className="fa-solid fa-clone copy_url" onClick={copyURL} title="copy url"/>
         </div>
       </div> 
     

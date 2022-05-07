@@ -137,7 +137,7 @@ const Recipe = () => {
       } else history('/login')
   } 
 
-  const [modalShow, setModalShow] = useState({show: false, newURL: ''})
+const [modalShow, setModalShow] = useState({show: false, newURL: ''})
 
 //const [modalShow, setModalShow] = useState(false)
 
@@ -145,7 +145,7 @@ const {show, newURL} = modalShow
 
 //const modalToggle = () => setModalShow(!modalShow)
 
-const modalToggle = () => setModalShow({...modalShow, show: !show, newURL: 'http://localhost:3000'})
+const modalToggle = () => setModalShow({...modalShow, show: !show, newURL: `http://localhost:3000/${id}`})
 
 console.log(window.location.href)
 
