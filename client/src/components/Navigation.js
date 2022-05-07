@@ -5,7 +5,6 @@ import {AuthContext} from '../context/AuthContext';
 import avatar from "../assets/images/avatar6.png"
 import recipebook from "../assets/images/cook-book.png"
 import '../assets/css/nav.scss'
-//import {recipesBySearch} from '../services/RecipeService';
 
 const Navigation = () => {
 

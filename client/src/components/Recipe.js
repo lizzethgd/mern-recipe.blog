@@ -137,17 +137,14 @@ const Recipe = () => {
       } else history('/login')
   } 
 
-const [modalShow, setModalShow] = useState({show: false, newURL: ''})
+const [modalShow, setModalShow] = useState(false)
 
-//const [modalShow, setModalShow] = useState(false)
+const modalToggle = () => setModalShow(!modalShow)
 
-const {show, newURL} = modalShow
-
-//const modalToggle = () => setModalShow(!modalShow)
-
-const modalToggle = () => setModalShow({...modalShow, show: !show, newURL: `http://localhost:3000/${id}`})
-
-console.log(window.location.href)
+const handleModal = () => {
+  modalToggle()
+  localStorage.setItem('shareUrl', `${window.location.protocol}//${window.location.host}/${id}`) 
+}
 
 return (
 <div className="w3-container w3-light-green w3-center padd" >
@@ -200,7 +197,7 @@ return (
     Published by <img src={author.photo ? author.photo: miniavatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {new Date(createdAt).toLocaleDateString()} 
     <p className="w3-large">
         <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;&nbsp;   
-        <i className="w3-button w3-hover-white w3-hover-text-deep-orange fa-solid fa-share-alt" onClick={modalToggle}/> &nbsp;&nbsp;&nbsp; 
+        <i className="w3-button w3-hover-white w3-hover-text-deep-orange fa-solid fa-share-alt" onClick={handleModal}/> &nbsp;&nbsp;&nbsp; 
         <i className={`fa-${bookmark} fa-bookmark`} style={{color: "darkblue", cursor: 'pointer'}} onClick={handleFavorite}/> {favorites.length > 0 ? favorites.length : ''}
     </p>
     <div className="w3-container w3-padding-small"/>  
@@ -235,7 +232,7 @@ return (
     
   </div>
 
-  <ShareModal showModal={modalShow} hideModal={modalToggle} /> 
+  <ShareModal showModal={modalShow} toggleModal={modalToggle} /> 
   
 </div>
     )
