@@ -50,8 +50,9 @@ const closeModal = () =>{
 <div id="share-container" className="w3-modal" style={{display: modalDisplay}} >
    
     <div className="w3-modal-content w3-animate-zoom w3-round-large w3-light-grey modal_content">
-    <div className="modal_head"><span className='titles'>Share</span><i className="fa-solid fa-xmark w3-button w3-deep-orange w3-large w3-display-topright close" title="Close" onClick={closeModal}/></div>
+    <div className="modal_head"><span className='titles'>Share via</span><i className="fa-solid fa-xmark w3-button w3-deep-orange w3-large w3-display-topright close" title="Close" onClick={closeModal}/></div>
     <hr className='hr-1' />
+
     <div className='modal_body'>
     <div className='social_div'>
     <EmailShareButton
@@ -184,8 +185,9 @@ const closeModal = () =>{
       </div>
       <hr className='hr-2'/>  
      <div className='modal_footer'>
-      <label className="titles" >Page Link <span className="message"></span></label>
+      <div className="titles" >Or copy link <span className="message"></span></div>
         <div className="url_copy">
+         <i className="fa-solid fa-link link_icon"/>
           <input className="url_input" id="inputURL" type="url" /* placeholder={shareURL} */
           aria-describedby="inputGroup-sizing-default" value={shareURL} />
             <botton className="fa-solid fa-clone copy_url" onClick={copyURL} title="copy url"/>
