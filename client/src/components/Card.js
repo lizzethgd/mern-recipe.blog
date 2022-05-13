@@ -1,5 +1,6 @@
 import {useState, useContext, useEffect, useCallback} from 'react'
-import miniAvatar from "../assets/images/avatar6.png"
+import miniAvatar from "../assets/images/blankAvatar.jpg"
+import blankRecipe from "../assets/images/blankRecipe.jpg"
 import {getRecipe} from '../services/RecipeService';
 import {addLike, deleteLike} from '../services/LikeService';
 import {addFavorite, deleteFavorite} from '../services/FavoriteService';
@@ -92,7 +93,7 @@ return (
         </div>
         </div>
         <div className="card__image" onClick={showDescription}>
-          <img src={recipe.photo ? recipe.photo : miniAvatar} alt={recipe.title} />
+          <img src={recipe.photo ? recipe.photo : blankRecipe} alt={recipe.title} />
         </div>
         <div className="card__title">
            <h2>{recipe.title}</h2>

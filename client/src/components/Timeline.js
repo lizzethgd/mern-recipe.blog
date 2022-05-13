@@ -10,7 +10,7 @@ const bulletFunction = function ( index, className) {
 const Timeline = () => {
   
   useEffect(() => {
-  const swiper = new Swiper ('.swiper-container', {
+  new Swiper ('.swiper-container', {
     direction: 'vertical',
     speed: 1600,
     pagination: {

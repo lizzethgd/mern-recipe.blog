@@ -1,12 +1,12 @@
 import avatar from "../assets/images/avatar6.png"
-import {useEffect, useContext, useState} from 'react'
-import UserService from '../services/UserService';
+import {useContext, useState} from 'react'
+import {updateProfile} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
 import {Link, useNavigate} from 'react-router-dom'
 
 const EditPassword = () => {
 
-  const {isAuthenticated, user, setUser} = useContext(AuthContext);
+  const {user, setUser} = useContext(AuthContext);
 
   const [updateUserPassword, setUpdateUserPassword] = useState({
     currentPassword: '',
@@ -14,19 +14,11 @@ const EditPassword = () => {
     password: ''
   })
 
-  /* const [ inputType, setInputType] = useState('password')
-  const [ eyeSlash, setEyeSlash] = useState('-slash') */
   const [passwordsShow, setPasswordsShow] = useState({
     currentPwShow: {typePass: 'password', slash: '-slash' },
     newPwShow: {typePass:'password', slash:'-slash' },
     confirmPwShow: {typePass:'password', slash:'-slash' } 
   });
-
- /*  
-  currentPwShow: ['password', '-slash' ],
-    newPwShow: ['password', '-slash' ],
-    confirmPwShow: ['password', '-slash' ]
- */
 
   const [message, setMessage] =useState('')
   const history = useNavigate()
@@ -65,7 +57,7 @@ const handleSubmit = e =>{
     const formData = new FormData()
     formData.append('_id', user._id)
     formData.append('password',  updateUserPassword.password)
-    UserService.updateProfile( formData, user._id).then(data=> {
+    updateProfile( formData, user._id).then(data=> {
     setUser(data.user);
     history('/myprofile')
       })
@@ -75,7 +67,6 @@ const handleSubmit = e =>{
   
 }
 
-console.log(passwordsShow)
 return (
 <div className=" w3-light-green  w3-center w3-padding-32 w3-padding-top-64">
    <form className="w3-card w3-round w3-light-grey  w3-content" onSubmit={handleSubmit}>
@@ -90,6 +81,7 @@ return (
         <br/> 
         <br/> 
         <div className="w3-margin" style={{display: "flex"}}>
+          <span>{message}</span>
           <i className="fa-solid fa-unlock-keyhole fa-fw w3-margin-top w3-margin-right w3-text-theme" title=' password'/>
           <div className="w3-border" style={{display: "flex"}} >
             <input className="w3-input" type={passwordsShow.currentPwShow.typePass} id="currentPassword" onChange={handleChange} onKeyDown={handleEnter} placeholder='Current password'/>

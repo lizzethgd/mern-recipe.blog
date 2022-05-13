@@ -1,0 +1,16 @@
+.imgRecipe{
+    padding-top:24px;
+    padding-bottom: 8px;
+    width: 75%;
+    height: 25%
+}
+
+@media only screen and (max-width: 800px) {
+
+.imgRecipe{
+    padding-top: 25px;
+    padding-bottom: 4px;
+    width: 90%;
+    height: 30%
+}
+}

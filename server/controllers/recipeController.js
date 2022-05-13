@@ -77,8 +77,13 @@ await res.status(200).json(recipes);
 
 exports.create = async (req, res) => {
   try {
-    if (req.file) req.body.photo='imgUploads/'+req.file.filename 
-      console.log(req.body)
+    /* if (req.file){
+      console.log('req.file in recipe controlled: ')
+      console.log(req.file)
+      //req.body.photo='imgUploads/recipes/'+req.file.filename 
+    } */
+    console.log('req.file in recipe controlled: ')
+    console.log(req.body) 
     const newRecipe = await new Recipe(req.body)
       await newRecipe.save();
       await res.status(200).json({success : true, recipe: newRecipe})
@@ -90,9 +95,9 @@ exports.create = async (req, res) => {
 
 exports.update =  async (req, res) => {
   try {
-    if (req.file) req.body.photo='imgUploads/'+req.file.filename
+    if (req.file) req.body.photo='imgUploads/recipes/'+req.file.filename
     console.log('elbody')
-  console.log(req.body)
+    console.log(req.body)
     const updateRecipe = await Recipe.findByIdAndUpdate(req.params.id, {
       $set: req.body
     },{new: true})

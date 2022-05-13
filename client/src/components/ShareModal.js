@@ -32,7 +32,7 @@ const ShareModal = ({ showModal, toggleModal}) => {
 
 const modalDisplay = showModal ? 'block' : 'none' 
   
-const shareURL = localStorage.getItem('shareUrl')
+const shareURL = localStorage.getItem('shareUrl') 
 
 const closeModal = () =>{
   toggleModal()
@@ -186,12 +186,12 @@ const closeModal = () =>{
       <hr className='hr-2'/>  
      <div className='modal_footer'>
       <div className="titles" >Or copy link <span className="message"></span></div>
-        <div className="url_copy">
+        <form className="url_copy">
          <i className="fa-solid fa-link link_icon"/>
           <input className="url_input" id="inputURL" type="url" /* placeholder={shareURL} */
-          aria-describedby="inputGroup-sizing-default" value={shareURL} />
-            <botton className="fa-solid fa-clone copy_url" onClick={copyURL} title="copy url"/>
-        </div>
+          aria-describedby="inputGroup-sizing-default" defaultValue={shareURL } />
+            <button className="fa-solid fa-clone copy_url" onClick={copyURL} title="copy url"/>
+        </form>
       </div> 
     
     </div>

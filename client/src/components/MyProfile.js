@@ -1,5 +1,5 @@
 import avatar from "../assets/images/avatar6.png"
-import { useContext, useState} from 'react'
+import { useContext} from 'react'
 import {AuthContext} from '../context/AuthContext';
 import {Link} from 'react-router-dom'
 
@@ -7,20 +7,7 @@ const MyProfile = () => {
 
    const {user} = useContext(AuthContext);
 
-
    console.log(user)
-
-  /*  useEffect(() => {
-      (async () => { 
-         try{
-           const data =  await UserService.profile(user)
-           console.log(data)
-           setProfile(data)
-        }catch(err){
-           console.log(err)
-       }
-      }) () 
-   }, []); */
    
 return (
 <div className=" w3-light-green w3-center w3-padding-32 w3-padding-top-64">

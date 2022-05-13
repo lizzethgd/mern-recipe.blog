@@ -1,4 +1,5 @@
 const multer  = require('multer');
+//const sharp = require('sharp');
 const path = require('path');
 
 const storage = multer.diskStorage({
@@ -13,6 +14,10 @@ const storage = multer.diskStorage({
     }
   })
 
+const limits = {
+  fileSize: 1048576
+}  
+
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
         || file.mimetype === 'image/jpeg'){
@@ -22,6 +27,6 @@ const fileFilter = (req, file, cb) => {
         }
 };
   
-const upload = multer({ storage,  fileFilter })
+const upload = multer({ storage,  limits, fileFilter })
 
 module.exports = upload.single('photo')

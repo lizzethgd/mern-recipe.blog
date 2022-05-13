@@ -1,15 +1,13 @@
-
 export const getRecipe = async (id) => {
   console.log(id)
 try{
   const res = await fetch(`recipe/${id}`)
   console.log(res)
   if (res.status !== 401)
-  return res.json()
+  return await res.json()
 }catch(err) {
     console.log('error in recipeService: '+err)
  }
-
 }
 
 export const getAllRecipes = async (filters) => {
@@ -20,7 +18,7 @@ export const getAllRecipes = async (filters) => {
   const res = await fetch(`recipe/recipes/${category}/${language}/${region}`)
   //const res = await fetch('recipe/recipes')
   console.log(res)
-  return res.json()
+  return await res.json()
 
   }catch(err) {
     console.log('error in recipeService: '+err)
@@ -32,7 +30,7 @@ export const recipesBySearch = async (search) => {
   try{
   const res = await fetch(`recipe/recipes/${search}`)
   console.log(res)
-  return res.json()
+  return await res.json()
 
   }catch(err) {
     console.log('error in recipeService: '+err)
@@ -45,7 +43,7 @@ export const getRecipeByUser = async (id) => {
   //const res = await fetch(`recipe/recipes/${categoryId}/${languageId}/${regionId}`)
   const res = await fetch(`recipe/author/${id}`)
   console.log(res)
-  return res.json()
+  return await res.json()
 
   }catch(err) {
     console.log('error in recipeService: '+err)
@@ -59,7 +57,7 @@ export const editRecipe = async (updateRecipe, id) => {
         body: updateRecipe,
       });
       if (res.status !== 401)
-        return res.json();
+        return await res.json();
     }catch(err) {
       console.log('error in recipeService: '+err)
     }
@@ -72,7 +70,7 @@ export const createRecipe = async (recipe) => {
       body: recipe,
   });
   if (res.status !== 401)
-    return res.json();
+    return await res.json();
   }catch(err) {
     console.log('error in recipeService: '+err)
   }
@@ -84,7 +82,7 @@ export const removeRecipe = async (id) => {
         method: 'DELETE',
       });
       if (res.status !== 401)
-        return res.json();
+        return await res.json();
     }catch(err) {
       console.log('error in recipeService: '+err)
     }

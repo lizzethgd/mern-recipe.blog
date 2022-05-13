@@ -1,10 +1,11 @@
 import {useContext, useEffect, useState} from 'react'
+import {useNavigate} from 'react-router-dom'
+//import Resizer from "react-image-file-resizer";
 import {AuthContext} from '../context/AuthContext';
 import {createRecipe} from '../services/RecipeService';
 import { getCategories } from '../services/CategoryService';
 import { getLanguages } from '../services/LanguageService';
 import { getRegions } from '../services/RegionService';
-import {Link, useNavigate} from 'react-router-dom'
 
 const AddRecipe = () => {
 
@@ -47,38 +48,43 @@ useEffect(() => {
     }) () 
 }, []) 
 
-    const handleSubmit = e  =>{
+const addRecipe= async (form) => {
+    const res = await createRecipe(form)
+    const ID =  await res.recipe._id
+    if (ID!==undefined) history(`/${ID}`)
+} 
+
+    const handleSubmit = async e  =>{
     e.preventDefault()
     const formData = new FormData()
     formData.append('title', title)
     formData.append('description', description)
     formData.append('serves', serves)
     cookTime.forEach(i => formData.append("cookTime[]", i))
-    formData.append('photo', recipe.photo)
+    formData.append('photo', photo)
     ingredients.forEach(i => formData.append("ingredients[]", i))
     steps.forEach(i => formData.append("steps[]", i))
-    formData.append('author', recipe.author)
-    formData.append('category', recipe.category)
-    formData.append('language', recipe.language)
-    formData.append('region', recipe.region)
+    formData.append('author', author)
+    formData.append('category', category)
+    formData.append('language', language)
+    formData.append('region', region)
     console.log(formData)
-    createRecipe(formData).then(data=> {
-    history(`/${data.recipe._id}`)
-    })
+    await addRecipe(formData)
 }
 
 const handleChange = e => {
-    console.log(recipe)
-    let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
+    //let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
+    let value = e.target.value
     setRecipe({ ...recipe, [e.target.id]: value })
 }
 
-/* const handleImage = e => {
-    e.preventDefault()
-    //setImgUrl(URL.createObjectURL(e.target.files[0]))
-    setRecipe({ ...recipe, photo: e.target.files[0] })
-  };
- */
+  const handlePhoto = async e =>{
+    let value = e.target.files[0] 
+    //const resizedFile = await resizeFile(value)
+    //setRecipe({...recipe, photo: resizedFile})
+    setRecipe({...recipe, photo: value})
+}  
+
 const handleChangeCookTime = e =>{
     let values = cookTime
     e.target.id === "hh" ? values[0]=e.target.value :  values[1]=e.target.value
@@ -133,20 +139,21 @@ const handleEnter = e => {
     }
     };
 
-const ingredientsInputs = recipe.ingredients.map((ingredient, i) =>
+const ingredientsInputs = ingredients.map((ingredient, i) =>
     <div key={i} className="w3-section ">
         <input className="w3-input" id={"ingredient "+i} style={{width:"93%", paddingTop:"0px"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} onKeyDown={handleEnter}/>
         <div className="w3-button w3-circle w3-right" style={{padding:0}} onClick={() => delIngredient(i)}><i className="fa fa-times-circle" /></div>
     </div>
 )
 
-const stepsInputs = recipe.steps.map((step, i)=> 
+const stepsInputs = steps.map((step, i)=> 
     <li key={i} className="w3-section w3-large" >     
     <textarea className="w3-input" id={"step "+i} type="text" value={step} onChange={e => handleChangeStep(e, i)} onKeyDown={handleEnter}/>
     <div className="w3-button w3-circle w3-right w3-text-black" style={{padding:0}} onClick={() => delStep(i)}><i className="fa fa-times-circle" /></div>
     </li>
 )
-
+//console.log(getImageSize(recipe.photo))
+console.log(recipe.photo)
 
 return (
 <div className="w3-container w3-light-green w3-text-white" >
@@ -159,7 +166,7 @@ return (
     <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Description"  id="description" value={description} onChange={handleChange} onKeyDown={handleEnter}/></div>
     <div className=" w3-section w3-row-padding " >
         <div className=" w3-quarter ">
-        <label className="w3-border">N° serves: </label > <input className="w3-border" type="number" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={handleChange} onKeyDown={handleEnter}/>
+        <label className="w3-border">N° serves: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={handleChange} onKeyDown={handleEnter}/>
         </div>
         <div className=" w3-quarter ">
             <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={handleChangeCookTime} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
@@ -168,7 +175,7 @@ return (
         <label htmlFor="photo" style={{fontSize: "large"}} required>Select a image:</label>
         </div>
         <div className=" w3-quarter w3-center">
-            <input type="file" id="photo" accept=".png, .jpg, .jpeg"  onChange={handleChange} />
+            <input type="file" id="photo" accept=".png, .jpg, .jpeg"  onChange={handlePhoto} />
         </div>
     </div>
     <div className=" w3-section w3-row-padding w3-center" >
@@ -234,27 +241,3 @@ return (
 }
 
 export default AddRecipe
-
-/* 
-
-const ingredientsInputs = recipe.ingredients.map((ingredient, i) =>
-        <div key={i} className="w3-section ">
-          <input className="w3-input" style={{width:"93%", paddingTop:"0px"}} type="text" required id={i} value={ingredient} onChange={e => handleChangeIngredients(e, i)}/>
-          <button className="w3-button w3-circle w3-right" style={{padding:"0px"}} onClick={delIngredient(i)}><i className="fa fa-times-circle" /></button>
-          {console.log(ingredient+" "+i)}
-        </div>
-    )
-    
- setRecipe({ ...recipe,  ingredients: [ingredients[i] = e.target.value] })
-
-const [title, setTitle] = useState()
-    const [description, setDescription] = useState() 
-    const [serves, setServes] = useState() 
-    const [cookTime, setCookTime] = useState() 
-    const [photo, setPhoto] = useState() 
-    const [ingredients, setIngredients] = useState() 
-    const [preparation, setPreparation] = useState() 
-    const [author, setAuthor] = useState() 
-    const [category, setCategory] = useState() 
-    const [language, setLanguage] = useState() 
-    const [region, setrRgion] = useState() */

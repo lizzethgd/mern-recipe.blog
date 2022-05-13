@@ -1,5 +1,5 @@
 import {useState, useContext} from 'react'
-import AuthService from '../services/AuthService';
+import {authLogin, authRegister} from '../services/AuthService'
 import {AuthContext} from '../context/AuthContext';
 import {useNavigate } from "react-router-dom";
 import '../assets/css/login.scss'
@@ -8,7 +8,7 @@ const Login = () => {
 
     const [userLogin, setUserLogin] = useState({username: '', password: ''}) 
     const [userLogup, setUserLogup] = useState({username: '', password: ''}) 
-    const {isAuthenticated, user, setIsAuthenticated, setUser} = useContext(AuthContext); 
+    const {setIsAuthenticated, setUser} = useContext(AuthContext); 
     const [message,setMessage] = useState();
     const [ inputTypeLogin, setInputTypeLogin] = useState('password')
     const [ eyeSlashLogin, setEyeSlashLogin] = useState('-slash')
@@ -29,7 +29,7 @@ const Login = () => {
 
     const handleSubmitLogin =  (e) => {
         e.preventDefault();
-            AuthService.authLogin(userLogin).then(data=>{
+            authLogin(userLogin).then(data=>{
                 const { isAuthenticated,user} = data;    
                 if(isAuthenticated){
                     setUser(user);
@@ -46,7 +46,7 @@ const Login = () => {
     const handleSubmitLogup = e => {
         try{
         e.preventDefault();
-        AuthService.authRegister(userLogup)
+        authRegister(userLogup)
     }catch(err){console.log(err.message)}
     
       }   
@@ -58,7 +58,7 @@ const Login = () => {
         let loginDiv = document.getElementById('login');
         Array.from(e.target.parentNode.parentNode.classList).find((element) => {
             if(element !== 'slide-up') {
-                return parent.classList.add('slide-up')
+                parent.classList.add('slide-up')
             }else{
                 loginDiv.parentNode.classList.add('slide-up')
                 parent.classList.remove('slide-up')

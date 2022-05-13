@@ -1,5 +1,5 @@
 import {createContext, useState, useEffect} from 'react';
-import AuthService from '../services/AuthService';
+import {checkAuthentication} from '../services/AuthService';
 
 export const AuthContext = createContext({});
 
@@ -12,7 +12,7 @@ export default ({ children }) => {
    useEffect(()=>{ 
     (async () => { 
         try{
-        const data = await AuthService.checkAuthentication()
+        const data = await checkAuthentication()
         setUser(data.user);
         setIsAuthenticated(data.isAuthenticated)
         setIsLoaded(true)

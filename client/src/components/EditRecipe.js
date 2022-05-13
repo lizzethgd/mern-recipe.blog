@@ -116,7 +116,7 @@ const EditRecipe = () => {
         setUpdateRecipe({ ...updateRecipe, steps: values })
     } 
 
-    const handleEnter = e => {
+/*     const handleEnter = e => {
         e.preventDefault();
         if (e.key.toLowerCase() === "enter") {
           const form = e.target.form;
@@ -126,7 +126,7 @@ const EditRecipe = () => {
           form.elements[index + 1].focus();
         }
       };
-
+ */
     const ingredientsInputs = updateRecipe.ingredients.map((ingredient, i) =>
         <div key={i} className="w3-section" >
           <input className="w3-input" id={"ingredient "+i} style={{width:"93%", paddingTop:"0px"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} />

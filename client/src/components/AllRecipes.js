@@ -1,7 +1,7 @@
 import Filter from './Filter';
 import CardsList from './CardsList';
 import Numeration from './Numeration';
-import { useState, useCallback, useEffect, useContext } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {sliceData, pagination} from "../helpers/funtions.js"
 import {getAllRecipes} from '../services/RecipeService';
 
@@ -26,7 +26,7 @@ const AllRecipes = () => {
     setTotalPages(totalPages)
     setPageSlice(sliceData(data, currentPage, pageSize))
     setPagesNumeration(pagination(totalPages, sibling, currentPage))
-  }, [filters, currentPage, pageSize, sibling])
+  }, [filters, currentPage])
 
 useEffect(() => {
       try{
@@ -37,7 +37,7 @@ useEffect(() => {
 
 }, [init]);
 
-console.log(filters)
+//console.log(filters)
 
 return (
 <div className="w3-container">

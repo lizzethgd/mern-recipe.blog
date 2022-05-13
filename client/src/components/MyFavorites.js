@@ -1,6 +1,6 @@
 import CardsList from './CardsList';
 import Numeration from './Numeration';
-import { useState, useMemo, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import {sliceData, pagination} from "../helpers/funtions.js"
 import {AuthContext} from '../context/AuthContext';
 import {favoritesByUser} from '../services/FavoriteService';
@@ -28,7 +28,7 @@ const MyFavorites = () => {
           console.log(err)
       }
      }) () 
-  }, [user, pageSize, sibling, currentPage, setTotalPages, setPagesNumeration, setPageSlice]);
+  }, [user, pageSize, sibling, currentPage]);
   
   
   return (

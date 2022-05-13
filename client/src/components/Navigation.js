@@ -1,8 +1,8 @@
 import {useContext, useState} from 'react'
 import {useNavigate, NavLink, useLocation} from "react-router-dom";
-import AuthService from '../services/AuthService'
+import {authLogout} from '../services/AuthService'
 import {AuthContext} from '../context/AuthContext';
-import avatar from "../assets/images/avatar6.png"
+import avatar from "../assets/images/blankAvatar.jpg"
 import recipebook from "../assets/images/cook-book.png"
 import '../assets/css/nav.scss'
 
@@ -17,7 +17,7 @@ const Navigation = () => {
   const history = useNavigate() 
   
   const onClickLogoutHandler = async ()=>{
-    await AuthService.authLogout().then(data=>{
+    await authLogout().then(data=>{
        console.log(data)
          if(data.success){
              setUser(data.user);
@@ -73,8 +73,8 @@ return (
 {/*  <!-- Navbar --> */}
 <div className="w3-top" style={{zIndex: 2}}>
  <div className="w3-bar w3-deep-orange w3-left-align w3-large" > 
-  <a className="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"  href="#" onClick={openNav}><i className="fa fa-bars"></i></a>
-  <NavLink  className="w3-bar-item w3-button w3-hide-small w3-deep-orange" title="Home" to="/"><img src={recipebook} style={{padding:0, height:"35px", width:"35px"}}/> <b>RecipePad</b></NavLink>
+  <a className="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-theme-d2"  href="#mynav" onClick={openNav}><i className="fa fa-bars"></i></a>
+  <NavLink  className="w3-bar-item w3-button w3-hide-small w3-deep-orange" title="Home" to="/"><img src={recipebook} style={{padding:0, height:"35px", width:"35px"}} alt="recipebook" /> <b>RecipePad</b></NavLink>
   
   <div className="w3-dropdown-hover w3-right w3-hide-small">
   { !isAuthenticated ? userNoLog : userLog }
@@ -92,10 +92,10 @@ return (
 
 {/* <!-- Navbar on small screens --> */}
 <div id="navDemo" className="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large" style={{zIndex: 2}}>
-  <a href="#" className="w3-bar-item w3-button w3-padding-large">Link 1</a>
-  <a href="#" className="w3-bar-item w3-button w3-padding-large">Link 2</a>
-  <a href="#" className="w3-bar-item w3-button w3-padding-large">Link 3</a>
-  <a href="#" className="w3-bar-item w3-button w3-padding-large">My Profile</a>
+  <a href="#mypage" className="w3-bar-item w3-button w3-padding-large">Link 1</a>
+  <a href="#mypage" className="w3-bar-item w3-button w3-padding-large">Link 2</a>
+  <a href="#mypage" className="w3-bar-item w3-button w3-padding-large">Link 3</a>
+  <a href="#mypage" className="w3-bar-item w3-button w3-padding-large">My Profile</a>
 </div>
   
 </div>

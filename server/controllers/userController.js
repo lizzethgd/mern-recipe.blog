@@ -1,3 +1,5 @@
+const User = require('../models/User');
+
 exports.getMyProfile = async(req, res) => {
     try {
       const username = req.params.username
