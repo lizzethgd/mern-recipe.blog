@@ -1,4 +1,4 @@
-import avatar from "../assets/images/avatar6.png"
+import miniAvatar from "../assets/images/blankAvatar.jpg"
 import { useContext} from 'react'
 import {AuthContext} from '../context/AuthContext';
 import {Link} from 'react-router-dom'
@@ -16,7 +16,7 @@ return (
      <div className="w3-row padd  "  >
       <div className="w3-col m6 padd "> 
         <h4 className="w3-center">My Profile</h4>
-        <p className="w3-center"><img src={user.photo ? user.photo : avatar} className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
+        <p className="w3-center"><img src={user.photo ? user.photo : miniAvatar} className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
       </div>
       <div className="w3-col m6 padd">
         <br/> 

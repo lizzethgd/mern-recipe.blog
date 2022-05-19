@@ -12,6 +12,7 @@ import EditProfile from './components/EditProfile';
 import EditRecipe from './components/EditRecipe';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 import PrivateRoute from './hocs/PrivateRoute';
+import PublicRoute from './hocs/PublicRoute';
 import EditPassword from './components/EditPassword';
 import MySearch from './components/MySearch';
 
@@ -23,12 +24,15 @@ return (
     <Routes >
       <Route  exact path="/" element={<Home />} />
        {/*<Route exact path='/share' element={<Share  />} /> */}
-      <Route exact path='/:id' element={<Recipe  />} />
+     {/*  <Route exact path='/:id' element={<Recipe  />} /> */}
       <Route exact path='/mysearch' element={<MySearch  />} />
+
+      <Route exact path='/' element={<PublicRoute/>}>
+          <Route exact path='/:id' element={<Recipe  />} />
+      </Route>
     
       <Route exact path='/' element={<UnPrivateRoute/>}>
         <Route exact path="/login" element={<Login/>} /> 
-       
       </Route>
 
       <Route exact path='/' element={<PrivateRoute/>}>

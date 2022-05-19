@@ -14,11 +14,10 @@ const Recipe = () => {
 
   const {user, isAuthenticated} = useContext(AuthContext)
   
-  const userID = user._id ? user._id : ''
-  console.log('user: '+userID)
+  console.log('user: '+user._id)
   const {id} = useParams()
 
-  console.log(id)
+  console.log('recipe id: '+id)
 
   const history = useNavigate()
 
@@ -45,7 +44,7 @@ const Recipe = () => {
   const [newComment, setNewComment] = useState({
       content: '',
       recipe: id,
-      author: userID
+      author: ''
   })
 
   const [heart, setHeart] = useState('regular')
@@ -54,38 +53,34 @@ const Recipe = () => {
 
   const initRecipe = useCallback(async () => {
     try{
-    const data = await getRecipe(id)
-    const dataLikes = await data.likes
-    const dataFavorites = await data.favorites
-    setRecipe(data);
-      if (isAuthenticated){
-      setHeart(dataLikes.includes(userID) ? 'solid' : 'regular')
-      setBookmark(dataFavorites.includes(userID) ? 'solid' : 'regular')
-    //setNewComment(newComment => ({...newComment, author: userID}))
-      }
+      await getRecipe(id).then(data => {
+        console.log(data)
+        setRecipe(data)
+        if (isAuthenticated){
+          setHeart(data.likes.includes(user._id) ? 'solid' : 'regular')
+          setBookmark(data.favorites.includes(user._id) ? 'solid' : 'regular')
+          setNewComment(newComment => ({...newComment, author: user._id}))
+        }
+      })     
     }catch(err){
-      console.log(`error in recipe init: ${err}`) 
+      console.log(`error in initRecipe: ${err}`) 
     }  
-
-  }, [id, userID, isAuthenticated]);
-
+  }, [id, user, isAuthenticated]);
 
   const initComments = useCallback(async () => {
     try{
-    const data= await getRecipeComments(id)
-    setComments(data)
-  }catch(err){
-    console.log(`error in comments init: ${err}`) 
-  }
+      await getRecipeComments(id).then(data => setComments(data))  
+    }catch(err){
+      console.log(`error in initComments: ${err}`) 
+    }
   }, [id]);
-
 
   useEffect(() => {
         try{  
           initRecipe()
           initComments()
         }catch(err){
-          console.log('error in the useEffect page component: '+err) 
+          console.log('error in useEffect: '+err) 
         }
   }, [initRecipe, initComments]) 
 
@@ -124,13 +119,13 @@ const Recipe = () => {
   const handleLike = async e => {
       e.preventDefault()
       if (isAuthenticated)  {
-        //const hasLike = likes.some(like => like._id === userID)
-        const hasUserLik = likes.includes(userID)
+        //const hasLike = likes.some(like => like._id === user._id)
+        const hasUserLik = likes.includes(user._id)
         console.log(hasUserLik)
         if (hasUserLik){
-          await deleteLike(id, userID)
+          await deleteLike(id, user._id)
         }else{
-          await addLike(id, userID)
+          await addLike(id, user._id)
         }
         await initRecipe()
       } else history('/login')
@@ -139,13 +134,13 @@ const Recipe = () => {
   const handleFavorite = async e => {
       e.preventDefault()
       if (isAuthenticated)  {
-        //const hasFavorite = favorites.some(favorite => favorite._id === userID)
-        const hasUserFav = favorites.includes(userID)
+        //const hasFavorite = favorites.some(favorite => favorite._id === user._id)
+        const hasUserFav = favorites.includes(user._id)
         console.log(hasUserFav)
         if (hasUserFav){
-          await deleteFavorite(id, userID)
+          await deleteFavorite(id, user._id)
         }else{
-          await addFavorite(id, userID)
+          await addFavorite(id, user._id)
         }
         await initRecipe()
       } else history('/login')
@@ -162,9 +157,9 @@ const handleModal = () => {
 
 return (
 <div className="w3-container w3-light-green w3-center padd" >
-
+{/* {(!isLoaded)? <h1>Loading... </h1> : <> */}
   <div className="w3-content w3-center w3-text-white padd" id="about">
-  {photo ? <img src={photo} alt={title} className="w3-image imgRecipe"/> : null} 
+  {photo!=='undefined' && photo!=='' ? <img src={photo} alt={title} className="w3-image imgRecipe"/> : null} 
     <h2 className="w3-center padd w3-text-white">{title}</h2> 
     <div className="w3-center w3-large desc">{description? description: null}</div> 
     <div className=" w3-center r-icons">
@@ -200,7 +195,7 @@ return (
 
   </div> 
 
-  { (userID===author._id) 
+  { (author._id===user._id) 
   ? <><Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ dispatch: recipe }}>
       <i className="fa-solid fa-pen-to-square" /> Edit</Link>
     <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={deleteRecipe}>
@@ -229,7 +224,7 @@ return (
         <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">@{comment.author.username}</span></div>
         <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
         <span className="w3-justify w3-left">{comment.content}</span>
-        {(userID===comment.author._id) 
+        {(comment.author._id===user._id) 
         ? <i className="fa-solid fa-circle-xmark w3-right" onClick={(e) => deleteComment(e, comment._id)} style={{cursor: 'pointer', color: '#ff3d00'}} />
         : '' }
         </div>
@@ -247,7 +242,7 @@ return (
   </div>
 
   <ShareModal showModal={modalShow} toggleModal={modalToggle} /> 
-  
+{/*   </>} */}
 </div>
     )
 }

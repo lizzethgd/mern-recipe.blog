@@ -17,11 +17,11 @@ const fileFilter = (req, file, cb) => {
         }
 };
   
-exports.upload = multer({ storage,  limits, fileFilter })
+exports.upload = multer({ storage, limits, fileFilter })
 
 exports.resizeImage = async(req, res, next) => {
   
-  if (!req.files) return next();
+  if (!req.file) return next();
 
   console.log('req.file in resize funtion: ')
   console.log(req.file)

@@ -1,4 +1,4 @@
-import avatar from "../assets/images/avatar6.png"
+import avatar from "../assets/images/blankAvatar.jpg"
 import {useContext, useState} from 'react'
 import {updateProfile} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';

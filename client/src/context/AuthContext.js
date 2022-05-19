@@ -12,10 +12,11 @@ export default ({ children }) => {
    useEffect(()=>{ 
     (async () => { 
         try{
-        const data = await checkAuthentication()
-        setUser(data.user);
-        setIsAuthenticated(data.isAuthenticated)
-        setIsLoaded(true)
+        await checkAuthentication().then(data => {
+            setUser(data.user)
+            setIsAuthenticated(data.isAuthenticated)
+            setIsLoaded(true)
+        })
     }catch(err){
         console.log(err)
     }

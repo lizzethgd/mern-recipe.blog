@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
 const port = process.env.PORT || 6000;
+
 const cookieParser = require('cookie-parser')
 
 const app = express();
@@ -11,13 +12,11 @@ require('dotenv').config();
 
 //to understand the form dates
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))
+
 app.use(cors());
 app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname, '/client/build')));
-app.use('/imgUploads', express.static('imgUploads'));
-//app.use('/imgUploads', express.static(path.join(__dirname, 'imgUploads')));
 
 // initialize routes
 app.use('/api/user', require('./server/routes/user'));

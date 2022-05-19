@@ -1,6 +1,6 @@
 import {useContext, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-//import Resizer from "react-image-file-resizer";
+import Resizer from "react-image-file-resizer";
 import {AuthContext} from '../context/AuthContext';
 import {createRecipe} from '../services/RecipeService';
 import { getCategories } from '../services/CategoryService';
@@ -43,20 +43,20 @@ useEffect(() => {
     const languages = await getLanguages()
         setLanguages(languages)
     }catch(err){
-        console.log(err) 
+        console.log('error en addRecipe page: '+err) 
     }
     }) () 
 }, []) 
 
-const addRecipe= async (form) => {
+/* const addRecipe= async (form) => {
     const res = await createRecipe(form)
     const ID =  await res.recipe._id
     if (ID!==undefined) history(`/${ID}`)
 } 
-
+ */
     const handleSubmit = async e  =>{
     e.preventDefault()
-    const formData = new FormData()
+   const formData = new FormData()
     formData.append('title', title)
     formData.append('description', description)
     formData.append('serves', serves)
@@ -69,7 +69,10 @@ const addRecipe= async (form) => {
     formData.append('language', language)
     formData.append('region', region)
     console.log(formData)
-    await addRecipe(formData)
+    //await addRecipe(formData)
+    await createRecipe(formData) .then(data => {
+            history(`/${data.recipe._id}`) 
+    })
 }
 
 const handleChange = e => {
@@ -78,12 +81,46 @@ const handleChange = e => {
     setRecipe({ ...recipe, [e.target.id]: value })
 }
 
-  const handlePhoto = async e =>{
+const resizeFile = (file) =>
+  new Promise((resolve) => {
+    Resizer.imageFileResizer(
+      file,
+      600,
+      400,
+      "JPEG",
+      100,
+      0,
+      (uri) => {
+        resolve(uri);
+      },
+      "base64"
+    );
+  });
+
+/*   const handlePhoto = async e =>{
     let value = e.target.files[0] 
     //const resizedFile = await resizeFile(value)
     //setRecipe({...recipe, photo: resizedFile})
     setRecipe({...recipe, photo: value})
-}  
+}   */
+
+const handlePhoto = async e =>{
+     const data = new FormData()
+       data.append("file", e.target.files[0])
+       data.append("upload_preset","recipe-pad")
+       data.append("cloud_name","db4apkmrw")
+       await fetch("https://api.cloudinary.com/v1_1/db4apkmrw/image/upload",{
+           method:"post",
+           body:data
+       })
+       .then(res=>res.json())
+       .then(data=>{
+        setRecipe({...recipe, photo: data.url})
+       })
+       .catch(err=>{
+           console.log('error handlePhoto: '+err)
+       })
+}
 
 const handleChangeCookTime = e =>{
     let values = cookTime
@@ -153,7 +190,7 @@ const stepsInputs = steps.map((step, i)=>
     </li>
 )
 //console.log(getImageSize(recipe.photo))
-console.log(recipe.photo)
+console.log(recipe)
 
 return (
 <div className="w3-container w3-light-green w3-text-white" >
@@ -175,7 +212,7 @@ return (
         <label htmlFor="photo" style={{fontSize: "large"}} required>Select a image:</label>
         </div>
         <div className=" w3-quarter w3-center">
-            <input type="file" id="photo" accept=".png, .jpg, .jpeg"  onChange={handlePhoto} />
+            <input type="file" id="photo" accept="image/*"  onChange={handlePhoto} />
         </div>
     </div>
     <div className=" w3-section w3-row-padding w3-center" >

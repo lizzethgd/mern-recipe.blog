@@ -80,10 +80,10 @@ exports.create = async (req, res) => {
     /* if (req.file){
       console.log('req.file in recipe controlled: ')
       console.log(req.file)
-      //req.body.photo='imgUploads/recipes/'+req.file.filename 
-    } */
-    console.log('req.file in recipe controlled: ')
-    console.log(req.body) 
+      req.body.photo='imgUploads/recipes/'+req.file.filename 
+    }  */
+    console.log('req.body in recipe controlled: ')
+      console.log(req.body)
     const newRecipe = await new Recipe(req.body)
       await newRecipe.save();
       await res.status(200).json({success : true, recipe: newRecipe})
