@@ -1,6 +1,5 @@
 import {useContext, useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
-import Resizer from "react-image-file-resizer";
 import {AuthContext} from '../context/AuthContext';
 import {createRecipe} from '../services/RecipeService';
 import { getCategories } from '../services/CategoryService';
@@ -81,30 +80,12 @@ const handleChange = e => {
     setRecipe({ ...recipe, [e.target.id]: value })
 }
 
-const resizeFile = (file) =>
-  new Promise((resolve) => {
-    Resizer.imageFileResizer(
-      file,
-      600,
-      400,
-      "JPEG",
-      100,
-      0,
-      (uri) => {
-        resolve(uri);
-      },
-      "base64"
-    );
-  });
-
-/*   const handlePhoto = async e =>{
-    let value = e.target.files[0] 
-    //const resizedFile = await resizeFile(value)
-    //setRecipe({...recipe, photo: resizedFile})
-    setRecipe({...recipe, photo: value})
-}   */
-
 const handlePhoto = async e =>{
+    let value = e.target.files[0] 
+    setRecipe({...recipe, photo: value})
+}   
+
+/* const handlePhoto = async e =>{
      const data = new FormData()
        data.append("file", e.target.files[0])
        data.append("upload_preset","recipe-pad")
@@ -120,7 +101,7 @@ const handlePhoto = async e =>{
        .catch(err=>{
            console.log('error handlePhoto: '+err)
        })
-}
+} */
 
 const handleChangeCookTime = e =>{
     let values = cookTime
