@@ -1,8 +1,8 @@
 const express = require('express')
 const router = express.Router()
-const imageUpload = require('../middelwares/imageUpload')
 const authJWT =require('../middelwares/authJWT')
 const authController =require('../controllers/authController')
+const {upload, resizeImage} = require('../middelwares/resizedUpload')
 
 router.use((req, res, next) => 
 {res.header("Access-Control-Allow-Headers","x-access-token, Origin, Content-Type, Accept");
@@ -17,7 +17,7 @@ router.get('/logout', authController.logout)
 
 router.get('/authentication', authJWT.verifyToken, authJWT.authentication)
 
-router.put('/update/:id', imageUpload, authJWT.verifyOwnership, authController.update)
+//router.put('/update/:id', upload.single('photo'), resizeImage, authJWT.verifyOwnership, authController.update)
 
 router.put('/password/:id', authJWT.verifyUser, authController.update)
 

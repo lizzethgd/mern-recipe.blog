@@ -14,6 +14,8 @@ const [categories, setCategories] = useState([])
 const [regions, setRegions] = useState([])
 const [languages, setLanguages] = useState([])
 
+const [err, setErr] = useState('')
+
 const history = useNavigate() 
 
 const [recipe, setRecipe] = useState({
@@ -69,9 +71,9 @@ useEffect(() => {
     formData.append('region', region)
     console.log(formData)
     //await addRecipe(formData)
-    await createRecipe(formData) .then(data => {
-            history(`/${data.recipe._id}`) 
-    })
+    await createRecipe(formData)
+    .then(data => {data.recipe ? history(`/${data.recipe._id}`) :  setErr(data.message)}
+    )
 }
 
 const handleChange = e => {
@@ -82,26 +84,9 @@ const handleChange = e => {
 
 const handlePhoto = async e =>{
     let value = e.target.files[0] 
+    value.size > 1048576 ? setErr('File Size is too large. Allowed file size is 1MBChange') : setErr('')
     setRecipe({...recipe, photo: value})
 }   
-
-/* const handlePhoto = async e =>{
-     const data = new FormData()
-       data.append("file", e.target.files[0])
-       data.append("upload_preset","recipe-pad")
-       data.append("cloud_name","db4apkmrw")
-       await fetch("https://api.cloudinary.com/v1_1/db4apkmrw/image/upload",{
-           method:"post",
-           body:data
-       })
-       .then(res=>res.json())
-       .then(data=>{
-        setRecipe({...recipe, photo: data.url})
-       })
-       .catch(err=>{
-           console.log('error handlePhoto: '+err)
-       })
-} */
 
 const handleChangeCookTime = e =>{
     let values = cookTime
@@ -190,7 +175,8 @@ return (
             <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={handleChangeCookTime} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
         </div>
         <div className="w3-quarter w3-center ">
-        <label htmlFor="photo" style={{fontSize: "large"}} required>Select a image:</label>
+        <label htmlFor="photo" style={{fontSize: "large"}} >Select a image:</label>
+        <span style={{color: 'red'}}>{err}</span>
         </div>
         <div className=" w3-quarter w3-center">
             <input type="file" id="photo" accept="image/*"  onChange={handlePhoto} />

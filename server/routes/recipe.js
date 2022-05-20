@@ -1,20 +1,16 @@
 const {Router} = require("express");
 const router = Router()
-//const recipeImgUpload = require('../middelwares/recipeImgUpload')
-//const base64Upload = require('../middelwares/base64Upload')
-const {upload, resizeImage} = require('../middelwares/resizedUpload')
-
+const {fileUpload,  resizeImage} = require('../middelwares/resizedUpload')
 const { list, listfFiltered, read, create, remove, update, recipeById, recipesSearch, recipesByUser, photo } = require('../controllers/recipeController');
 
-// list 
 router.get('/recipes', list);
 router.get('/recipes/:category/:language/:region', listfFiltered);
 router.get('/recipes/:search', recipesSearch);
-router.post('/create', upload.single('photo'), resizeImage, create)
+router.post('/create', fileUpload, resizeImage, create)
 router.get('/:id', recipeById)
 router.get('/author/:id', recipesByUser)
 router.delete('/:id', remove)
 router.get('/photo/:id', photo)
-router.put('/:id', upload.single('photo'), resizeImage, update)
+router.put('/:id', fileUpload, resizeImage, update)
 
 module.exports = router;

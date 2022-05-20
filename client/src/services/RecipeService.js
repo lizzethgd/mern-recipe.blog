@@ -16,19 +16,12 @@ export const createRecipe = async (recipe) => {
       method: 'POST',
       body: recipe,
   });
-  if (res.status !== 401)
+  if (res.status !== 401 )
     return await res.json();
   }catch(err) {
     console.log('error in recipeService: '+err)
   }
 }
-
- /* const res = await fetch('recipe/create', {
-      method: 'POST',
-      headers:{
-        "Content-Type":"application/json",
-      },
-      body:JSON.stringify({recipe}) */
 
 export const getAllRecipes = async (filters) => {
 

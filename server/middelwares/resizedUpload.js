@@ -50,15 +50,34 @@ const limits = {
 }  
 
 const fileFilter = (req, file, cb) => {
-    if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' 
-        || file.mimetype === 'image/jpeg'){
+  const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png'];
+    if (allowedMimes.includes(file.mimetype)){
             cb(null, true);
         }else {
-            cb(null, false);
+          cb({
+            success: false,
+            message: 'Invalid file type. Only jpg, png image files are allowed.'
+            }, false);
         }
 };
   
-exports.upload = multer({ storage, limits, fileFilter })
+const upload = multer({ storage, limits, fileFilter }).single('photo')
+
+exports.fileUpload = (req, res, next) => {
+
+  upload(req, res, function (error) {
+      if (error) { //instanceof multer.MulterError
+          res.status(500);
+          if (error.code == 'LIMIT_FILE_SIZE') {
+              error.message = 'File Size is too large. Allowed file size is 1MB';
+              error.success = false;
+          }
+          return res.json(error);
+      } else {
+          next()
+      }
+  })
+};
 
 exports.resizeImage = async(req, res, next) => {
   
@@ -68,13 +87,26 @@ exports.resizeImage = async(req, res, next) => {
 
  /*  console.log('req.file in resize funtion: ')
   console.log(req.file) */
-  
-  try{
-  
-    const resizedBuffer = await sharp(req.file.buffer).resize(600, 400).toFormat('jpeg').jpeg({ quality: 95 }).toBuffer()
 
-    req.body.photo= await uploadFromBuffer(resizedBuffer, folder)
+  const metadata = await sharp(req.file.buffer).metadata();
+  console.log(metadata);
+
+  if (metadata.width > 900 || metadata.height> 600 || metadata.format==='png' ){
   
-  next();
-}catch(err){ console.log('error resizeImage: '+err)}
+    try{
+  
+      const resizedBuffer = await sharp(req.file.buffer).toFormat('jpeg', { mozjpeg: true }).toBuffer()
+
+      console.log(resizedBuffer)
+
+      req.body.photo= await uploadFromBuffer(resizedBuffer, folder)
+  
+      next();
+    }catch(err){ 
+
+      console.log('error resizeImage: '+err)
+    }
+}else{
+     req.body.photo= await uploadFromBuffer(req.file.buffer, folder)
+}
 }
