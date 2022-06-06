@@ -22,7 +22,6 @@ const recipeSchema = new mongoose.Schema(
     cookTime:{
         type: Array,
         trim: true, 
-        default: []
     },
     photo: {
       type: String,

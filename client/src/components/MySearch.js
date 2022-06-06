@@ -1,7 +1,7 @@
 import CardsList from './CardsList';
 import Numeration from './Numeration';
 import { useState, useCallback, useEffect} from "react";
-import {sliceData, pagination} from "../helpers/funtions.js"
+import {slicer, paginater} from "../helpers/funtions.js"
 import {recipesBySearch} from '../services/RecipeService';
 
 const MySearch = () => {
@@ -19,10 +19,10 @@ const MySearch = () => {
      const data =  await recipesBySearch(dispatch)
           console.log(data)
           const totalPages = Math.ceil(data.length / pageSize);
-          const slice = await sliceData(data, currentPage, pageSize)
+          const slice = await slicer(data, currentPage, pageSize)
           setTotalPages(totalPages)
           setPageSlice(slice)
-          setPagesNumeration(pagination(totalPages, sibling, currentPage))
+          setPagesNumeration(paginater(totalPages, sibling, currentPage))
     }, [ dispatch, pageSize, sibling, currentPage])
   
     useEffect(() => {

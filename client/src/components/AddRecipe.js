@@ -22,7 +22,7 @@ const [recipe, setRecipe] = useState({
     title: '',
     description: '',
     serves: '',
-    cookTime: ['', ''],
+    cookTime: [],
     photo: '',
     ingredients: [' ', ' '],
     steps: [' ', ' '],
@@ -49,20 +49,14 @@ useEffect(() => {
     }) () 
 }, []) 
 
-/* const addRecipe= async (form) => {
-    const res = await createRecipe(form)
-    const ID =  await res.recipe._id
-    if (ID!==undefined) history(`/${ID}`)
-} 
- */
     const handleSubmit = async e  =>{
     e.preventDefault()
    const formData = new FormData()
     formData.append('title', title)
-    formData.append('description', description)
-    formData.append('serves', serves)
-    cookTime.forEach(i => formData.append("cookTime[]", i))
-    formData.append('photo', photo)
+    if (description!=='') formData.append('description', description)
+    if (serves!=='') formData.append('serves', serves)
+    if (cookTime!==[]) cookTime.forEach(i => formData.append("cookTime[]", i))
+    if (photo!=='') formData.append('photo', photo)
     ingredients.forEach(i => formData.append("ingredients[]", i))
     steps.forEach(i => formData.append("steps[]", i))
     formData.append('author', author)
@@ -179,7 +173,7 @@ return (
         <span style={{color: 'red'}}>{err}</span>
         </div>
         <div className=" w3-quarter w3-center">
-            <input type="file" id="photo" accept="image/*"  onChange={handlePhoto} />
+            <input type="file" id="photo" accept=".png, .jpg, .jpeg"  onChange={handlePhoto} />
         </div>
     </div>
     <div className=" w3-section w3-row-padding w3-center" >

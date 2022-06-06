@@ -10,6 +10,8 @@ const EditRecipe = () => {
     const location = useLocation()
     const {dispatch} = location.state 
 
+    const {id} = dispatch._id
+
     const [updateRecipe, setUpdateRecipe] = useState({
         title: '',
         description: '',
@@ -48,19 +50,22 @@ const EditRecipe = () => {
 
     const {title, description, serves, cookTime, photo, ingredients, steps, category, language, region} = updateRecipe
 
+    console.log(updateRecipe)
+    
     const handleSubmit = e =>{
         e.preventDefault()
        const formData = new FormData()
         formData.append('title', title)
-        if (description!==undefined) formData.append('description', description)
-        if (serves!==undefined) formData.append('serves', serves) 
-        if (cookTime!==undefined) cookTime.forEach(i => formData.append("cookTime[]", i)) 
-        if (photo!==undefined) formData.append('photo', photo)
+        if (description) formData.append('description', description)
+        if (serves) formData.append('serves', serves) 
+        if (cookTime!==[]) cookTime.forEach(i => formData.append("cookTime[]", i)) 
+        if (photo!=='') formData.append('photo', photo)
         ingredients.forEach(i => formData.append("ingredients[]", i))
         steps.forEach(i => formData.append("steps[]", i))
         formData.append('category', category._id)
         formData.append('language', language._id)
         formData.append('region', region._id)
+        console.log(formData)
        editRecipe(formData, dispatch._id).then(data=> {
           history(`/${data.recipe._id}`)
         }
@@ -68,10 +73,16 @@ const EditRecipe = () => {
     } 
     
      const handleChange = e => {
-        console.log(updateRecipe)
-       let value = e.target.id ===  'photo' ? e.target.files[0] : e.target.value
+        //console.log(updateRecipe)
+        let value = e.target.value
         setUpdateRecipe({ ...updateRecipe, [e.target.id]: value })
     }
+
+    const handlePhoto = async e =>{
+        let value = e.target.files[0] 
+        value.size > 1048576 ? setErr('File Size is too large. Allowed file size is 1MBChange') : setErr('')
+        setUpdateRecipe({...updateRecipe, photo: value})
+    } 
 
     const handleChangeCookTime = e =>{
         let values = cookTime
@@ -115,6 +126,8 @@ const EditRecipe = () => {
         values.splice(i, 1)
         setUpdateRecipe({ ...updateRecipe, steps: values })
     } 
+
+    const [err, setErr] = useState('')
 
 /*     const handleEnter = e => {
         e.preventDefault();
@@ -161,7 +174,8 @@ return (
             </div>
             <div className=" w3-third w3-left">
             <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>
-                <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handleChange} />
+                <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handlePhoto} />
+                <span style={{color: 'red'}}>{err}</span>
             </div>
         </div>
 

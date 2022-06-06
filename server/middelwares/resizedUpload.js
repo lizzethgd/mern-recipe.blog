@@ -50,7 +50,7 @@ const limits = {
 }  
 
 const fileFilter = (req, file, cb) => {
-  const allowedMimes = ['image/jpeg', 'image/pjpeg', 'image/png'];
+  const allowedMimes = ['image/jpeg', 'image/jpg', 'image/png'];
     if (allowedMimes.includes(file.mimetype)){
             cb(null, true);
         }else {
@@ -91,7 +91,7 @@ exports.resizeImage = async(req, res, next) => {
   const metadata = await sharp(req.file.buffer).metadata();
   console.log(metadata);
 
-  if (metadata.width > 900 || metadata.height> 600 || metadata.format==='png' ){
+  if (metadata.width > 900 || metadata.height> 600 || metadata.format==='png'){
   
     try{
   
@@ -106,7 +106,10 @@ exports.resizeImage = async(req, res, next) => {
 
       console.log('error resizeImage: '+err)
     }
-}else{
+}
+
+else{
      req.body.photo= await uploadFromBuffer(req.file.buffer, folder)
+     next();
 }
 }

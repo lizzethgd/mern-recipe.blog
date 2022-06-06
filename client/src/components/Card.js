@@ -57,7 +57,7 @@ const Card = ({dispatch, toggleModal}) => {
       e.preventDefault()
       if (isAuthenticated)  {
         const hasUserLike = recipe.likes.includes(user._id)
-        console.log(hasUserLike)
+        //console.log(hasUserLike)
         if (hasUserLike){
           deleteLike(recipe._id, user._id)
         }else{
@@ -71,7 +71,7 @@ const Card = ({dispatch, toggleModal}) => {
       e.preventDefault()
       if (isAuthenticated)  {
         const hasUserFav = recipe.favorites.includes(user._id)
-        console.log(hasUserFav)
+        //console.log(hasUserFav)
         if (hasUserFav){
           deleteFavorite(recipe._id, user._id)
         }else{

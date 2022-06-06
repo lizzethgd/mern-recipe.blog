@@ -1,4 +1,4 @@
-export const sliceData = (data, page, itemsPerPage) => {
+export const slicer = (data, page, itemsPerPage) => {
   return data.slice((page - 1) * itemsPerPage, page * itemsPerPage);
 };
 
@@ -10,13 +10,13 @@ export const pagesRange = (start, end) => {
     range.push(i);
   } 
   //const range = Array.from({ length}, (_, idx) => idx + start); 
-  console.log(range)
+  //console.log(range)
   return range
 };
 
 //const [result,setResult] = useState([]);
 
-export const pagination = (totalCount, siblingCount,currentPage) => { 
+export const paginater = (totalCount, siblingCount=1, currentPage) => { 
 
     const DOTS = '...'
     

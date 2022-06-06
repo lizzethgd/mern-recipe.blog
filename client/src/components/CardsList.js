@@ -5,6 +5,8 @@ import {useState} from 'react'
 
 const CardsList = ({pageSlice}) => {
 
+console.log(pageSlice)
+
 const [modalShow, setModalShow] = useState(false)
 
 const modalToggle = () => {

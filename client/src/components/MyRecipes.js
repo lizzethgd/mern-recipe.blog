@@ -1,7 +1,7 @@
 import CardsList from './CardsList';
 import Numeration from './Numeration';
 import { useState, useEffect, useContext } from "react";
-import {sliceData, pagination} from "../helpers/funtions.js"
+import {slicer, paginater} from "../helpers/funtions.js"
 import {AuthContext} from '../context/AuthContext';
 import {getRecipeByUser} from '../services/RecipeService';
 
@@ -23,10 +23,10 @@ const MyRecipes = () => {
       try{
         const data =  await getRecipeByUser(user._id)
         const totalPages = Math.ceil(data.length / pageSize);
-        const slice = await sliceData(data, currentPage, pageSize)
+        const slice = await slicer(data, currentPage, pageSize)
         setTotalPages(totalPages)
         setPageSlice(slice)
-        setPagesNumeration(pagination(totalPages, sibling, currentPage))
+        setPagesNumeration(paginater(totalPages, sibling, currentPage))
      }catch(err){
         console.log(err)
     }
