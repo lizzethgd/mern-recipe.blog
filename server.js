@@ -12,6 +12,9 @@ require('dotenv').config();
 
 //to understand the form dates
 app.use(express.json())
+/* app.use(express.urlencoded({
+  extended: true
+})) */
 
 app.use(cors());
 app.use(cookieParser())

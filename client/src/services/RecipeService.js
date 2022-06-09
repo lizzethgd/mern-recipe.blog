@@ -1,4 +1,4 @@
-export const getRecipe = async (id) => {
+export const getRecipeById = async (id) => {
   console.log(id)
 try{
   const res = await fetch(`recipe/${id}`).then(response => response.json())

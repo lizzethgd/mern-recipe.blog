@@ -10,8 +10,6 @@ const EditRecipe = () => {
     const location = useLocation()
     const {dispatch} = location.state 
 
-    const {id} = dispatch._id
-
     const [updateRecipe, setUpdateRecipe] = useState({
         title: '',
         description: '',
@@ -67,7 +65,7 @@ const EditRecipe = () => {
         formData.append('region', region._id)
         console.log(formData)
        editRecipe(formData, dispatch._id).then(data=> {
-          history(`/${data.recipe._id}`)
+          history(`/${data.id}`)
         }
         )  
     } 

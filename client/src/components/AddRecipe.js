@@ -66,7 +66,7 @@ useEffect(() => {
     console.log(formData)
     //await addRecipe(formData)
     await createRecipe(formData)
-    .then(data => {data.recipe ? history(`/${data.recipe._id}`) :  setErr(data.message)}
+    .then(data => {data.recipe ? history(`/${data.id}`) :  setErr(data.message)}
     )
 }
 

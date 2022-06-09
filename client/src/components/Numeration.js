@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect} from "react";
 import {slicer, paginater} from "../helpers/funtions.js"
 
-const Numeration = ({data, setPageSlice}) => {
+const Numeration = ({data, setPageSlice, totalRecipes}) => {
 
   const pageSize = 2
   const sibling = 1
@@ -16,15 +16,15 @@ const Numeration = ({data, setPageSlice}) => {
       }
 
  const init = useCallback(async () => {
-    const totalPages = Math.ceil((data.length) / pageSize);
+    const totalPages = Math.ceil((totalRecipes) / pageSize);
     setTotalPages(totalPages)
     const slice = slicer(data, currentPage, pageSize)
     setPageSlice(slice)
     const numerationPages = paginater(totalPages, sibling, currentPage)
     setPagesNumeration(numerationPages)
-    console.log('Total recetas: '+data.length+', Total pages: '+totalPages
+    console.log('Total recetas: '+totalRecipes+', Total pages: '+totalPages
     +', paginas: '+numerationPages+', Current Page: '+currentPage)
-    console.log(slice)}, [data, currentPage, setPageSlice])   
+    console.log(slice)}, [data, currentPage, setPageSlice, totalRecipes])   
 
     useEffect(() => {
       try{  
@@ -52,5 +52,6 @@ return (
 }
 
 export default Numeration
+
 
 

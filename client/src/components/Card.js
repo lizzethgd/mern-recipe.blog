@@ -1,17 +1,33 @@
 import {useState, useContext, useEffect, useCallback} from 'react'
 import miniAvatar from "../assets/images/blankAvatar.jpg"
 import blankRecipe from "../assets/images/blankRecipe.jpg"
-import {getRecipe} from '../services/RecipeService';
+import {getRecipeById} from '../services/RecipeService';
 import {addLike, deleteLike} from '../services/LikeService';
 import {addFavorite, deleteFavorite} from '../services/FavoriteService';
 import {Link, useNavigate} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext';
 
-const Card = ({dispatch, toggleModal}) => {
+const Card = ({id, toggleModal}) => {
 
     const {user, isAuthenticated} = useContext(AuthContext)
     
-    const [recipe, setRecipe] = useState(dispatch) 
+    const [recipe, setRecipe] = useState({
+      title: '',
+      description: '',
+      serves: '',
+      cookTime: [],
+      photo: '',
+      ingredients: [],
+      steps: [],
+      author: {},
+      category: {},
+      language: {},
+      region: {},
+      likes: [],
+      favorites: []
+      }) 
+
+    //const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes, favorites, createdAt } = recipe
 
     const [open, setOpen] =  useState("")
 
@@ -27,18 +43,21 @@ const Card = ({dispatch, toggleModal}) => {
 
     const handleModal = () => {
       toggleModal()
-      localStorage.setItem('shareUrl', `${window.location.protocol}//${window.location.host}/${dispatch._id}`)
+      localStorage.setItem('shareUrl', `${window.location.protocol}//${window.location.host}/${id}`)
     } 
 
-  //const { title, description, serves, cookTime, photo, author, likes, favorites, createdAt } = recipe
-  const initCard = useCallback(async() => {
-    const dataLikes = recipe.likes
-    const dataFavorites = recipe.favorites
-    if (isAuthenticated){
-      setHeart(dataLikes.includes(user._id) ? 'solid' : 'regular')
-      setBookmark(dataFavorites.includes(user._id) ? 'solid' : 'regular')
-    }  
-  }, [user, isAuthenticated, recipe]); 
+  const initCard = useCallback( async() => {
+    try{
+      await getRecipeById(id).then(data => {
+        setRecipe(data)  
+        if (isAuthenticated){
+          setHeart(data.likes.includes(user._id) ? 'solid' : 'regular')
+          setBookmark(data.favorites.includes(user._id) ? 'solid' : 'regular')
+    } 
+  }) 
+  }catch(err){
+    console.log(`error in initRecipe: ${err}`) }
+  }, [id, user, isAuthenticated]) ; 
 
  useEffect(() => {
        try{  
@@ -47,11 +66,6 @@ const Card = ({dispatch, toggleModal}) => {
          console.log('error in the card component: '+err) 
        }
  }, [initCard]) 
-
- const reInitCard = async () => {
-  const data = await getRecipe(dispatch._id)
-  setRecipe(data);
-} 
       
   const handleLike = e => {
       e.preventDefault()
@@ -59,11 +73,11 @@ const Card = ({dispatch, toggleModal}) => {
         const hasUserLike = recipe.likes.includes(user._id)
         //console.log(hasUserLike)
         if (hasUserLike){
-          deleteLike(recipe._id, user._id)
+          deleteLike(id, user._id)
         }else{
-          addLike(recipe._id, user._id)
+          addLike(id, user._id)
         }
-        reInitCard()
+        initCard()
       } else history('/login')
   }
 
@@ -73,11 +87,11 @@ const Card = ({dispatch, toggleModal}) => {
         const hasUserFav = recipe.favorites.includes(user._id)
         //console.log(hasUserFav)
         if (hasUserFav){
-          deleteFavorite(recipe._id, user._id)
+          deleteFavorite(id, user._id)
         }else{
-          addFavorite(recipe._id, user._id)
+          addFavorite(id, user._id)
         }
-        reInitCard()
+        initCard()
       } else history('/login')
   }   
 

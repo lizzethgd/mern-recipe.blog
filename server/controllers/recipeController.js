@@ -50,9 +50,11 @@ exports.listfFiltered = async (req, res) => {
     .populate('category', 'name')
     .populate('language', 'name')
     .populate('region', 'name')
-    await res.status(200).json(recipes);
+    await res.status(200).json({
+      recipes: recipes,
+      total: recipes.length 
+    });
     console.log(filters)
-    console.log(recipes.length)
   }catch (err) {
     res.status(500).json(err.name+': '+err.message)
     console.log(err.name+': '+err.message);
@@ -81,7 +83,7 @@ exports.create = async (req, res) => {
       console.log(req.body)
     const newRecipe = await new Recipe(req.body)
       await newRecipe.save();
-      await res.status(200).json({success : true, recipe: newRecipe})
+      await res.status(200).json({success : true, recipe: newRecipe, id: newRecipe._id})
   }catch(err) {
     res.status(500).json('error controller: '+err)
     console.log('error in controller '+err)
@@ -93,7 +95,7 @@ exports.update =  async (req, res) => {
     const updateRecipe = await Recipe.findByIdAndUpdate(req.params.id, {
       $set: req.body
     },{new: true})
-    await res.status(200).json({success : true, recipe: updateRecipe});
+    await res.status(200).json({success : true, recipe: updateRecipe, id:updateRecipe._id });
   } catch (err) {
     res.status(500).json('error controller: '+err)
     console.log('error controller: '+err);

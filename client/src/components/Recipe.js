@@ -4,7 +4,7 @@ import  "../assets/css/comment.scss"
 import {useContext, useEffect, useState, useCallback} from 'react'
 import {Link, useParams , useNavigate} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext'
-import {getRecipe, removeRecipe} from '../services/RecipeService'
+import {getRecipeById, removeRecipe} from '../services/RecipeService'
 import {getRecipeComments, addComment, removeComment} from '../services/CommentService'
 import {addLike, deleteLike} from '../services/LikeService'
 import {addFavorite, deleteFavorite} from '../services/FavoriteService'
@@ -53,7 +53,7 @@ const Recipe = () => {
 
   const initRecipe = useCallback(async () => {
     try{
-      await getRecipe(id).then(data => {
+      await getRecipeById(id).then(data => {
         console.log(data)
         setRecipe(data)
         if (isAuthenticated){
