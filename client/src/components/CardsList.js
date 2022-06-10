@@ -7,27 +7,11 @@ const CardsList = ({pageSlice}) => {
 
 console.log(pageSlice)
 
-//const [slice, setSlice] = useState([])
-
 const [modalShow, setModalShow] = useState(false)
 
 const modalToggle = () => {
   setModalShow(!modalShow)
 }
-
-/* const initList = useCallback(async() => {
-     setSlice(pageSlice)
-}, [pageSlice]);
-
-useEffect(() => {
-  (async () => { 
-     try{   
-      initList()
-    }catch(err){
-       console.log(err)
-   }
-  }) () 
-},[initList]) */
  
 return (
  <div className="cards__container">

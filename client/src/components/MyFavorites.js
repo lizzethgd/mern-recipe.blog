@@ -1,34 +1,31 @@
 import CardsList from './CardsList';
 import Numeration from './Numeration';
-import { useState, useEffect, useContext } from "react";
-import {slicer, paginater} from "../helpers/funtions.js"
+import { useState, useCallback, useEffect, useContext } from "react";
 import {AuthContext} from '../context/AuthContext';
 import {favoritesByUser} from '../services/FavoriteService';
 
 const MyFavorites = () => {
-    const { user} = useContext(AuthContext);
-    const [totalPages, setTotalPages] = useState(); //total number of pages 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pageSlice, setPageSlice] = useState( []); //data slice per page
-    const [pagesNumeration, setPagesNumeration] = useState([]); //tipe of numeration
    
-    const pageSize = 2 
-    const sibling = 1
+   const { user} = useContext(AuthContext);
+
+   const [recipes, setRecipes] = useState([])
+   const [totalRecipes, setTotalRecipes] = useState(0)  
+   const [pageSlice, setPageSlice] = useState( []); //data slice per page
+
+   const initRecipes= useCallback(async () => {
+      await favoritesByUser(user._id).then(data => {
+              setRecipes(data.recipes)
+              setTotalRecipes(data.total) }
+      )},
+   [user] ) 
   
     useEffect(() => {
-     (async () => { 
-        try{
-          const data =  await favoritesByUser(user._id)
-          const totalPages = Math.ceil(data.length / pageSize);
-          const slice = await slicer(data, currentPage, pageSize)
-          setTotalPages(totalPages)
-          setPageSlice(slice)
-          setPagesNumeration(paginater(totalPages, sibling, currentPage))
+      try{
+         initRecipes()
        }catch(err){
           console.log(err)
       }
-     }) () 
-  }, [user, pageSize, sibling, currentPage]);
+  }, [initRecipes]);
   
   
   return (
@@ -36,7 +33,7 @@ const MyFavorites = () => {
       
   <CardsList pageSlice={pageSlice}/>
   
-  <Numeration totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} pagesNumeration={pagesNumeration}/>
+  <Numeration data={recipes} totalRecipes={totalRecipes} setPageSlice={setPageSlice}/>
     
     </div> 
       )

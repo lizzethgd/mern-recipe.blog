@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect} from "react";
 import {slicer, paginater} from "../helpers/funtions.js"
 
-const Numeration = ({data, setPageSlice, totalRecipes}) => {
+const Numeration = ({data, totalRecipes, setPageSlice}) => {
 
   const pageSize = 2
   const sibling = 1
@@ -15,7 +15,7 @@ const Numeration = ({data, setPageSlice, totalRecipes}) => {
         //setPageSlice(slicer(data, i, pageSize))
       }
 
- const init = useCallback(async () => {
+ const initPagination = useCallback(async () => {
     const totalPages = Math.ceil((totalRecipes) / pageSize);
     setTotalPages(totalPages)
     const slice = slicer(data, currentPage, pageSize)
@@ -28,14 +28,14 @@ const Numeration = ({data, setPageSlice, totalRecipes}) => {
 
     useEffect(() => {
       try{  
-        init() 
+        initPagination() 
       }catch(err){
         console.log('error in the numeration component: '+err) 
       }
-}, [init]) 
+}, [initPagination]) 
 
 return (
-    <div className="w3-padding-32 w3-text-white">   
+    <div className="w3-center w3-padding-32 w3-text-white">   
     <div className="w3-bar">
     <button className="w3-bar-item w3-black w3-button" onClick={ ()=>  currentPage>1 ? onChangePage(currentPage-1): null }><i className="fa-solid fa-caret-left"/></button>
     { pagesNumeration.map( (page, i)=> {

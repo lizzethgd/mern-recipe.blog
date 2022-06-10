@@ -29,7 +29,7 @@ exports.remove = async (req, res) => {
 
 exports.favoritesByUser = async(req, res) => {
   try { 
-  const recipe = await Recipe.find({favorites: req.params.userId } )
+  const recipes = await Recipe.find({favorites: req.params.userId } )
   .populate('author')
   .populate('category', 'name')
   .populate('language', 'name')
@@ -38,8 +38,11 @@ exports.favoritesByUser = async(req, res) => {
   //.populate('favorites', 'user')
   /* req.recipe = recipe;
     next(); */
-    console.log(recipe) 
-  await res.status(200).json(recipe);
+    console.log(recipes) 
+  await res.status(200).json({
+    recipes: recipes,
+    total: recipes.length 
+  });
   }catch (err) {
   res.status(500).json(err.name+': '+err.message)
   console.log(err.name+': '+err.message);

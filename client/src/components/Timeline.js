@@ -32,47 +32,41 @@ const Timeline = () => {
   });
 });
 
+ const slices = [
+  { letter: 'a',
+    title: 'Share',
+    subtitle: 'with us your recepties',
+    text: 'Share your food recipes with the world and let people rate and comment on them'},
+  { letter: 'b',
+    title: 'Search',
+    subtitle: 'recepties using our filters',
+    text: 'You can customize your search by category, language, and region, as well as by recipe or ingredient name.' },
+  { letter: 'c',
+    title: 'Find',
+    subtitle: 'very special receptie',
+    text: 'Find special recipes shared by other people like you.'},
+  { letter: 'd',
+    title: 'Enjoy',
+    subtitle: 'your meal',
+    text: 'Enjoying a good meal is one of the small pleasures of life'
+  }
+ ]
+
     return (
      
   <div className="timeline">
     <div className="swiper-container" > 
       <div className="swiper-wrapper" >
-        <div className="swiper-slide a"  data-year="2011" >
-          <div className="swiper-slide-content"><span className="timeline-year" >2011</span>
-            <h4 className="timeline-title">Our nice super title</h4>
-            <p className="timeline-text">Lorem ipsum dolor site amet, consectetur adipscing elit, sed do eisumod tempor incididut ut labore et dolore magna aliqua. Ut enim ad mimim venjam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+     {
+       slices.map(slice => 
+        <div className={"swiper-slide "+slice.letter}  data-year={slice.title} >
+          <div className="swiper-slide-content"><span className="timeline-title" >{slice.title}</span>
+            <h4 className="timeline-subtitle">{slice.subtitle}</h4>
+            <p className="timeline-text">{slice.text}</p>
           </div>
-        </div>
-        <div className="swiper-slide b"  data-year="2012" >
-          <div className="swiper-slide-content"><span className="timeline-year" >2012</span>
-            <h4 className="timeline-title">Our nice super title</h4>
-            <p className="timeline-text">Lorem ipsum dolor site amet, consectetur adipscing elit, sed do eisumod tempor incididut ut labore et dolore magna aliqua. Ut enim ad mimim venjam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-        </div>
-        <div className="swiper-slide c" data-year="2013" >
-          <div className="swiper-slide-content"><span className="timeline-year" >2013</span>
-            <h4 className="timeline-title">Our nice super title</h4>
-            <p className="timeline-text">Lorem ipsum dolor site amet, consectetur adipscing elit, sed do eisumod tempor incididut ut labore et dolore magna aliqua. Ut enim ad mimim venjam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-        </div>
-        <div className="swiper-slide d" data-year="2014" >
-          <div className="swiper-slide-content"><span className="timeline-year" >2014</span>
-            <h4 className="timeline-title">Our nice super title</h4>
-            <p className="timeline-text">Lorem ipsum dolor site amet, consectetur adipscing elit, sed do eisumod tempor incididut ut labore et dolore magna aliqua. Ut enim ad mimim venjam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-        </div>
-        <div className="swiper-slide e"  data-year="2015" >
-          <div className="swiper-slide-content"><span className="timeline-year" >2015</span>
-            <h4 className="timeline-title">Our nice super title</h4>
-            <p className="timeline-text">Lorem ipsum dolor site amet, consectetur adipscing elit, sed do eisumod tempor incididut ut labore et dolore magna aliqua. Ut enim ad mimim venjam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-        </div>
-        <div className="swiper-slide f"  data-year="2016" >
-          <div className="swiper-slide-content"><span className="timeline-year" >2016</span>
-            <h4 className="timeline-title">Our nice super title</h4>
-            <p className="timeline-text">Lorem ipsum dolor site amet, consectetur adipscing elit, sed do eisumod tempor incididut ut labore et dolore magna aliqua. Ut enim ad mimim venjam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          </div>
-        </div>
+        </div>)
+     } 
+       
       </div> 
       <div className="swiper-button-prev"></div>
       <div className="swiper-button-next"></div>

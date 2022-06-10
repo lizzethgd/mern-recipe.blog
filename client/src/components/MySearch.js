@@ -7,39 +7,30 @@ import {recipesBySearch} from '../services/RecipeService';
 const MySearch = () => {
 
     const dispatch = localStorage.getItem('search')
-    const [totalPages, setTotalPages] = useState(); //total number of pages 
-    const [currentPage, setCurrentPage] = useState(1);
+    const [recipes, setRecipes] = useState([])
+    const [totalRecipes, setTotalRecipes] = useState(0)
     const [pageSlice, setPageSlice] = useState( []); //data slice per page
-    const [pagesNumeration, setPagesNumeration] = useState([]); //tipe of numeration
-   
-    const pageSize = 2 
-    const sibling = 1
 
-    const init = useCallback(async () => {
-     const data =  await recipesBySearch(dispatch)
-          console.log(data)
-          const totalPages = Math.ceil(data.length / pageSize);
-          const slice = await slicer(data, currentPage, pageSize)
-          setTotalPages(totalPages)
-          setPageSlice(slice)
-          setPagesNumeration(paginater(totalPages, sibling, currentPage))
-    }, [ dispatch, pageSize, sibling, currentPage])
+    const initRecipes= useCallback(async () => {
+      await recipesBySearch(dispatch).then(data => {
+              setRecipes(data.recipes)
+              setTotalRecipes(data.total) }
+      )}, [] ) 
   
     useEffect(() => {
         try{
-        init()
+         initRecipes()
        }catch(err){
           console.log(err)
       }
-  }, [ init]);
-  
-  
+    }, [initRecipes]);  
+
   return (
   <div className="w3-container">
       
   <CardsList pageSlice={pageSlice}/>
   
-  <Numeration totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} pagesNumeration={pagesNumeration}/>
+  <Numeration data={recipes} totalRecipes={totalRecipes} setPageSlice={setPageSlice}/>
     
     </div> 
       )

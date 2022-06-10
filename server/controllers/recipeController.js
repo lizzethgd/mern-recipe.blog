@@ -8,7 +8,6 @@ exports.list = async (req, res) => {
     .populate('category', 'name')
     .populate('language', 'name')
     .populate('region', 'name')
-    /*   .exec((err, recipes)) */
     await res.status(200).json(recipes);
     console.log(recipes.length)
    }catch (err) {
@@ -24,12 +23,11 @@ exports.recipesByUser = async(req, res) => {
   .populate('category', 'name')
   .populate('language', 'name')
   .populate('region', 'name')
-  //.populate('likes', 'user')
-  //.populate('favorites', 'user')
-  /* req.recipe = recipe;
-    next(); */
     console.log(recipes) 
-  await res.status(200).json(recipes);
+  await res.status(200).json({
+    recipes: recipes,
+    total: recipes.length 
+  });
   }catch (err) {
   res.status(500).json(err.name+': '+err.message)
   console.log(err.name+': '+err.message);
@@ -70,7 +68,10 @@ exports.recipesSearch = async(req, res) => {
   .populate('category', 'name')
   .populate('language', 'name')
   .populate('region', 'name') 
-await res.status(200).json(recipes);
+  await res.status(200).json({
+    recipes: recipes,
+    total: recipes.length 
+  });
   }catch (err) {
   res.status(500).json(err.name+': '+err.message)
   console.log(err.name+': '+err.message);
@@ -120,8 +121,6 @@ exports.recipeById = async(req, res) => {
   .populate('category', 'name')
   .populate('language', 'name')
   .populate('region', 'name')
-  //.populate('likes', 'user')
-  //.populate('favorites', 'user') 
   await res.status(200).json(recipe);
   }catch (err) {
   res.status(500).json(err.name+': '+err.message)

@@ -1,5 +1,5 @@
 import '../assets/css/filter.scss';
-import {useState, useEffect} from 'react';
+import { useState, useCallback, useEffect } from "react";
 import { getCategories } from '../services/CategoryService';
 import { getLanguages } from '../services/LanguageService';
 import { getRegions } from '../services/RegionService';
@@ -10,20 +10,26 @@ const Filter = ({filters, setFilters}) => {
     const [languages, setLanguages] = useState([]); 
     const [regions, setRegions] = useState([]); 
 
-    useEffect(() => {
-        (async () => { 
-           try{
-             const categories =  await getCategories()
-             const languages = await getLanguages()
-             const regions = await getRegions()
-             setCategories(categories)
-             setLanguages(languages)
-             setRegions(regions)
-          }catch(err){
-             console.log(err)
-         }
-        }) () 
-    },[])
+    const initFilters= useCallback(async () => {
+        await getCategories().then(categories => 
+            setCategories(categories)
+        )
+        await getLanguages().then(languages => 
+            setLanguages(languages)
+        )    
+        await getRegions().then(regions => 
+            setRegions(regions)
+        )  
+    },[] ) 
+
+     useEffect(() => {
+        try{
+         initFilters()
+       }catch(err){
+          console.log(err)
+      }
+  
+  }, [initFilters]);
 
     const handleChange = e => {
         e.preventDefault();
