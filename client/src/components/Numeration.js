@@ -3,7 +3,7 @@ import {slicer, paginater} from "../helpers/funtions.js"
 
 const Numeration = ({data, totalRecipes, setPageSlice}) => {
 
-  const pageSize = 2
+  const pageSize = 4
   const sibling = 1
   
   const [currentPage, setCurrentPage] = useState(1);

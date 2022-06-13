@@ -16,15 +16,15 @@ $darkGrey: #4f585e;
 
 .cards__container {
  /*  background: $lightBG; */
-  margin: 0.7em 5em;
-  max-width: 1200px;
+  margin: 6vh auto;
+  max-width: 1200px; 
   text-align: center;
   text-rendering: optimizeLegibility;   
 
 .card__ {
   background: $white;
   display: inline-block; 
-  margin: 2em;
+  margin: 4.1vh 2vw 2vh;
   max-width: 20em;
   perspective: 1000;
   position: relative;
@@ -37,6 +37,7 @@ $darkGrey: #4f585e;
   &:hover{
     opacity: 1;
     transform: scale(1.1);
+    z-index: 1;
   }
 
   .card__head{
@@ -192,7 +193,6 @@ $darkGrey: #4f585e;
 }
 
 .opened{
-  z-index: 1;
   opacity: 1 !important;
   transform: scale(1.1) !important;
   
@@ -228,18 +228,5 @@ $darkGrey: #4f585e;
   }
 }
 
-@media only screen and (max-width: 600px) {
 
-  #cards__container {
-    margin: 1em;
-    /* -webkit-margin: 1em; */
 
-  .card__ {
-    max-width: 20em;
-    width: 20em;
-    margin: 1em 0.5em 0.25em;
-    /* -webkit-margin: 1em 0.5em 0.25em; */
- } 
-}
-
-}

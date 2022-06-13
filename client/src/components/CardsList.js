@@ -14,11 +14,11 @@ const modalToggle = () => {
 }
  
 return (
- <div className="cards__container">
+ <div className="cards__container w3-center">
  {
  pageSlice.map((recipe, i) => <div key={i} className="card__ "><Card id={recipe._id} toggleModal={modalToggle}/></div>)
   }
-  <ShareModal showModal={modalShow} toggleModal={modalToggle} />  
+  <ShareModal showModal={modalShow} toggleModal={modalToggle} /> 
 </div> 
 )
 }
