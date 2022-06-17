@@ -7,7 +7,7 @@ b{
 .search-container {
     
     input[type=text]{   
-        padding: 6px;
+        padding: 5px;
         font-size: 17px;
         border: none;
         border-radius: 5px 0 0 5px;
@@ -15,7 +15,7 @@ b{
     }
 
     .button {
-        padding:8px;
+        padding:7px;
         background: white;
         font-size: 21.5px;
         border: none;
@@ -28,7 +28,18 @@ b{
 @media only screen and (max-width: 600px) {
 
     .search-container {
-        max-width: 300px;
+    
+        input[type=text]{   
+            padding: 6px;
+            width: 85%;
+        }
+    
+        .button {
+            padding: 8.4px;
+           
+        }
+     
+    }    
 
-}
+    
 }

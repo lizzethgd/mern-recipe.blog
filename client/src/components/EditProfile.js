@@ -50,8 +50,8 @@ const handleEnter = e => {
 console.log(user)
 
 return (
-<div className=" w3-light-green  w3-center w3-padding-32 w3-padding-top-64">
-   <form className="w3-card w3-round w3-light-grey w3-content" onSubmit={handleSubmit} >
+<div className="w3-container w3-light-green w3-center w3-padding-16 w3-padding-top-64">
+   <form className="w3-round w3-light-grey w3-conten w3-card " onSubmit={handleSubmit} >
     <div className="w3-container">
       <div className="w3-row padd  "  >    
         <div className="w3-col m6 padd "> 
@@ -69,7 +69,10 @@ return (
         <Link className="w3-button w3-margin-top w3-round w3-left w3-grey w3-hover-black" to={'/editpassword'}><i className="fa-solid fa-key"/> Change Password</Link>
         </div>
       </div>
-      <Link className="w3-button w3-round w3-margin-left w3-right w3-padding-large w3-grey w3-hover-black" to={'/'}><i className="fa-solid fa-ban"/> Cancel</Link> <button className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>   
+      <div className="w3-center w3-padding-top-32">
+      <button className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>     
+      <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/myprofile'}><i className="fa-solid fa-ban"/> Cancel</Link>     
+      </div>
      </div>
         <br/> 
    </form>

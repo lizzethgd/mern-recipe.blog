@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect} from "react";
-import {slicer, paginater} from "../helpers/funtions.js"
+import {slicer, paginater} from "../helpers/usePagination.js"
 
 const Numeration = ({data, totalRecipes, setPageSlice}) => {
 

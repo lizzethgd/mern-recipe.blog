@@ -156,7 +156,7 @@ const handleModal = () => {
 }
 
 return (
-<div className="w3-container w3-light-green w3-center padd" >
+<div className="w3-container w3-light-green w3-padding-top-32 w3-center padd" >
 {/* {(!isLoaded)? <h1>Loading... </h1> : <> */}
   <div className="w3-content w3-center w3-text-white padd" id="about">
   {photo!=='undefined' && photo!=='' ? <img src={photo} alt={title} className="w3-image imgRecipe"/> : null} 

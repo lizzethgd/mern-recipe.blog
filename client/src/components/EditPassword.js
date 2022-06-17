@@ -68,16 +68,15 @@ const handleSubmit = e =>{
 }
 
 return (
-<div className=" w3-light-green  w3-center w3-padding-32 w3-padding-top-64">
-   <form className="w3-card w3-round w3-light-grey  w3-content" onSubmit={handleSubmit}>
+<div className="w3-container w3-light-green w3-center w3-padding-16 w3-padding-top-64">
+   <form className="w3-round w3-light-grey w3-content w3-card " onSubmit={handleSubmit}>
     <div className="w3-container">
       <div className="w3-row padd  "  >    
         <div className="w3-col m6 padd "> 
         <h4 className="w3-center">{user.firstName+' '+user.lastName}</h4>
-        <div className="w3-center"><img src={avatar} className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></div>
+        <p className="w3-center"><img src={user.photo ? user.photo : avatar} className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/></p>
         </div>
         <div className="w3-col m6 padd">
-        <br/> 
         <br/> 
         <br/> 
         <div className="w3-margin" style={{display: "flex"}}>
@@ -104,7 +103,10 @@ return (
         </div>
         </div>
       </div>
-      <Link className="w3-button w3-round w3-margin-left w3-right w3-padding-large w3-grey w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-ban"/> Cancel</Link> <button className="w3-button w3-round w3-right w3-padding-large w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>  
+      <div className="w3-center w3-padding-top-32">
+        <button className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>  
+        <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-ban"/> Cancel</Link>
+     </div>
      </div>
         <br/> 
    </form>

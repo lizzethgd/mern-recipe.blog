@@ -66,7 +66,7 @@ useEffect(() => {
     console.log(formData)
     //await addRecipe(formData)
     await createRecipe(formData)
-    .then(data => {data.recipe ? history(`/${data.id}`) :  setErr(data.message)}
+    .then(data => {data.recipe ? history(`/${data.recipe._id}`) :  setErr(data.message)}
     )
 }
 
@@ -137,38 +137,40 @@ const handleEnter = e => {
     };
 
 const ingredientsInputs = ingredients.map((ingredient, i) =>
-    <div key={i} className="w3-section ">
-        <input className="w3-input" id={"ingredient "+i} style={{width:"93%", paddingTop:"0px"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} onKeyDown={handleEnter}/>
+    <div key={i} >
+        <input className="w3-input w3-padding" id={"ingredient "+i} style={{width:"94%"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} onKeyDown={handleEnter}/>
         <div className="w3-button w3-circle w3-right" style={{padding:0}} onClick={() => delIngredient(i)}><i className="fa fa-times-circle" /></div>
     </div>
 )
 
 const stepsInputs = steps.map((step, i)=> 
-    <li key={i} className="w3-section w3-large" >     
-    <textarea className="w3-input" id={"step "+i} type="text" value={step} onChange={e => handleChangeStep(e, i)} onKeyDown={handleEnter}/>
-    <div className="w3-button w3-circle w3-right w3-text-black" style={{padding:0}} onClick={() => delStep(i)}><i className="fa fa-times-circle" /></div>
+    <li key={i} className="w3-section" style={{paddingBottom: '13px'}}>     
+        <textarea className="w3-input" id={"step "+i} type="text" value={step} onChange={e => handleChangeStep(e, i)} onKeyDown={handleEnter}/>
+        <div className="w3-button w3-circle w3-right w3-text-black" style={{padding:0}} onClick={() => delStep(i)}><i className="fa fa-times-circle" /></div>
     </li>
 )
 //console.log(getImageSize(recipe.photo))
 console.log(recipe)
 
-return (
-<div className="w3-container w3-light-green w3-text-white" >
+return (  
+<div className="w3-container w3-light-green w3-center w3-padding-top-32 w3-text-white" >
  
-<form  className="w3-padding" onSubmit={handleSubmit}>
+<form  className="w3-padding-16" onSubmit={handleSubmit}>
   
-  <div className="w3-content w3-padding-large" >
-    <h2 className="w3-center">Recipe</h2> 
-    <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Title" id="title" value={title} onChange={handleChange} onKeyDown={handleEnter} required/></div>
-    <div className="w3-container"><input className="w3-input  w3-border" type="text" placeholder="Description"  id="description" value={description} onChange={handleChange} onKeyDown={handleEnter}/></div>
-    <div className=" w3-section w3-row-padding " >
-        <div className=" w3-quarter ">
+  <div className="w3-content" >
+    <h2 >Recipe</h2> 
+    <div className="w3-section">
+        <input className="w3-input w3-border" type="text" placeholder="Title" id="title" value={title} onChange={handleChange} onKeyDown={handleEnter} required/>
+        <textarea className="w3-input w3-border w3-margin-top" type="text" placeholder="Description"  id="description" value={description} onChange={handleChange} onKeyDown={handleEnter}/>
+    
+    <div className="w3-section" >
+        <div className=" w3-quarter w3-margin-top">
         <label className="w3-border">N° serves: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={handleChange} onKeyDown={handleEnter}/>
         </div>
-        <div className=" w3-quarter ">
+        <div className=" w3-quarter w3-margin-top">
             <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={handleChangeCookTime} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
         </div>
-        <div className="w3-quarter w3-center ">
+        <div className="w3-quarter w3-center w3-margin-top">
         <label htmlFor="photo" style={{fontSize: "large"}} >Select a image:</label>
         <span style={{color: 'red'}}>{err}</span>
         </div>
@@ -176,8 +178,10 @@ return (
             <input type="file" id="photo" accept=".png, .jpg, .jpeg"  onChange={handlePhoto} />
         </div>
     </div>
-    <div className=" w3-section w3-row-padding w3-center" >
-        <div className="w3-third " > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
+    
+    </div>
+    <div className="w3-section w3-row-padding w3-center" >
+        <div className="w3-third w3-margin-top" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
             <select id='category' value={category}  onChange={handleChange} required >
             <option value=''>Categories</option>
             {categories.map(category =>
@@ -185,7 +189,7 @@ return (
             )}
             </select>
         </div>
-        <div className="w3-third"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
+        <div className="w3-third w3-margin-top"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
             <select id='region' value={region}  onChange={handleChange} required>
             <option value=''>Regions</option>
             {regions.map(region =>
@@ -193,7 +197,7 @@ return (
             )}
             </select>
         </div>
-        <div className="w3-third "><i className="fa-solid fa-language w3-margin-right"></i>
+        <div className="w3-third w3-margin-top"><i className="fa-solid fa-language w3-margin-right"></i>
             <select id='language' value={language}  onChange={handleChange} required>
             <option value=''>Languages</option>
             {languages.map(language =>
@@ -204,35 +208,30 @@ return (
     </div>
   </div>
     
-    <div className="w3-row">
+  <div className="w3-row">
 
-    <div className="w3-half w3-padding-large" >
-      <h3 className="w3-center">Ingredients</h3>
-       <div style={{padding:"6px 16px"}}> 
+    <div className="w3-half w3-padding" >
+        <h3 className="w3-center">Ingredients</h3>
         
-        <div className=" w3-white w3-padding" >
+        <div className="w3-white w3-margin-top" style={{padding:'5px 10px 35px 15px'}} >
             {ingredientsInputs}
-       
-        <div className="w3-section">
-            <div className="w3-button" onClick={addIngredient}><i className="fa fa-plus"/></div>
-        </div>
        </div>
-       
-      </div>  
+       <div className="w3-padding-top-16">
+          <div className="w3-button w3-white w3-left" onClick={addIngredient}><i className="fa fa-plus"/></div>
+       </div>
     </div>
 
-    <div className="w3-half w3-padding-large" >
-     <h3 className="w3-center">Steps</h3>
-     <ol style={{padding:"0px 16px"}}>
-
-     {stepsInputs}
-      <div className="w3-button w3-white" onClick={addStep}><i className="fa fa-plus"/></div>
-    
-     </ol> 
+    <div className="w3-half w3-padding" >
+        <h3 className="w3-center">Steps</h3>
+        <ol style={{padding:"0 10px"}}>
+            {stepsInputs}
+            <div className="w3-button w3-white fa fa-plus w3-left"  onClick={addStep} />
+        </ol>
+        
     </div>
     
-    </div>
-    <div className="w3-center w3-padding-16"><button type="submit" className="w3-button w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button></div>
+  </div>
+  <div className="w3-center w3-padding-16"><button type="submit" className="w3-button w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button></div>
 </form>  
 </div>
 )

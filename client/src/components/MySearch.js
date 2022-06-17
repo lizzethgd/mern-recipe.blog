@@ -1,7 +1,6 @@
 import CardsList from './CardsList';
 import Numeration from './Numeration';
 import { useState, useCallback, useEffect} from "react";
-import {slicer, paginater} from "../helpers/funtions.js"
 import {recipesBySearch} from '../services/RecipeService';
 
 const MySearch = () => {
