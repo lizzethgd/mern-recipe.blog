@@ -1,6 +1,6 @@
 export const updateProfile = async (updateUser, id) => {
     try{
-    const res = await fetch(`user/update/${id}`, {
+    const res = await fetch(`user/${id}`, {
         method: 'PUT',
         body: updateUser,
       });

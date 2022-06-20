@@ -1,4 +1,5 @@
 import avatar from "../assets/images/blankAvatar.jpg"
+import "../assets/css/profile.scss"
 import {useContext, useState} from 'react'
 import {updateProfile} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
@@ -68,7 +69,7 @@ const handleSubmit = e =>{
 }
 
 return (
-<div className="w3-container w3-light-green w3-center w3-padding-16 w3-padding-top-64">
+<div className="w3-container w3-light-green w3-center container-profile">
    <form className="w3-round w3-light-grey w3-content w3-card " onSubmit={handleSubmit}>
     <div className="w3-container">
       <div className="w3-row padd  "  >    
@@ -103,7 +104,7 @@ return (
         </div>
         </div>
       </div>
-      <div className="w3-center w3-padding-top-32">
+      <div className="w3-center w3-padding-24">
         <button className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>  
         <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-ban"/> Cancel</Link>
      </div>
