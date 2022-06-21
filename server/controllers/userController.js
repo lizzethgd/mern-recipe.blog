@@ -18,11 +18,9 @@ exports.update = async (req, res) => {
 
 exports.getMyProfile = async(req, res) => {
   try {
-    const username = req.params.username
-    const user =  await User.findOne({username})
+    const id = req.params.id
+    const user =  await User.findOne({id})
     user.password= null
-    await user.populate('recipes')
-    await user.populate('favorites')
     await res.status(200).json(user)
   } catch (err) {
     res.status(500).json(err.name+': '+err.message)

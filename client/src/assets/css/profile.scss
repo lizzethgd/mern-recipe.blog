@@ -5,9 +5,15 @@
 
 @media only screen and (min-width: 1400px) {
 
-.container-profile{
-    padding-top: 17vh;
-    padding-bottom: 24vh;
-   
+    .container-profile{
+        padding-top: 17vh;
+        padding-bottom: 19.5vh;
+    }
 }
-}
+
+/* @media only screen and (max-width: 600px) {
+
+    .container-profile{
+        padding-top: 12vh;
+    }
+} */

@@ -24,7 +24,7 @@ router.put('/:id',  fileUpload, resizeImage, authJWT.verifyOwnership, userContro
 
 router.delete('/:id',  authJWT.verifyOwnership, authController.logout, authController.delete)
 
-router.get('/profile/:username', userController.getMyProfile)
+router.get('/myprofile/:id', userController.getMyProfile)
 
 router.get('/:id', userController.getUserById)
 

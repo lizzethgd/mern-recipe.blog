@@ -14,12 +14,9 @@ export const updateProfile = async (updateUser, id) => {
   }
 
 
-  export const profile = async (user) => {
-
-      const {username/* , role */ } = user
-      console.log(username)
+  export const getMyProfile = async (id) => {
     try{
-      const res = await fetch(`user/profile/${username}`)
+      const res = await fetch(`user/myprofile/${id}`)
       return res.json()
     }catch(err) {
         console.log('error in userService: '+err)

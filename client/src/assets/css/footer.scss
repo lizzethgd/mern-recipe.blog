@@ -1,0 +1,30 @@
+.container-footer{
+    padding-top:32px;
+    padding-right: 16px;
+    padding-bottom: 0;
+
+    .to-top-button{
+        position: relative;
+        bottom: 10px; 
+        z-index:1;
+        padding-top: 0
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+
+    .container-profile{
+        padding-top: 64px;
+        padding-bottom: 64px;
+       
+    }
+}
+
+@media only screen and (max-width: 600px) {
+
+    .container-footer{
+        padding-top:16px;
+        padding-left: 0;
+        padding-right: 10px;
+    }
+}
