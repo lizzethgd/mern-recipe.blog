@@ -60,7 +60,7 @@ const Timeline = () => {
       <div className="swiper-wrapper" >
      {
        slices.map(slice => 
-        <div className={"swiper-slide "+slice.letter}  data-year={slice.title} >
+        <div key={slice.letter} className={"swiper-slide "+slice.letter}  data-year={slice.title} >
           <div className="swiper-slide-content"><span className="timeline-title" >{slice.title}</span>
             <h4 className="timeline-subtitle">{slice.subtitle}</h4>
             <p className="timeline-text">{slice.text}</p>

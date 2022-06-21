@@ -23,13 +23,9 @@ return (
     <Navigation />
     <Routes >
       <Route  exact path="/" element={<Home />} />
-       {/*<Route exact path='/share' element={<Share  />} /> */}
-     {/*  <Route exact path='/:id' element={<Recipe  />} /> */}
       <Route exact path='/mysearch' element={<MySearch  />} />
+      <Route exact path='/:id' element={<Recipe  />} />
 
-      <Route exact path='/' element={<PublicRoute/>}>
-          <Route exact path='/:id' element={<Recipe  />} />
-      </Route>
     
       <Route exact path='/' element={<UnPrivateRoute/>}>
         <Route exact path="/login" element={<Login/>} /> 
