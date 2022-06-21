@@ -5,7 +5,7 @@ export const AuthContext = createContext({});
 
 export default ({ children }) => {
  
-    const [user,setUser] = useState(null);
+    const [user,setUser] = useState({});
     const [isAuthenticated,setIsAuthenticated] = useState(false);
     const [isLoaded,setIsLoaded] = useState(false);
 
@@ -13,8 +13,8 @@ export default ({ children }) => {
     (async () => { 
         try{
         await checkAuthentication().then(data => {
-            setUser(data.user)
-            setIsAuthenticated(data.isAuthenticated)
+            setUser(data.user ? data.user : null)
+            setIsAuthenticated(data.isAuthenticated? data.isAuthenticated  : false)
             setIsLoaded(true)
         })
     }catch(err){
