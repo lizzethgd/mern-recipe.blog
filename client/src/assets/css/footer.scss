@@ -9,6 +9,14 @@
         z-index:1;
         padding-top: 0
     }
+
+    .name{
+        text-decoration: none;
+    }
+
+    .name:hover{
+        text-decoration: underline;
+    }
 }
 
 @media only screen and (min-width: 1400px) {

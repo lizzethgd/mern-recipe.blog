@@ -40,15 +40,17 @@ const Timeline = () => {
   },
   { letter: 'b',
     title: 'Search',
-    subtitle: 'custom your search using our filters',
-    text: 'You can customize your search by category, language, and region, as well as by recipe or ingredient name.' },
+    subtitle: 'using filters',
+    text: 'You can customize your search by recipe category, language, and region, as well as by name or ingredient.'
+  },
   { letter: 'c',
     title: 'Enjoy',
     subtitle: 'your meal',
-    text: 'Enjoying a good meal is one of the small pleasures of life'},
+    text: 'Enjoying a good meal made by oneself is one of the small pleasures of life'
+  },
   { letter: 'd',
     title: 'Share',
-    subtitle: 'with us your recepties',
+    subtitle: 'here your recepties',
     text: 'Share your food recipes with the world and let people rate and comment on them'
   }
  ]
