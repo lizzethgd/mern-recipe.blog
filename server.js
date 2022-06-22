@@ -22,14 +22,14 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, '/client/build')));
 
 // initialize routes
-app.use('/api/user', require('./server/routes/user'));
-app.use('/api/recipe', require('./server/routes/recipe'));
-app.use('/api/region', require('./server/routes/region'));
-app.use('/api/language', require('./server/routes/language'));
-app.use('/api/category', require('./server/routes/category'));
-app.use('/api/comment', require('./server/routes/comment'));
-app.use('/api/like', require('./server/routes/like'));
-app.use('/api/favorite', require('./server/routes/favorite'));
+app.use('/user', require('./server/routes/user'));
+app.use('/recipe', require('./server/routes/recipe'));
+app.use('/region', require('./server/routes/region'));
+app.use('/language', require('./server/routes/language'));
+app.use('/category', require('./server/routes/category'));
+app.use('/comment', require('./server/routes/comment'));
+app.use('/like', require('./server/routes/like'));
+app.use('/favorite', require('./server/routes/favorite'));
 
 // error handling middleware
 app.use(function(err, req, res, next){
