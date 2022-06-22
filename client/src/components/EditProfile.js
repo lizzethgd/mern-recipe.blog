@@ -64,6 +64,7 @@ return (
         <h4 className="w3-center">Edit profile</h4>
         <p className="w3-center">
           <img src={imgUrl ? imgUrl : (updateUser.photo ? updateUser.photo : avatar)}  className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/>
+          {err}
         </p>
         <input type="file" name="photo" accept=".png, .jpg, .jpeg" onChange={handleImage}/>
         </div>

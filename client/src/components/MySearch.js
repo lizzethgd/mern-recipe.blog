@@ -14,7 +14,7 @@ const MySearch = () => {
       await recipesBySearch(dispatch).then(data => {
               setRecipes(data.recipes)
               setTotalRecipes(data.total) }
-      )}, [] ) 
+      )}, [dispatch] ) 
   
     useEffect(() => {
         try{
