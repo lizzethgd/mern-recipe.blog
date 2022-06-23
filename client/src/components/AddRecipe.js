@@ -1,10 +1,10 @@
 import {useContext, useEffect, useState} from 'react'
-import {useNavigate} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext';
 import {createRecipe} from '../services/RecipeService';
-import { getCategories } from '../services/CategoryService';
-import { getLanguages } from '../services/LanguageService';
-import { getRegions } from '../services/RegionService';
+import {getCategories } from '../services/CategoryService';
+import {getLanguages } from '../services/LanguageService';
+import {getRegions } from '../services/RegionService';
+import {Link, useNavigate} from 'react-router-dom'
 
 const AddRecipe = () => {
 
@@ -153,12 +153,12 @@ const stepsInputs = steps.map((step, i)=>
 console.log(recipe)
 
 return (  
-<div className="w3-container w3-light-green w3-center w3-padding-top-32 w3-text-white" >
+<div className="w3-container w3-light-green w3-padding-top-32 w3-text-white w3-center" >
  
 <form  className="w3-padding-16" onSubmit={handleSubmit}>
   
   <div className="w3-content" >
-    <h2 >Recipe</h2> 
+    <h2>Recipe</h2> 
     <div className="w3-section">
         <input className="w3-input w3-border" type="text" placeholder="Title" id="title" value={title} onChange={handleChange} onKeyDown={handleEnter} required/>
         <textarea className="w3-input w3-border w3-margin-top" type="text" placeholder="Description"  id="description" value={description} onChange={handleChange} onKeyDown={handleEnter}/>
@@ -208,30 +208,29 @@ return (
     </div>
   </div>
     
-  <div className="w3-row">
-
-    <div className="w3-half w3-padding" >
-        <h3 className="w3-center">Ingredients</h3>
-        
-        <div className="w3-white w3-margin-top" style={{padding:'5px 10px 35px 15px'}} >
-            {ingredientsInputs}
-       </div>
-       <div className="w3-padding-top-16">
-          <div className="w3-button w3-white w3-left" onClick={addIngredient}><i className="fa fa-plus"/></div>
-       </div>
-    </div>
-
-    <div className="w3-half w3-padding" >
-        <h3 className="w3-center">Steps</h3>
-        <ol style={{padding:"0 10px"}}>
-            {stepsInputs}
-            <div className="w3-button w3-white fa fa-plus w3-left"  onClick={addStep} />
-        </ol>
-        
-    </div>
-    
-  </div>
-  <div className="w3-center w3-padding-16"><button type="submit" className="w3-button w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button></div>
+  <div className="w3-row blocks">
+        <div className="h-block" >
+            <h3 className="w3-center">Ingredients</h3>
+            <div className="w3-white w3-margin-top" style={{padding:'5px 10px 35px 15px'}} >
+                {ingredientsInputs}
+            </div>
+            <div className="w3-padding-top-16">
+                <div className="w3-button w3-white w3-left" onClick={addIngredient}><i className="fa fa-plus"/></div>
+            </div>
+        </div>
+        <div className="h-block" >
+            <h3 className="w3-center">Steps</h3>
+            <ol style={{padding:"0 10px"}}>
+                {stepsInputs}
+                <div className="w3-button w3-white fa fa-plus w3-left"  onClick={addStep} />
+            </ol>
+            
+        </div>
+   </div>
+    <div className="w3-center w3-padding-24">
+      <button type="submit" className="w3-button w3-round w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button>
+      <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/'}><i className="fa-solid fa-ban"/> Cancel</Link>
+    </div>       
 </form>  
 </div>
 )

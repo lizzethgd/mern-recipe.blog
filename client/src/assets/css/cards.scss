@@ -10,12 +10,10 @@ $teal: #0096a0;
 $tealMid: #0ebac7;
 $tealContrast: #33ffff;
 $tealShade:	#007c85;
-
 $darkGrey: #4f585e;
 
 
 .cards__container {
- /*  background: $lightBG; */
   margin: 6vh auto;
   max-width: 1200px; 
   text-align: center;
@@ -228,5 +226,18 @@ $darkGrey: #4f585e;
   }
 }
 
+@media only screen and (min-width: 600px) {
 
+  .cards__container{
+    padding-top: 3vh;
+  }
+} 
+
+@media only screen and (min-width: 1400px) {
+
+  .cards__container{
+    padding-top: 2.5vh;
+    padding-bottom: 10.1vh;
+  }
+} 
 

@@ -5,12 +5,37 @@
     height: 25%
 }
 
-@media only screen and (max-width: 800px) {
+.blocks{
+    display: flex;
+    justify-content: center;
 
-.imgRecipe{
-    padding-top: 25px;
-    padding-bottom: 4px;
-    width: 90%;
-    height: 30%
+    .h-block{
+        width: 49%;
+        padding: 30px;
+      }
 }
+
+
+
+
+@media only screen and (max-width: 600px) {
+
+    .imgRecipe{
+        padding-top: 25px;
+        padding-bottom: 4px;
+        width: 90%;
+        height: 30%
+    }
+
+    .blocks{
+        flex-direction: column;
+        .h-block{
+            width: 100%;
+            padding: 3px;
+        }
+
+    }
 }
+
+
+
