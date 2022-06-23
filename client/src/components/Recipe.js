@@ -157,7 +157,7 @@ const handleModal = () => {
 
 return (
 <div className="w3-container w3-light-green w3-padding-top-32 w3-center padd" >
-{/* {(!isLoaded)? <h1>Loading... </h1> : <> */}
+
   <div className="w3-content w3-center w3-text-white padd" id="about">
   {photo!=='undefined' && photo!=='' ? <img src={photo} alt={title} className="w3-image imgRecipe"/> : null} 
     <h2 className="w3-center padd w3-text-white">{title}</h2> 
@@ -171,7 +171,7 @@ return (
     </div> 
   </div> 
 
-  <div className="w3-row padd  w3-text-white "  >
+  <div className="w3-row w3-text-white "  >
         
     <div className="w3-col m6 padd ">  
       <h3 className="w3-center">Ingredients</h3>
@@ -185,7 +185,7 @@ return (
     </div>
         
     <div className="w3-col m6 padd">
-      <h3 className="w3-center">Preparation</h3>
+      <h3 className="w3-center">Steps</h3>
       <ol>
         { steps.map((step, i) =>
         (<li key={i}><p className="w3-padding w3-white w3-justify w3-round">{step}</p></li>)
@@ -196,13 +196,15 @@ return (
   </div> 
 
   { (author._id===user._id) 
-  ? <><Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ dispatch: recipe }}>
-      <i className="fa-solid fa-pen-to-square" /> Edit</Link>
-    <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={deleteRecipe}>
-        <i className="fa-solid fa-ban"/> Delete</button></>
+  ? <div className="w3-padding-16">
+      <Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ dispatch: recipe }}>
+        <i className="fa-solid fa-pen-to-square" /> Edit</Link>
+      <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={deleteRecipe}>
+          <i className="fa-solid fa-ban"/> Delete</button>
+    </div>
   : ''}
 
-  <div className="w3-container  w3-center w3-text-white w3-padding-16">  
+  <div className="w3-container  w3-center w3-text-white w3-padding-24">  
     Published by <img src={author.photo ? author.photo: miniAvatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {new Date(createdAt).toLocaleDateString()} 
     <p className="w3-large">
         <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;&nbsp;   
@@ -218,10 +220,10 @@ return (
   <div className="w3-container padd">
       
     {(comments.length>0 ) ? 
-        comments.map(comment =>
-        (   <div className="w3-container w3-card w3-white w3-round w3-margin w3-padding" key={comment._id}>
+        comments.map(comment =>(
+        <div className="w3-container w3-card w3-white w3-round padd w3-padding-16" key={comment._id}>
         <img src={comment.author.photo ? comment.author.photo : miniAvatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
-        <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">@{comment.author.username}</span></div>
+        <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">&nbsp;@{comment.author.username}</span></div>
         <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
         <span className="w3-justify w3-left">{comment.content}</span>
         {(comment.author._id===user._id) 
@@ -231,8 +233,8 @@ return (
         )
     ): '' } 
 
-    <div className="w3-container w3-round w3-padding-16" >
-        <img src={user.photo ? user.photo : miniAvatar} className="w3-left w3-circle a-img" style={{ margin: "7px 8px 0 16px"}} alt="Avatar" />
+    <div className="w3-container padd w3-padding-24" >
+        <img src={user.photo ? user.photo : miniAvatar} className="w3-left w3-circle a-img avatar"  alt="Avatar" />
         <form className=" w3-white w3-left w3-card w3-round comment-container">
             <textarea type="text" id="content" value={newComment.content} onChange={handleChange} required/>
             <i className="w3-button w3-right w3-hover-white fa-solid fa-paper-plane button" style={{color: '#ff5722'}} onClick={addAComment}/>

@@ -203,9 +203,9 @@ return (
         </div>
     </div>
         
-    <div className="w3-row">
+    <div className="w3-row blocks">
     
-        <div className="w3-half w3-padding" >
+        <div className="h-block" >
           <h3 className="w3-center">Ingredients</h3>
            <div className=" w3-white w3-margin-top"  style={{padding:"5px 10px 35px 15px"}}> 
                     {ingredientsInputs}
@@ -215,19 +215,19 @@ return (
           </div> 
         </div>
     
-        <div className="w3-half w3-padding" >
+        <div className="h-block" >
             <h3 className="w3-center">Steps</h3>
             <ol style={{padding:"0px 10px"}}>
                 {stepsInputs}
-                <div className="w3-button w3-white w3-left" onClick={addStep}><i className="fa fa-plus"/></div>
+                <div className="w3-button w3-white w3-left fa fa-plus" onClick={addStep}></div>
             </ol> 
         </div>
         
     </div>
 
-    <div className="w3-center w3-padding-16">
-            <button type="submit" className="w3-button w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button>
-            <Link  className="w3-button w3-gray" style={{marginLeft: '15px'}} to={`/${dispatch._id}`} > Cancel <i className="fa-solid fa-ban" /></Link>
+    <div className="w3-center w3-padding-24">
+            <button type="submit" className="w3-button w3-round w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button>
+            <Link  className="w3-button  w3-round w3-gray" style={{marginLeft: '15px'}} to={`/${dispatch._id}`} > Cancel <i className="fa-solid fa-ban" /></Link>
     </div>
 
     </form> 

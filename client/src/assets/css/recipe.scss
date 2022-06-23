@@ -15,6 +15,10 @@
       }
 }
 
+.avatar{
+    margin: 7px 8px 0 16px;
+}
+
 
 
 
@@ -28,12 +32,15 @@
     }
 
     .blocks{
+
         flex-direction: column;
         .h-block{
             width: 100%;
-            padding: 3px;
+            padding: 5px 10px;
         }
-
+        li{
+            text-align: center
+        }
     }
 }
 

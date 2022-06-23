@@ -208,8 +208,10 @@ return (
     </div>
   </div>
     
-  <div className="w3-row blocks">
-        <div className="h-block" >
+  <div className="w3-row">
+
+
+        <div className="w3-col m6 padd " >
             <h3 className="w3-center">Ingredients</h3>
             <div className="w3-white w3-margin-top" style={{padding:'5px 10px 35px 15px'}} >
                 {ingredientsInputs}
@@ -218,11 +220,11 @@ return (
                 <div className="w3-button w3-white w3-left" onClick={addIngredient}><i className="fa fa-plus"/></div>
             </div>
         </div>
-        <div className="h-block" >
+        <div className="w3-col m6 padd " >
             <h3 className="w3-center">Steps</h3>
             <ol style={{padding:"0 10px"}}>
                 {stepsInputs}
-                <div className="w3-button w3-white fa fa-plus w3-left"  onClick={addStep} />
+                <div className="w3-button w3-white w3-left fa fa-plus"  onClick={addStep} />
             </ol>
             
         </div>
