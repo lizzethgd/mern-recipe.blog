@@ -33,7 +33,7 @@ const uploadFromBuffer = (img, folder) => {
           console.log('error uploadFromBuffer: '+err);
           reject(error);       
       } else {
-          resolve(result.url);
+          resolve(result.secure_url);
       }
     }); 
     bufferToStream(img).pipe(upload_stream) 

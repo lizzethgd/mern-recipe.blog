@@ -18,8 +18,7 @@ exports.update = async (req, res) => {
 
 exports.getMyProfile = async(req, res) => {
   try {
-    const id = req.params.id
-    const user =  await User.findOne({id})
+    const user =  await User.findById(req.params.id)
     user.password= null
     await res.status(200).json(user)
   } catch (err) {

@@ -28,7 +28,7 @@ const MyRecipes = () => {
   }, [initRecipes]);
 
 return (
-<div className="w3-container" >
+<div className="w3-container w3-light-green" >
     
 <CardsList pageSlice={pageSlice}/>
 

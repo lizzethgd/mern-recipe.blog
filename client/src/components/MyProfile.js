@@ -12,10 +12,12 @@ const MyProfile = () => {
   const [myProfile, setMyProfile] = useState({})
 
   console.log(user)
+  console.log(user._id)
 
  const initProfile = useCallback( async() => {
     try{
       await getMyProfile(user._id).then(data => {
+        console.log(data)
         setMyProfile(data)})
     }catch(err){
       console.log(`error in initRecipe: ${err}`) }

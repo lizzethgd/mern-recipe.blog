@@ -89,7 +89,7 @@ return (
     <NavLink  className="w3-bar-item w3-button w3-deep-orange" title="Home" to="/"><img src={recipebook} style={{padding:0, height:"35px", width:"35px"}} alt="recipebook" /> <b>RecipePad</b></NavLink>
     { !isAuthenticated ?  userNoLogTop : userLogTop }
     <div className="w3-bar-item w3-right w3-hide-small search-container ">
-      <input type="text" placeholder="Search recipe..  " id="search" onChange={handleChange} required/>
+      <input type="text" placeholder="Search recipe..  "  onChange={handleChange} required/>
       <button className="w3-bar-item  w3-button w3-hide-small w3-right  w3-hover-white fa-solid fa-magnifying-glass button" onClick={handleSubmit} />
     </div>
   </div>

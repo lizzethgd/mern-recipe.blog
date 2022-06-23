@@ -1,0 +1,12 @@
+.home_container{
+    padding-top: 52px;
+  }
+
+
+  @media only screen and (max-width: 600px) {
+
+    .home_container{
+      padding-top: 0px;
+    }
+  } 
+

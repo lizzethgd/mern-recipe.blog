@@ -1,9 +1,10 @@
+import "../assets/css/home.scss"
 import Timeline from './Timeline';
 import AllRecipes from './AllRecipes';
 
 const Home = () => {
 return (
-<div className="w3-light-green w3-center w3-padding-top-48">   
+<div className="w3-light-green w3-center home_container">   
     <Timeline />
     <AllRecipes />
 </div>
