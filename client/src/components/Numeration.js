@@ -22,9 +22,7 @@ const Numeration = ({data, totalRecipes, setPageSlice}) => {
     setPageSlice(slice)
     const numerationPages = paginater(totalPages, sibling, currentPage)
     setPagesNumeration(numerationPages)
-    console.log('Total recetas: '+totalRecipes+', Total pages: '+totalPages
-    +', paginas: '+numerationPages+', Current Page: '+currentPage)
-    console.log(slice)}, [data, currentPage, setPageSlice, totalRecipes])   
+  }, [data, currentPage, setPageSlice, totalRecipes])   
 
     useEffect(() => {
       try{  

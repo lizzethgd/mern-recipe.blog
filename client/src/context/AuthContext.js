@@ -13,6 +13,7 @@ export default ({ children }) => {
     (async () => { 
         try{
         await checkAuthentication().then(data => {
+            console.log(data)
             setUser(data.user ? data.user : {user: 'guest'})
             setIsAuthenticated(data.isAuthenticated? data.isAuthenticated  : false)
             setIsLoaded(true)

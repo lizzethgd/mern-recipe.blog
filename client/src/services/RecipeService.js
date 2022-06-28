@@ -1,5 +1,4 @@
 export const getRecipeById = async (id) => {
-  console.log(id)
 try{
   const res = await fetch(`recipe/${id}`).then(response => response.json())
   if (res.status !== 401)
@@ -24,13 +23,11 @@ export const createRecipe = async (recipe) => {
 }
 
 export const getAllRecipes = async (filters) => {
-
-  console.log(filters)
+  //console.log(filters)
   const {category, language, region } = filters
   try{
   const res = await fetch(`recipe/recipes/${category}/${language}/${region}`)
   //const res = await fetch('recipe/recipes')
-  console.log(res)
   return await res.json()
 
   }catch(err) {

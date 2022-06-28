@@ -12,7 +12,6 @@ import EditProfile from './components/EditProfile';
 import EditRecipe from './components/EditRecipe';
 import UnPrivateRoute from './hocs/UnPrivateRoute';
 import PrivateRoute from './hocs/PrivateRoute';
-import PublicRoute from './hocs/PublicRoute';
 import EditPassword from './components/EditPassword';
 import MySearch from './components/MySearch';
 

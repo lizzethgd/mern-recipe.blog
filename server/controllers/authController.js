@@ -23,8 +23,7 @@ exports.register = async (req,res) => {
     });
     console.log(newUser)
     return res.status(200).json({ token });
-   
-    
+     
   } catch (err) {
   console.log(err.name+': '+err.message )
   let errorHandled = err

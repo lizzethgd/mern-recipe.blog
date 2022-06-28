@@ -20,6 +20,7 @@ app.use(cors());
 app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname, '/client/build')));
+app.use(express.urlencoded({extended: false})) 
 
 // initialize routes
 app.use('/user', require('./server/routes/user'));
@@ -43,9 +44,9 @@ mongoose.connect(process.env.DATABASE, {})
 .catch((err) => console.log(err));
 
 // All other GET requests not handled before will return our React app
-/* app.get('*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
-}); */
+});
 
 app.listen(port, () => {
   console.log(`Server listening for requests at ${port}`);

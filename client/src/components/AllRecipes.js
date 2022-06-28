@@ -31,8 +31,6 @@ useEffect(() => {
     }
 }, [initRecipes]);
 
-console.log(pageSlice)
-
 return (
 <div className="w3-container">
 

@@ -6,7 +6,7 @@ exports.verifyToken = async (req, res, next) => {
     
   const token = req.headers["authorization"];
 
-  console.log('content: '+token)
+  console.log('token: '+token)
 
   if (!token) return res.status(403).json({ message: "No token provided" });
 
