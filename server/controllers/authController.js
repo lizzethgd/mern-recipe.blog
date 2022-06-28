@@ -43,7 +43,7 @@ exports.login = async (req, res) => {
         expiresIn: _.JWT_EXPIRES // 24 hours
       });
 
-    await res.setHeader('Authorization', token
+    await res.setHeader('Authorization', token, {httpOnly: true, sameSite:true}
     //await res.cookie('lizzethJWT', token
     //, {httpOnly: true, sameSite:true}
     )     
