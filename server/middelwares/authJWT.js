@@ -4,7 +4,8 @@ const _= process.env
 
 exports.verifyToken = async (req, res, next) => {
     
-  const token = req.headers["authorization"];
+  //const token = req.headers["authorization"];
+  const token= req.cookies['RecipePadJWT']
 
   console.log('token: '+token)
 

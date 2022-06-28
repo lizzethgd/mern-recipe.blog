@@ -43,9 +43,8 @@ exports.login = async (req, res) => {
         expiresIn: _.JWT_EXPIRES // 24 hours
       });
 
-    await res.setHeader('Authorization', token, {httpOnly: true, sameSite:true}
-    //await res.cookie('lizzethJWT', token
-    //, {httpOnly: true, sameSite:true}
+    //await res.setHeader('Authorization', token
+    await res.cookie('RecipePadJWT', token, {httpOnly: true, sameSite:true}
     )     
 
     await res.status(200).json({isAuthenticated : true, user : user}); 
@@ -60,8 +59,9 @@ exports.login = async (req, res) => {
 
 exports.logout = async (req, res) => {
 
-  await res.setHeader('Authorization', '')
-    //await req.headers["x-access-token"] = '';  
+    //await res.setHeader('Authorization', '')
+    //await req.headers["x-access-token"] = '';
+    await res.clearCookie('RecipePadJWT');  
     await res.json({user: {}, success : true})
     console.log("LOGOUT!!!!!!!!!!");
 }
