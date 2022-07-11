@@ -6,7 +6,7 @@ export const checkAuthentication = async ()=>{
   else if (localStorage.length !== 0)
     return JSON.parse(localStorage.getItem('AuthData'))
   else  
-    return { isAuthenticated: false, user: { } };
+    return { isAuthenticated: false, user: {username: "" } };
 }
 
 export const authLogin = async user => {
@@ -21,7 +21,7 @@ export const authLogin = async user => {
     if (res.status !== 401)
       return res.json()
     else
-     return { isAuthenticated: false, user: { } };
+     return { isAuthenticated: false, user: { username: ""} };
 }
 
 export const authLogout = async () => {

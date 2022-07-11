@@ -27,7 +27,7 @@ return (
 
     
       <Route exact path='/' element={<UnPrivateRoute/>}>
-        <Route exact path="/login" element={<Login/>} /> 
+        <Route path="/login" element={<Login/>} /> 
       </Route>
 
       <Route exact path='/' element={<PrivateRoute/>}>
