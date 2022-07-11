@@ -1,7 +1,7 @@
 import {useContext, useState} from 'react'
-import {useNavigate, NavLink, useLocation} from "react-router-dom";
-import {authLogout} from '../services/AuthService'
-import {AuthContext} from '../context/AuthContext';
+import {useHistory, NavLink, useLocation} from "react-router-dom";
+import {authLogout} from '../../src/services/AuthService'
+import {AuthContext} from '../../src/context/AuthContext';
 import avatar from "../assets/images/blankAvatar.jpg"
 import recipebook from "../assets/images/cook-book.png"
 import '../assets/css/nav.scss'
@@ -14,7 +14,7 @@ const Navigation = () => {
 
   const [search, setSearch] = useState('')
 
-  const history = useNavigate() 
+  const history = useHistory() 
   
   const onClickLogoutHandler = async ()=>{
     await authLogout().then(data=>{
@@ -24,7 +24,7 @@ const Navigation = () => {
              setIsAuthenticated(false);
          }
      });
-     history('/')
+     history.push('/')
   }
  
   const openNav= () =>{
