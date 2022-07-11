@@ -2,7 +2,7 @@ import miniAvatar from "../assets/images/blankAvatar.jpg"
 import  "../assets/css/recipe.scss"
 import  "../assets/css/comment.scss"
 import {useContext, useEffect, useState, useCallback} from 'react'
-import {Link, useParams , useHistory} from 'react-router-dom'
+import {Link, useParams , useNavigate} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext'
 import {getRecipeById, removeRecipe} from '../services/RecipeService'
 import {getRecipeComments, addComment, removeComment} from '../services/CommentService'
@@ -21,7 +21,7 @@ const Recipe = () => {
 
   console.log('recipe id: '+id)
 
-  const history = useHistory()
+  const history = useNavigate()
 
   const [recipe, setRecipe] = useState({
       title: '',

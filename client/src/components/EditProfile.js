@@ -3,7 +3,7 @@ import "../assets/css/profile.scss"
 import {useContext, useState} from 'react'
 import {updateProfile} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const EditProfile = () => {
 
@@ -12,7 +12,7 @@ const [updateUser , setUpdateUser] = useState(user)
 
 console.log(updateUser)
 const [imgUrl, setImgUrl] = useState('')
-const history = useHistory()
+const history = useNavigate()
 
 const handleChange = e => {
   e.preventDefault()

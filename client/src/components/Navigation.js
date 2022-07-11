@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react'
-import {useHistory, NavLink, useLocation} from "react-router-dom";
+import {useNavigate, NavLink, useLocation} from "react-router-dom";
 import {authLogout} from '../../src/services/AuthService'
 import {AuthContext} from '../../src/context/AuthContext';
 import avatar from "../assets/images/blankAvatar.jpg"
@@ -14,7 +14,7 @@ const Navigation = () => {
 
   const [search, setSearch] = useState('')
 
-  const history = useHistory() 
+  const history = useNavigate() 
   
   const onClickLogoutHandler = async ()=>{
     await authLogout().then(data=>{
@@ -24,7 +24,7 @@ const Navigation = () => {
              setIsAuthenticated(false);
          }
      });
-     history.push('/')
+     history('/')
   }
  
   const openNav= () =>{

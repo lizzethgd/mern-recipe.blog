@@ -1,7 +1,7 @@
 import {useState, useContext} from 'react'
 import {authLogin, authRegister} from '../services/AuthService'
 import {AuthContext} from '../context/AuthContext';
-import {useHistory } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import '../assets/css/login.scss'
 
 const Login = () => {
@@ -15,7 +15,7 @@ const Login = () => {
     const [ inputTypeLogup, setInputTypeLogup] = useState('password')
     const [ eyeSlashLogup, setEyeSlashLogup] = useState('-slash') 
 
-    const history = useHistory()  
+    const history = useNavigate()  
 
     const handleChangeLogin = e => {
         e.preventDefault();
@@ -35,7 +35,7 @@ const Login = () => {
                     setUser(user);
                     setIsAuthenticated(isAuthenticated);
                     localStorage.setItem('AuthData', JSON.stringify(data))
-                    history.push('/');
+                    history('/');
                 }
                 else
                     setMessage('no auth');

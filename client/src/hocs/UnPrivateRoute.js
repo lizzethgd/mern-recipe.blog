@@ -1,18 +1,13 @@
 import {useContext} from 'react';
-import {Route, Redirect } from 'react-router-dom';
+import {Navigate,  Outlet} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext';
 
-const UnPrivateRoute = ({component : Component,...rest})=>{
-    const { isAuthenticated } = useContext(AuthContext);
-    console.log(isAuthenticated)
+const UnPrivateRoute = ()=>{
     
+    const {isAuthenticated} = useContext(AuthContext);
+    console.log(isAuthenticated)
     return(
-        <Route {...rest} render={props =>{
-            if(isAuthenticated) 
-            return <Redirect to={{ pathname: '/', 
-                                        state : {from : props.location}}}/>
-        return <Component {...props}/>
-        }}/>
+        !isAuthenticated ? <Outlet />:  <Navigate to='/' />
     )
 }
 

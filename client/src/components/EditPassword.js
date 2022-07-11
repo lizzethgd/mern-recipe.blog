@@ -3,7 +3,7 @@ import "../assets/css/profile.scss"
 import {useContext, useState} from 'react'
 import {updateProfile} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const EditPassword = () => {
 
@@ -22,7 +22,7 @@ const EditPassword = () => {
   });
 
   const [message, setMessage] =useState('')
-  const history = useHistory()
+  const history = useNavigate()
 
   const handleChange = e => {
     e.preventDefault()

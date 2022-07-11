@@ -4,7 +4,7 @@ import {createRecipe} from '../services/RecipeService';
 import {getCategories } from '../services/CategoryService';
 import {getLanguages } from '../services/LanguageService';
 import {getRegions } from '../services/RegionService';
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 
 const AddRecipe = () => {
 
@@ -16,7 +16,7 @@ const [languages, setLanguages] = useState([])
 
 const [err, setErr] = useState('')
 
-const history = useHistory() 
+const history = useNavigate() 
 
 const [recipe, setRecipe] = useState({
     title: '',
@@ -66,7 +66,7 @@ useEffect(() => {
     console.log(formData)
     //await addRecipe(formData)
     await createRecipe(formData)
-    .then(data => {data.recipe ? history.push(`/${data.recipe._id}`) :  setErr(data.message)}
+    .then(data => {data.recipe ? history(`/${data.recipe._id}`) :  setErr(data.message)}
     )
 }
 
