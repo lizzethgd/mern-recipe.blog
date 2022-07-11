@@ -88,14 +88,12 @@ const Login = () => {
 
       const showLoginPass = e => {
         e.preventDefault()
-        console.log( e.target)
         setInputTypeLogin(inputTypeLogin==='password' ? 'text' : 'password')
         setEyeSlashLogin(eyeSlashLogin==='-slash' ? '' : '-slash') 
       }  
 
       const showLogupPass = e => {
         e.preventDefault()
-        console.log( e.target)
         setInputTypeLogup(inputTypeLogup==='password' ? 'text' : 'password')
         setEyeSlashLogup(eyeSlashLogup==='-slash' ? '' : '-slash') 
       } 

@@ -14,13 +14,11 @@ exports.verifyToken = async (req, res, next) => {
   try {
     const decoded = JWT.verify(token, _.JWT_SECRET);
     console.log(decoded)
+    req.userId = decoded.id;
 
-    const user = await User.findById(decoded.id, { password: 0 });
-
-    req.user = user
+    const user = await User.findById(req.userId, { password: 0 });
     
     if (!user) return res.status(404).json({ message: "User Not Found" });
-    console.log("verificado ok")
         
     next();
   
