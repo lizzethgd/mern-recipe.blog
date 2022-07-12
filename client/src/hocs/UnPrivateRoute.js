@@ -2,20 +2,21 @@ import {useContext} from 'react';
 import {Navigate,  Outlet, useLocation} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext';
 
-const UnPrivateRoute = ()=>{
+const UnPrivateRoute = ({component : Component, ...rest})=>{
     
     const {isAuthenticated} = useContext(AuthContext);
     console.log(isAuthenticated)
     const location = useLocation();
 
     return(
-        !isAuthenticated ? <Outlet />:  <Navigate to='/' state={{ from: location }} replace/>
+        isAuthenticated ?  <Navigate to='/' state={{ from: location }} replace/> : <Outlet />
           /*    <Route {...rest} render={props =>{
             if(isAuthenticated) 
             return <Navigate to={{ pathname: '/', 
                                         state : {from : props.location}}}/>
         return <Component {...props}/>
         }}/> */
+        
     )
 }
 

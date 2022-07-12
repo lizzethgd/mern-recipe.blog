@@ -23,14 +23,14 @@ return (
     <Routes >
       <Route index element={<Home />} />
       <Route path='/mysearch' element={<MySearch  />} />
-      <Route  path='/:id' element={<Recipe  />} />
+      <Route path='/:id' element={<Recipe  />} />
 
     
-      <Route path='/' element={<UnPrivateRoute/>}>
+      <Route element={<UnPrivateRoute/>}>
         <Route  path="/login" element={<Login/>} /> 
       </Route>
 
-      <Route path='/' element={<PrivateRoute/>}>
+      <Route element={<PrivateRoute/>}>
         <Route path="/addrecipe" element={<AddRecipe/>} />
         <Route path="/myfavorites" element={<MyFavorites/>} />
         <Route path="/myrecipes" element={<MyRecipes/>} />

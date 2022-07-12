@@ -10,6 +10,7 @@ export const checkAuthentication = async ()=>{
 }
 
 export const authLogin = async user => {
+  try{
   const res = await fetch('user/login', {
       method: 'POST',
       body: JSON.stringify(user),
@@ -22,6 +23,7 @@ export const authLogin = async user => {
       return res.json()
     else
      return { isAuthenticated: false, user: {} };
+}catch(err){console.log('error login'+err)}
 }
 
 export const authLogout = async () => {
