@@ -35,17 +35,16 @@ exports.register = async (req,res) => {
 exports.login = async (req, res) => {
 
   try {
-    const user = req.user
+    const user = await User.findById(req.userId);
 
     console.log('login: '+user)
 
     const token = JWT.sign({ id: user._id },_.JWT_SECRET, {
         expiresIn: _.JWT_EXPIRES // 24 hours
-      });
+    }); 
 
     //await res.setHeader('Authorization', token
-    await res.cookie('RecipePadJWT', token, {httpOnly: true, sameSite:true}
-    )     
+    await res.cookie('RecipePadJWT', token, {httpOnly: true, sameSite:true})     
 
     await res.status(200).json({isAuthenticated : true, user : user}); 
      

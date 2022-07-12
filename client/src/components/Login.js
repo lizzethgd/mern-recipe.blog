@@ -38,7 +38,7 @@ const Login = () => {
                     history('/');
                 }
                 else
-                    setMessage('no auth');
+                    setMessage('wrong credentials');
             })
     }
 
@@ -104,7 +104,7 @@ const Login = () => {
     <div className="w3-modal-content w3-animate-zoom log-form-structor ">
         
         <div className="login ">
-        {message ? <p>{message}</p>: null}
+        {message ? <p className="msg">{message}</p>: null}
             <h2 className="log-form-title" id="login" onClick={e => loginShow(e)}><span>or</span>Login </h2>
             <form onSubmit={handleSubmitLogin} target="_self">
               <div className="log-form-holder">

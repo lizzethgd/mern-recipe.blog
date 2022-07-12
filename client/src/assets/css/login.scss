@@ -41,6 +41,11 @@
 		z-index: 5;
 		transition: all .3s ease;
 		
+		.msg{
+			color: yellow;
+			font-weight: bold;
+			text-align: center;
+		}
 		
 		&.slide-up {
 			top: 5%;

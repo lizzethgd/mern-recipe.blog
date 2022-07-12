@@ -2,6 +2,33 @@ const JWT = require('jsonwebtoken')
 const User= require('../models/User')
 const _= process.env
 
+exports.verifyUser = async (req, res, next) => {
+    
+  try {
+   const {username, password} = req.body
+
+   const user = await User.findOne({ username})
+   
+   if (!user) return res.status(400).json({ message: "User Not Found" });
+
+   const matchPassword = await User.comparePassword(password, user.password);
+
+   if (!matchPassword)
+     return res.status(401).json({
+       token: null,
+       message: "Invalid Password"
+     });
+
+  const resUser =   await User.findById(user._id, { password: 0 });
+  
+   req.user= resUser
+ 
+   next();  
+     } catch (error) {
+       return res.status(401).json({ message: "Unauthorized!, Error: " +error.message });
+     } 
+};
+
 exports.verifyToken = async (req, res, next) => {
     
   //const token = req.headers["authorization"];
@@ -25,33 +52,6 @@ exports.verifyToken = async (req, res, next) => {
   } catch (error) {
     return res.status(401).json({ message: "Unauthorized!, Error: " +error.message });
   } 
-};
-
-exports.verifyUser = async (req, res, next) => {
-    
-   try {
-    const {username, password} = req.body
-
-    const user = await User.findOne({ username})
-    
-    if (!user) return res.status(400).json({ message: "User Not Found" });
-
-    const matchPassword = await User.comparePassword(password, user.password);
-
-    if (!matchPassword)
-      return res.status(401).json({
-        token: null,
-        message: "Invalid Password"
-      });
-
-   const resUser =   await User.findById(user._id, { password: 0 });
-   
-    req.user= resUser
-  
-    next();  
-      } catch (error) {
-        return res.status(401).json({ message: "Unauthorized!, Error: " +error.message });
-      } 
 };
 
 exports.authentication = async (req,res)=>{
