@@ -37,9 +37,11 @@ exports.login = async (req, res) => {
   try {
     const user = await User.findById(req.userId);
 
-    console.log('login: '+user)
+    const {_id, ...rest} = user
 
-    const token = JWT.sign({ id: user._id },_.JWT_SECRET, {
+    console.log('login: '+ _id)
+
+    const token = JWT.sign({ id: _id },_.JWT_SECRET, {
         expiresIn: _.JWT_EXPIRES // 24 hours
     }); 
 
