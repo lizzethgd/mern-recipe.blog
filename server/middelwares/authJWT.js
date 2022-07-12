@@ -8,10 +8,6 @@ exports.verifyUser = async (req, res, next) => {
    const {username, password} = req.body
 
    const user = await User.findOne({ username})
-
-    req.userId= user._id
-
-    console.log(req.userId)
    
    if (!user) return res.status(400).json({ message: "User Not Found" });
 
@@ -23,9 +19,9 @@ exports.verifyUser = async (req, res, next) => {
        message: "Invalid Password"
      });
 
-  /* const resUser =   await User.findById(user._id, { password: 0 });
+  const resUser =   await User.findById(user._id, { password: 0 });
   
-   req.user= resUser */
+   req.user= resUser
  
    next();  
      } catch (error) {

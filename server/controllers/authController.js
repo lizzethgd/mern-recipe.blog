@@ -35,13 +35,11 @@ exports.register = async (req,res) => {
 exports.login = async (req, res) => {
 
   try {
-    const user = await User.findById(req.userId);
+    const user = req.user
 
-    const {_id, ...rest} = user
+    console.log('login: '+user)
 
-    console.log('login: '+ _id)
-
-    const token = JWT.sign({ id: _id },_.JWT_SECRET, {
+    const token = JWT.sign({ id: user._id },_.JWT_SECRET, {
         expiresIn: _.JWT_EXPIRES // 24 hours
     }); 
 

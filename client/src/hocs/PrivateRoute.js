@@ -1,5 +1,5 @@
 import {useContext} from 'react';
-import {Navigate, Outlet} from 'react-router-dom';
+import {Route, Navigate} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext';
 
 const PrivateRoute = ({component : Component, ...rest})=>{
@@ -8,7 +8,13 @@ const PrivateRoute = ({component : Component, ...rest})=>{
     console.log(user)
   
     return(
-        !isAuthenticated ? <Navigate to='/login' /> :  <Outlet />  
+        <Route {...rest} render={props =>{
+            if(!isAuthenticated)
+                return <Navigate to={{ pathname: '/login', 
+                                       state : {from : props.location}}}/>
+            
+        return <Component {...props}/>
+    }}/>
     )
 }
 
