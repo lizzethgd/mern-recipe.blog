@@ -18,7 +18,7 @@ export const authLogin = async user => {
       }
     });
 
-    if (res.status === 200)
+    if (res.status === 401)
       return res.json()
     else
      return { isAuthenticated: false, user: {} };
