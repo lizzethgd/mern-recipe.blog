@@ -21,16 +21,16 @@ return (
   <BrowserRouter>
     <Navigation />
     <Routes >
-      <Route  exact path="/" element={<Home />} />
-      <Route exact path='/mysearch' element={<MySearch  />} />
-      <Route exact path='/:id' element={<Recipe  />} />
+      <Route index element={<Home />} />
+      <Route path='/mysearch' element={<MySearch  />} />
+      <Route  path='/:id' element={<Recipe  />} />
 
     
-      <Route exact path='/' element={<UnPrivateRoute/>}>
+      <Route path='/' element={<UnPrivateRoute/>}>
         <Route  path="/login" element={<Login/>} /> 
       </Route>
 
-      <Route exact path='/' element={<PrivateRoute/>}>
+      <Route path='/' element={<PrivateRoute/>}>
         <Route path="/addrecipe" element={<AddRecipe/>} />
         <Route path="/myfavorites" element={<MyFavorites/>} />
         <Route path="/myrecipes" element={<MyRecipes/>} />
