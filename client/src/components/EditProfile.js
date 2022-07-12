@@ -1,6 +1,6 @@
 import avatar from "../assets/images/blankAvatar.jpg"
 import "../assets/css/profile.scss"
-import {useContext, useState} from 'react'
+import {useContext, useState, useEffect} from 'react'
 import {updateProfile} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
 import {Link, useNavigate} from 'react-router-dom'
@@ -8,7 +8,25 @@ import {Link, useNavigate} from 'react-router-dom'
 const EditProfile = () => {
 
 const {user, setUser} = useContext(AuthContext);
-const [updateUser , setUpdateUser] = useState(user)
+
+
+const [updateUser, setUpdateUser] = useState({
+  firstName: '',
+  lasttName: '',
+  username: '',
+  email: '',
+  photo: ''
+  })   
+
+  useEffect(() => {
+    (async () => { 
+       try{   
+        setUpdateUser(user)     
+      }catch(err){
+         console.log(err)
+     }
+    }) () 
+},[user])
 
 console.log(updateUser)
 const [imgUrl, setImgUrl] = useState('')
@@ -29,27 +47,17 @@ const handleChange = e => {
 const handleSubmit = e =>{
   e.preventDefault()
   const formData = new FormData()
-  formData.append('_id', updateUser._id)
   formData.append('firstName', updateUser.firstName)
   formData.append('lastName', updateUser.lastName)
   formData.append('email', updateUser.email)
   if (updateUser.photo!=='') formData.append('photo', updateUser.photo)
   console.log(formData)
-  updateProfile(formData, updateUser._id).then(data=> {
+  updateProfile(formData, user._id).then(data=> {
     setUser(data.user);
     history('/myprofile')
   }
   ) 
 }
-
-const handleEnter = e => {
-  e.preventDefault();
-  if (e.key.toLowerCase() === "enter") {
-    const form = e.target.form;
-    const index = [...form].indexOf(e.target);
-    form.elements[index + 1].focus();
-  }
-};
 
 const [err, setErr] = useState('')
 
@@ -70,9 +78,9 @@ return (
         </div>
         <div className="w3-col m6 padd">
         <br/> 
-        <p style={{display: "flex"}}><i className="fa-solid fa-user fa-fw w3-margin-top w3-margin-right w3-text-theme " title='Name'/><input className="w3-input w3-border w3-half" type="text" id="firstName" value={updateUser.firstName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/><input className="w3-input w3-border w3-half" type="text" id="lastName"value={updateUser.lastName} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
-        <p style={{display: "flex"}}><i className="fa-solid fa-at fa-fw w3-margin-top w3-margin-right w3-text-theme" title='Username'/><input className="w3-input w3-border " type="text" id="username"value={updateUser.username} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
-        <p style={{display: "flex"}}><i className="fa-regular fa-envelope fa-fw w3-margin-top w3-margin-right w3-text-theme" title='E-mail'/><input className="w3-input w3-border " type="text" id="email"value={updateUser.email} onChange={e => handleChange(e)} onKeyDown={handleEnter}/></p>
+        <p style={{display: "flex"}}><i className="fa-solid fa-user fa-fw w3-margin-top w3-margin-right w3-text-theme " title='Name'/><input className="w3-input w3-border w3-half" type="text" id="firstName" value={updateUser.firstName} onChange={e => handleChange(e)} /><input className="w3-input w3-border w3-half" type="text" id="lastName"value={updateUser.lastName} onChange={e => handleChange(e)} /></p>
+        <p style={{display: "flex"}}><i className="fa-solid fa-at fa-fw w3-margin-top w3-margin-right w3-text-theme" title='Username'/><input className="w3-input w3-border " type="text" id="username"value={updateUser.username} onChange={e => handleChange(e)} /></p>
+        <p style={{display: "flex"}}><i className="fa-regular fa-envelope fa-fw w3-margin-top w3-margin-right w3-text-theme" title='E-mail'/><input className="w3-input w3-border " type="text" id="email"value={updateUser.email} onChange={e => handleChange(e)} /></p>
         <Link className="w3-button w3-margin-top w3-round w3-left w3-grey w3-hover-black" to={'/editpassword'}><i className="fa-solid fa-key"/> Change Password</Link>
         </div>
       </div>

@@ -2,9 +2,11 @@
 export const checkAuthentication = async ()=>{
   const res = await fetch('/user/authentication')
   if (res.status !== 401)
-    return res.json();
+    return res.json()
+  else if (localStorage.length !== 0)
+    return JSON.parse(localStorage.getItem('AuthData'))
   else  
-    return { isAuthenticated: false, user: {username : ""} };
+    return { isAuthenticated: false, user: {username : "",} };
 }
 
 export const authLogin = async user => {
@@ -16,11 +18,10 @@ export const authLogin = async user => {
         'Content-Type': 'application/json'
       }
     });
-
     if (res.status !== 401)
       return res.json()
     else
-     return { isAuthenticated: false, user: {username : ""} };
+     return { isAuthenticated: false, user: {username : "",} };
 }catch(err){console.log('error login'+err)}
 }
 
