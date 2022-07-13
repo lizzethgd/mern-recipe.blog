@@ -22,9 +22,9 @@ return (
     <Navigation />
     <Route exact path="/" component={Home} />  
     <Route path='/mysearch' component={MySearch}  />
-    <Route path='/:id' component={Recipe}  />
+    <Route exact path='/:id' component={Recipe}  />
 
-    <UnPrivateRoute exact path="/login" component={Login} />  
+    <UnPrivateRoute path="/login" component={Login} />  
 
     <PrivateRoute path="/addrecipe" component={AddRecipe} />
     <PrivateRoute path="/myfavorites" component={MyFavorites} />
