@@ -1,6 +1,6 @@
 
 export const checkAuthentication = async ()=>{
-  const res = await fetch('/user/authentication')
+  const res = await fetch('user/authentication')
   if (res.status !== 401)
     return res.json()
   else if (localStorage.length !== 0)
