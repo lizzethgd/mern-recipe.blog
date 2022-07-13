@@ -26,7 +26,7 @@ return (
       <Route path='/:id' element={<Recipe  />} />
 
     
-      <Route element={<UnPrivateRoute/>}>
+      <Route index path="/" element={<UnPrivateRoute/>}>
         <Route  path="/login" element={<Login/>} /> 
       </Route>
 
