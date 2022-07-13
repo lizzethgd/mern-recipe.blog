@@ -21,19 +21,19 @@ return (
   <BrowserRouter>
     <Navigation />
     <Route exact path="/" component={Home} />  
-    <Route path='/mysearch' component={MySearch}  />
-    <Route exact path='recipe/:id' component={Recipe}  />
+    <Route exact path='/mysearch' component={MySearch}  />
+    <Route exact path='/recipe/:id' component={Recipe}  />
 
     <UnPrivateRoute exact path="/login" component={Login} />  
 
-    <PrivateRoute path="/addrecipe" component={AddRecipe} />
-    <PrivateRoute path="/myfavorites" component={MyFavorites} />
-    <PrivateRoute path="/myrecipes" component={MyRecipes} />
-    <PrivateRoute path="/addrecipe" component={AddRecipe} />
-    <PrivateRoute path="/myprofile" component={MyProfile} />
-    <PrivateRoute path="/editprofile" component={EditProfile} />
-    <PrivateRoute path="/editpassword" component={EditPassword} />
-    <PrivateRoute path="/editrecipe" component={EditRecipe} />
+    <PrivateRoute exact path="/addrecipe" component={AddRecipe} />
+    <PrivateRoute exact path="/myfavorites" component={MyFavorites} />
+    <PrivateRoute exact path="/myrecipes" component={MyRecipes} />
+    <PrivateRoute exact path="/addrecipe" component={AddRecipe} />
+    <PrivateRoute exact path="/myprofile" component={MyProfile} />
+    <PrivateRoute exact path="/editprofile" component={EditProfile} />
+    <PrivateRoute exact path="/editpassword" component={EditPassword} />
+    <PrivateRoute exact path="/editrecipe" component={EditRecipe} />
          
     <Footer />
   </BrowserRouter>
