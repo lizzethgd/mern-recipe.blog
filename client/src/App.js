@@ -26,10 +26,8 @@ return (
       <Route path='/:id' element={<Recipe  />} />
 
     
-      <Route path="/" element={<UnPrivateRoute/>}>
-        <Route  path="/login" element={<Login/>} /> 
-      </Route>
-
+      <Route path="/login" element={<UnPrivateRoute><Login/></UnPrivateRoute>} />
+      
       <Route element={<PrivateRoute/>}>
         <Route path="/addrecipe" element={<AddRecipe/>} />
         <Route path="/myfavorites" element={<MyFavorites/>} />
