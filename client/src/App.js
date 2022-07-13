@@ -24,7 +24,7 @@ return (
     <Route path='/mysearch' component={MySearch}  />
     <Route exact path='/:id' component={Recipe}  />
 
-    <UnPrivateRoute path="/login" component={Login} />  
+    <UnPrivateRoute exact path="/login" component={Login} />  
 
     <PrivateRoute path="/addrecipe" component={AddRecipe} />
     <PrivateRoute path="/myfavorites" component={MyFavorites} />
