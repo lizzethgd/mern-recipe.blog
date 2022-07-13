@@ -16,7 +16,7 @@ const [languages, setLanguages] = useState([])
 
 const [err, setErr] = useState('')
 
-const history = useNavigate() 
+const navigate = useNavigate() 
 
 const [recipe, setRecipe] = useState({
     title: '',
@@ -66,7 +66,7 @@ useEffect(() => {
     console.log(formData)
     //await addRecipe(formData)
     await createRecipe(formData)
-    .then(data => {data.recipe ? history(`/${data.recipe._id}`) :  setErr(data.message)}
+    .then(data => {data.recipe ? navigate(`/${data.recipe._id}`) :  setErr(data.message)}
     )
 }
 

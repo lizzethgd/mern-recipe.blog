@@ -21,7 +21,7 @@ return (
   <BrowserRouter>
     <Navigation />
     <Routes >
-      <Route index element={<Home />} />
+      <Route index path='/' element={<Home />} />
       <Route path='/mysearch' element={<MySearch  />} />
       <Route path='/:id' element={<Recipe  />} />
 

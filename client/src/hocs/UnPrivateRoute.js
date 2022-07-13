@@ -10,12 +10,6 @@ const UnPrivateRoute = ({component : Component, ...rest})=>{
 
     return(
         isAuthenticated ?  <Navigate to='/' state={{ from: location }} replace/> : <Outlet />
-          /*    <Route {...rest} render={props =>{
-            if(isAuthenticated) 
-            return <Navigate to={{ pathname: '/', 
-                                        state : {from : props.location}}}/>
-        return <Component {...props}/>
-        }}/> */
         
     )
 }
