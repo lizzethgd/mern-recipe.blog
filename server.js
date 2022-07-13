@@ -35,14 +35,17 @@ app.use(function(err, req, res, next){
 });
 
 // Database setup
-mongoose.connect(process.env.DATABASE, {})
+mongoose.connect(process.env.DATABASE, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 .then(() => { console.log("Conected to mongoDB")})
 .catch((err) => console.log(err));
 
 // All other GET requests not handled before will return our React app
-/* app.get('*', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '/client/build/index.html'));
-}); */
+});
 
 app.listen(port, () => {
   console.log(`Server listening for requests at ${port}`);
