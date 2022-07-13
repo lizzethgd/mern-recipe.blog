@@ -3,7 +3,7 @@ import "../assets/css/profile.scss"
 import {useContext, useState} from 'react'
 import {updateProfile} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 
 const EditPassword = () => {
 
@@ -22,7 +22,7 @@ const EditPassword = () => {
   });
 
   const [message, setMessage] =useState('')
-  const history = useNavigate()
+  const history = useHistory()
 
   const handleChange = e => {
     e.preventDefault()
@@ -60,7 +60,7 @@ const handleSubmit = e =>{
     formData.append('password',  updateUserPassword.password)
     updateProfile( formData, user._id).then(data=> {
     setUser(data.user);
-    history('/myprofile')
+    history.push('/myprofile')
       })
     }else{setMessage('Confirm password and new password not match')}
   }catch(err)

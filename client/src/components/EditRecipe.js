@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react'
-import {Link, useLocation, useNavigate } from 'react-router-dom'
+import {Link, useLocation, useHistory } from 'react-router-dom'
 import {editRecipe} from '../services/RecipeService';
 import { getCategories } from '../services/CategoryService';
 import { getLanguages } from '../services/LanguageService';
 import { getRegions } from '../services/RegionService';
 
 const EditRecipe = () => {
-    const history = useNavigate()
+    const history = useHistory()
     const location = useLocation()
     const {dispatch} = location.state 
 

@@ -2,7 +2,7 @@ import miniAvatar from "../assets/images/blankAvatar.jpg"
 import  "../assets/css/recipe.scss"
 import  "../assets/css/comment.scss"
 import {useContext, useEffect, useState, useCallback} from 'react'
-import {Link, useParams , useNavigate} from 'react-router-dom'
+import {Link, useParams , useHistory} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext'
 import {getRecipeById, removeRecipe} from '../services/RecipeService'
 import {getRecipeComments, addComment, removeComment} from '../services/CommentService'
@@ -21,7 +21,7 @@ const Recipe = () => {
 
   console.log('recipe id: '+id)
 
-  const history = useNavigate()
+  const history = useHistory()
 
   const [recipe, setRecipe] = useState({
       title: '',
@@ -98,7 +98,7 @@ const Recipe = () => {
           })
         ) */
       //setNewComment(({...newComment, content : ''}))
-      } else history('/login')
+      } else history.push('/login')
   } 
   
   const deleteComment = async (e, commentId) => {
@@ -115,7 +115,7 @@ const Recipe = () => {
   const deleteRecipe = e => {
       e.preventDefault()
       removeRecipe(id)
-      history('/')
+      history.push('/')
   }
 
   const handleLike = async e => {
@@ -130,7 +130,7 @@ const Recipe = () => {
           await addLike(id, user._id)
         }
         await initRecipe()
-      } else history('/login')
+      } else history.push('/login')
   }
 
   const handleFavorite = async e => {
@@ -145,7 +145,7 @@ const Recipe = () => {
           await addFavorite(id, user._id)
         }
         await initRecipe()
-      } else history('/login')
+      } else history.push('/login')
   } 
 
 const [modalShow, setModalShow] = useState(false)

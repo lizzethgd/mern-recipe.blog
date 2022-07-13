@@ -1,17 +1,23 @@
 import {useContext} from 'react';
-import {Navigate, Outlet, useLocation} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext';
 
-const PrivateRoute = ()=>{
-    
+const PrivateRoute = ({component : Component, roles, ...rest})=>{
     const { isAuthenticated, user} = useContext(AuthContext);
-    console.log(user)
-    const location = useLocation();
-  
+     
     return(
-        !isAuthenticated ? <Navigate to='/login' state={{ from: location }} replace /> :  <Outlet />  
+        <Route {...rest} render={props =>{
+            if(!isAuthenticated)
+                return <Redirect to={{ pathname: '/login', 
+                                       state : {from : props.location}}}/>
+            
+        return <Component {...props}/>
+        }}/>
     )
 }
 
 export default PrivateRoute;
+
+
+
 
