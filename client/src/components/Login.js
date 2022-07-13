@@ -8,7 +8,7 @@ const Login = () => {
 
     const [userLogin, setUserLogin] = useState({username: '', password: ''}) 
     const [userLogup, setUserLogup] = useState({username: '', password: ''}) 
-    const {setIsAuthenticated, setUser} = useContext(AuthContext); 
+    const authContext = useContext(AuthContext);
     const [message,setMessage] = useState();
     const [ inputTypeLogin, setInputTypeLogin] = useState('password')
     const [ eyeSlashLogin, setEyeSlashLogin] = useState('-slash')
@@ -30,10 +30,11 @@ const Login = () => {
     const handleSubmitLogin =  (e) => {
         e.preventDefault();
             authLogin(userLogin).then(data=>{
+                console.log(data);
                 const { isAuthenticated,user} = data;    
                 if(isAuthenticated){
-                    setUser(user);
-                    setIsAuthenticated(isAuthenticated);
+                    authContext.setUser(user);
+                    authContext.setIsAuthenticated(isAuthenticated);
                     localStorage.setItem('AuthData', JSON.stringify(data))
                     history.push('/');
                 }
