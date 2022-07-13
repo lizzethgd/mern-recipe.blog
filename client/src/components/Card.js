@@ -123,7 +123,7 @@ return (
         <div className="card__flap ">
           <div className="card__description">{recipe.description}</div>
           <div className="card__actions">
-               <Link className="card__btn" to={`/${recipe._id}`} >Go to recipe</Link> 
+               <Link className="card__btn" to={`/recipe/${recipe._id}`} >Go to recipe</Link> 
         </div>
         </div>
     </div>

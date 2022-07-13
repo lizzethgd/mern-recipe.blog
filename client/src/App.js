@@ -22,7 +22,7 @@ return (
     <Navigation />
     <Route exact path="/" component={Home} />  
     <Route path='/mysearch' component={MySearch}  />
-    <Route exact path='/:id' component={Recipe}  />
+    <Route exact path='recipe/:id' component={Recipe}  />
 
     <UnPrivateRoute exact path="/login" component={Login} />  
 
