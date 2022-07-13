@@ -1,6 +1,6 @@
 export default {
 logIn : async user => {
-  const res = await fetch('user/login', {
+  const res = await fetch('/user/login', {
       method: 'POST',
       body: JSON.stringify(user),
       headers: {
@@ -14,13 +14,13 @@ logIn : async user => {
 },
 
 logOut : async () => {
-  const res = await fetch('user/logout');
+  const res = await fetch('/user/logout');
    localStorage.clear();
   return await res.json();
 },
 
 getAuthentication : async ()=>{
-  const res = await fetch('user/authenticated');
+  const res = await fetch('/user/authenticated');
   if (res.status !== 401)
     return res.json();
   else
@@ -28,7 +28,7 @@ getAuthentication : async ()=>{
 },
   
 logUp : async user =>{
-  const res = await fetch('user/register', {
+  const res = await fetch('/user/register', {
     method: "POST",
     body: JSON.stringify(user),
     headers: {
@@ -39,7 +39,7 @@ logUp : async user =>{
 },
 
 getAdmin : async ()=>{
-  const res = await fetch('user/admin');
+  const res = await fetch('/user/admin');
   if (res.status !== 401) {
     return res.json()
   }
