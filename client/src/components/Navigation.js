@@ -45,7 +45,7 @@ const Navigation = () => {
   e.preventDefault();
   if (search!=='')
   {localStorage.setItem('search', search)
-  location.pathname!=='/mysearch'? history.length.push('/mysearch') : history(0)}
+  location.pathname!=='/mysearch'? history.push('/mysearch') : history.push(0)}
   } 
 
   const userNoLogTop = (
