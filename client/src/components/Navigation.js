@@ -1,6 +1,6 @@
 import {useContext, useState} from 'react'
-import {useHistory, NavLink, useLocation} from "react-router-dom";
-import AuthService from '../services/AuthService'
+import {useNavigate, NavLink, useLocation} from "react-router-dom";
+import {authLogout} from '../../src/services/AuthService'
 import {AuthContext} from '../../src/context/AuthContext';
 import avatar from "../assets/images/blankAvatar.jpg"
 import recipebook from "../assets/images/cook-book.png"
@@ -14,17 +14,17 @@ const Navigation = () => {
 
   const [search, setSearch] = useState('')
 
-  const history = useHistory() 
+  const history = useNavigate() 
   
   const onClickLogoutHandler = async ()=>{
-    await AuthService.logOut().then(data=>{
+    await authLogout().then(data=>{
        console.log(data)
          if(data.success){
              setUser(data.user);
              setIsAuthenticated(false);
          }
      });
-     history.push('/')
+     history('/')
   }
  
   const openNav= () =>{
@@ -45,7 +45,7 @@ const Navigation = () => {
   e.preventDefault();
   if (search!=='')
   {localStorage.setItem('search', search)
-  location.pathname!=='/mysearch'? history.push('/mysearch') : history.push(0)}
+  location.pathname!=='/mysearch'? history('/mysearch') : history(0)}
   } 
 
   const userNoLogTop = (
