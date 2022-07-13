@@ -1,5 +1,16 @@
-export default {
-logIn : async user => {
+
+export const checkAuthentication = async ()=>{
+  const res = await fetch('user/authentication')
+  if (res.status !== 401)
+    return res.json()
+  else if (localStorage.length !== 0)
+    return JSON.parse(localStorage.getItem('AuthData'))
+  else  
+    return { isAuthenticated: false, user: {username : "",} };
+}
+
+export const authLogin = async user => {
+  try{
   const res = await fetch('user/login', {
       method: 'POST',
       body: JSON.stringify(user),
@@ -8,26 +19,19 @@ logIn : async user => {
       }
     });
     if (res.status !== 401)
-      return res.json();
+      return res.json()
     else
-      return { isAuthenticated: false, user: { username: ""} };
-},
+     return { isAuthenticated: false, user: {username : "",} };
+}catch(err){console.log('error login'+err)}
+}
 
-logOut : async () => {
+export const authLogout = async () => {
   const res = await fetch('user/logout');
-   localStorage.clear();
+  localStorage.clear();
   return await res.json();
-},
-
-getAuthentication : async ()=>{
-  const res = await fetch('user/authenticated');
-  if (res.status !== 401)
-    return res.json();
-  else
-    return { isAuthenticated: false, user: { username: "" } };
-},
+}
   
-logUp : async user =>{
+export const authRegister = async user =>{
   const res = await fetch('user/register', {
     method: "POST",
     body: JSON.stringify(user),
@@ -36,9 +40,9 @@ logUp : async user =>{
     }
   });
   return await res.json();
-},
+}
 
-getAdmin : async ()=>{
+export const checkAdmin = async ()=>{
   const res = await fetch('user/admin');
   if (res.status !== 401) {
     return res.json()
@@ -46,6 +50,5 @@ getAdmin : async ()=>{
 
   else
     return { message: { msgBody: "UnAuthorized", msgError: true } };
-},
-    
 }
+    

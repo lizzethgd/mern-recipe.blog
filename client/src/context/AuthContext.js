@@ -1,20 +1,27 @@
 import {createContext, useState, useEffect} from 'react';
-import AuthService from '../services/AuthService';
+import {checkAuthentication} from '../services/AuthService';
 
 export const AuthContext = createContext({});
 
 export default ({ children }) => {
  
-    const [user,setUser] = useState(null);
+    const [user,setUser] = useState({});
     const [isAuthenticated,setIsAuthenticated] = useState(false);
     const [isLoaded,setIsLoaded] = useState(false);
 
    useEffect(()=>{ 
-    AuthService.getAuthentication().then(data =>{
-        setUser(data.user ? data.user : { username: "", role: "" });
-        setIsAuthenticated(data.isAuthenticated ? data.isAuthenticated  : false)
-            setIsLoaded(true);
+    (async () => { 
+        try{
+        await checkAuthentication().then(data => {
+            console.log(data)
+           if (data.user) setUser(data.user) 
+           if (data.isAuthenticated) setIsAuthenticated( data.isAuthenticated)
+            setIsLoaded(true)
         })
+    }catch(err){
+        console.log(err)
+    }
+  }) () 
 },[]);
    
 //console.log(user, isAuthenticated, isLoaded )
