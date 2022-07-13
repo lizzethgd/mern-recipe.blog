@@ -17,8 +17,6 @@ const Recipe = () => {
   console.log('user: '+user._id)
   const {id} = useParams()
 
-  console.log(id)
-
   console.log('recipe id: '+id)
 
   const history = useHistory()

@@ -36,7 +36,7 @@ const Login = () => {
                     authContext.setUser(user);
                     authContext.setIsAuthenticated(isAuthenticated);
                     localStorage.setItem('AuthData', JSON.stringify(data))
-                    history.push('/');
+                    history.push('/myprofile');
                 }
                 else
                     setMessage('wrong credentials');
