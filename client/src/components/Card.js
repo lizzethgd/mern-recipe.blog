@@ -4,7 +4,7 @@ import blankRecipe from "../assets/images/blankRecipe.jpg"
 import {getRecipeById} from '../services/RecipeService';
 import {addLike, deleteLike} from '../services/LikeService';
 import {addFavorite, deleteFavorite} from '../services/FavoriteService';
-import {Link, useNavigate} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import {AuthContext} from '../context/AuthContext';
 
 const Card = ({id, toggleModal}) => {
@@ -35,7 +35,7 @@ const Card = ({id, toggleModal}) => {
 
     const [bookmark, setBookmark] = useState('regular')
 
-    const history = useNavigate()
+    const history = useHistory()
 
     const showDescription = () =>{
         open==="" ? setOpen("opened") : setOpen("")
@@ -78,7 +78,7 @@ const Card = ({id, toggleModal}) => {
           addLike(id, user._id)
         }
         initCard()
-      } else history('/login')
+      } else history.push('/login')
   }
 
   const handleFavorite = e => {
@@ -92,7 +92,7 @@ const Card = ({id, toggleModal}) => {
           addFavorite(id, user._id)
         }
         initCard()
-      } else history('/login')
+      } else history.push('/login')
   }   
 
 return (
@@ -123,8 +123,8 @@ return (
         <div className="card__flap ">
           <div className="card__description">{recipe.description}</div>
           <div className="card__actions">
-               <Link className="card__btn" to={`/${recipe._id}`} >Go to recipe</Link> 
-          </div>
+               <Link className="card__btn" to={`/recipe/${recipe._id}`} >Go to recipe</Link> 
+        </div>
         </div>
     </div>
     )

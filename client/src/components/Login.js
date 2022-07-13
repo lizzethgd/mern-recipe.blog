@@ -1,21 +1,21 @@
 import {useState, useContext} from 'react'
-import {authLogin, authRegister} from '../services/AuthService'
+import AuthService from '../services/AuthService';
 import {AuthContext} from '../context/AuthContext';
-import {useNavigate } from "react-router-dom";
+import {useHistory } from "react-router-dom";
 import '../assets/css/login.scss'
 
 const Login = () => {
 
     const [userLogin, setUserLogin] = useState({username: '', password: ''}) 
     const [userLogup, setUserLogup] = useState({username: '', password: ''}) 
-    const {setIsAuthenticated, setUser} = useContext(AuthContext); 
+    const authContext = useContext(AuthContext);
     const [message,setMessage] = useState();
     const [ inputTypeLogin, setInputTypeLogin] = useState('password')
     const [ eyeSlashLogin, setEyeSlashLogin] = useState('-slash')
     const [ inputTypeLogup, setInputTypeLogup] = useState('password')
     const [ eyeSlashLogup, setEyeSlashLogup] = useState('-slash') 
 
-    const history = useNavigate()  
+    const history = useHistory()  
 
     const handleChangeLogin = e => {
         e.preventDefault();
@@ -29,13 +29,14 @@ const Login = () => {
 
     const handleSubmitLogin =  (e) => {
         e.preventDefault();
-            authLogin(userLogin).then(data=>{
+        AuthService.logIn(userLogin).then(data=>{
+                console.log(data);
                 const { isAuthenticated,user} = data;    
                 if(isAuthenticated){
-                    setUser(user);
-                    setIsAuthenticated(isAuthenticated);
+                    authContext.setUser(user);
+                    authContext.setIsAuthenticated(isAuthenticated);
                     localStorage.setItem('AuthData', JSON.stringify(data))
-                    history('/');
+                    history.push('/');
                 }
                 else
                     setMessage('wrong credentials');
@@ -46,7 +47,7 @@ const Login = () => {
     const handleSubmitLogup = e => {
         try{
         e.preventDefault();
-        authRegister(userLogup)
+        AuthService.logUp(userLogup)
     }catch(err){console.log(err.message)}
     
       }   
@@ -83,7 +84,7 @@ const Login = () => {
 
     const onClouseFullSizeImage = () => {
         document.getElementById("log-container").style.display='none'
-        history("/");
+        history.push("/");
       }
 
       const showLoginPass = e => {

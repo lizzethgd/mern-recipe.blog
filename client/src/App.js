@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Route} from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
 import Home from './components/Home';
@@ -20,30 +20,24 @@ const App = () => {
 return (
   <BrowserRouter>
     <Navigation />
-    <Routes >
-      <Route index path='/' element={<Home />} />
-      <Route path='/mysearch' element={<MySearch  />} />
-      <Route path='/:id' element={<Recipe  />} />
+    <Route exact path="/" component={Home} />  
+    <Route exact path='/mysearch' component={MySearch}  />
+    <Route exact path='/recipe/:id' component={Recipe}  />
 
-    
-      <Route path="/login" element={<UnPrivateRoute><Login/></UnPrivateRoute>} />
-      
-      <Route element={<PrivateRoute/>}>
-        <Route path="/addrecipe" element={<AddRecipe/>} />
-        <Route path="/myfavorites" element={<MyFavorites/>} />
-        <Route path="/myrecipes" element={<MyRecipes/>} />
-        <Route path="/addrecipe" element={<AddRecipe/>} />
-        <Route path="/myprofile" element={<MyProfile/>} />
-        <Route path="/editprofile" element={<EditProfile/>} />
-        <Route path="/editpassword" element={<EditPassword/>} />
-        <Route path="/editrecipe" element={<EditRecipe/>} />
-      </Route>
+    <UnPrivateRoute exact path="/login" component={Login} />  
+
+    <PrivateRoute exact path="/addrecipe" component={AddRecipe} />
+    <PrivateRoute exact path="/myfavorites" component={MyFavorites} />
+    <PrivateRoute exact path="/myrecipes" component={MyRecipes} />
+    <PrivateRoute exact path="/addrecipe" component={AddRecipe} />
+    <PrivateRoute exact path="/myprofile" component={MyProfile} />
+    <PrivateRoute exact path="/editprofile" component={EditProfile} />
+    <PrivateRoute exact path="/editpassword" component={EditPassword} />
+    <PrivateRoute exact path="/editrecipe" component={EditRecipe} />
          
-    </Routes >
     <Footer />
   </BrowserRouter>
 );
 }
 
 export default App;
-
