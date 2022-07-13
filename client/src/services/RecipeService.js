@@ -1,6 +1,5 @@
 export const getRecipeById = async (id) => {
 try{
-  console.log(id)
   const res = await fetch(`/recipe/recipe/${id}`).then(response => response.json())
   if (res.status !== 401)
   return await res

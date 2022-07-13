@@ -1,5 +1,5 @@
 import {useState, useContext} from 'react'
-import {authLogin, authRegister} from '../services/AuthService'
+import AuthService from '../services/AuthService';
 import {AuthContext} from '../context/AuthContext';
 import {useHistory } from "react-router-dom";
 import '../assets/css/login.scss'
@@ -29,7 +29,7 @@ const Login = () => {
 
     const handleSubmitLogin =  (e) => {
         e.preventDefault();
-            authLogin(userLogin).then(data=>{
+        AuthService.logIn(userLogin).then(data=>{
                 console.log(data);
                 const { isAuthenticated,user} = data;    
                 if(isAuthenticated){
@@ -47,7 +47,7 @@ const Login = () => {
     const handleSubmitLogup = e => {
         try{
         e.preventDefault();
-        authRegister(userLogup)
+        AuthService.logUp(userLogup)
     }catch(err){console.log(err.message)}
     
       }   

@@ -1,6 +1,6 @@
 import {useContext, useState} from 'react'
 import {useHistory, NavLink, useLocation} from "react-router-dom";
-import {authLogout} from '../../src/services/AuthService'
+import AuthService from '../services/AuthService'
 import {AuthContext} from '../../src/context/AuthContext';
 import avatar from "../assets/images/blankAvatar.jpg"
 import recipebook from "../assets/images/cook-book.png"
@@ -17,7 +17,7 @@ const Navigation = () => {
   const history = useHistory() 
   
   const onClickLogoutHandler = async ()=>{
-    await authLogout().then(data=>{
+    await AuthService.logOut().then(data=>{
        console.log(data)
          if(data.success){
              setUser(data.user);
