@@ -123,8 +123,9 @@ return (
         <div className="card__flap ">
           <div className="card__description">{recipe.description}</div>
           <div className="card__actions">
-              <Link className="card__btn" to={`${recipe._id}`} >Go to recipe</Link>
-          </div>
+               <Link className="card__btn" to={`/${recipe._id}`} >Go to recipe</Link> 
+{/*               <button className="card__btn" onClick={history(`/${recipe._id}`)} >Go to recipe</button>
+ */}          </div>
         </div>
     </div>
     )
