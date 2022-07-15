@@ -34,7 +34,7 @@ const Login = () => {
                 if(isAuthenticated){
                     setUser(user);
                     setIsAuthenticated(isAuthenticated);
-                    localStorage.setItem('AuthData', JSON.stringify(data))
+                    //localStorage.setItem('AuthData', JSON.stringify(data))
                     history('/');
                 }
                 else

@@ -7,7 +7,7 @@ exports.login = async (req, res) => {
   try {
     const user = req.user
 
-    console.log('login: '+user)
+    //console.log('login: '+user)
 
     const token = JWT.sign({ id: user._id },_.JWT_SECRET, {
         expiresIn: _.JWT_EXPIRES // 24 hours
@@ -57,7 +57,6 @@ exports.register = async (req,res) => {
 }
 
 exports.logout = async (req, res) => {
-
     //await res.setHeader('Authorization', '')
     //await req.headers["x-access-token"] = '';
     await res.clearCookie('RecipePadJWT');  

@@ -60,10 +60,8 @@ exports.verifyToken = async (req, res, next) => {
 exports.authentication = async (req,res)=>{
  
   try {  
-    const user = req.user
-
-    console.log('authentication: '+user)
- 
+    const user = await req.user
+    //console.log('authentication: '+user)
     await res.status(200).json({isAuthenticated : true, user : user});
   }catch (err) {console.log('error: '+err.message)}
  
@@ -118,7 +116,7 @@ exports.isAdmin = async (req, res, next) => {
 exports.isModerator = async (req, res, next) => {
   try {
     const user = await User.findById(req.userId);
-    const roles = await Role.find({ _id: { $in: user.roles } });
+    //const roles = await Role.find({ _id: { $in: user.roles } });
 
     for (let i = 0; i < roles.length; i++) {
       if (roles[i].name === "moderator") {

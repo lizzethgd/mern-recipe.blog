@@ -11,7 +11,6 @@ export default ({ children }) => {
 
    useEffect(()=>{ 
     checkAuthentication().then(data =>{
-        console.log(data)
         if (data.user) setUser(data.user);
         if (data.isAuthenticated) setIsAuthenticated(data.isAuthenticated)
         setIsLoaded(true);

@@ -18,7 +18,7 @@ const Navigation = () => {
   
   const onClickLogoutHandler = async ()=>{
     await authLogout().then(data=>{
-       console.log(data)
+       //console.log(data)
          if(data.success){
              setUser(data.user);
              setIsAuthenticated(false);

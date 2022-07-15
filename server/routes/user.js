@@ -5,10 +5,10 @@ const authController =require('../controllers/authController')
 const userController =require('../controllers/userController')
 const {fileUpload, resizeImage} = require('../middelwares/resizedUpload')
 
-router.use((req, res, next) => 
+/* router.use((req, res, next) => 
 {res.header("Access-Control-Allow-Headers","x-access-token, Origin, Content-Type, Accept");
   next();
-});  
+});  */ 
 
 router.post('/register', authController.register)
 
