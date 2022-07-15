@@ -1,6 +1,14 @@
 import "../assets/css/footer.scss"
 
 const Footer = () => {
+  
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 0, 
+      behavior: 'smooth'
+    });
+  };
+  
 return (
 <footer className="w3-container container-footer w3-theme-d5">
   
@@ -15,8 +23,8 @@ return (
   </div>
   <div className="w3-tooltip w3-right to-top-button">
     <span className="w3-text w3-padding w3-teal w3-hide-small">Go To Top</span>   
-    <a className="w3-button w3-theme" href="#myPage"><span className="w3-xlarge">
-    <i className="fa fa-chevron-circle-up" /></span></a>
+    <button className="w3-button w3-theme" onClick={scrollToTop}><span className="w3-xlarge">
+    <i className="fa fa-chevron-circle-up" /></span></button>
   </div>
 </footer>
     )
