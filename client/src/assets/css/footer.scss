@@ -1,14 +1,31 @@
+$white: #ffffff;
+$teal: #0096a0;
+
 .container-footer{
     padding-top:32px;
     padding-right: 16px;
     padding-bottom: 0;
 
     .to-top-button{
+        background: transparent;
         position: relative;
         bottom: 10px; 
         z-index:1;
-        padding-top: 0
+        padding-top: 0;
     }
+
+    .top__btn {
+        background: transparent;
+        color: lighten($teal,15.5);
+        transition: all 0.1s 0s ease-out;
+      
+        &:hover {
+          transform: translateY(-2px);   
+          color: $teal;
+          transition: all 0.25s 0s ease-out;
+        }
+        
+      }
 
     .name{
         text-decoration: none;
