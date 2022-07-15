@@ -9,8 +9,6 @@ exports.verifyUser = async (req, res, next) => {
 
    const user = await User.findOne({ username})
 
- 
-   
    if (!user) return res.status(400).json({ message: "User Not Found" });
 
    const matchPassword = await User.comparePassword(password, user.password);
@@ -36,18 +34,21 @@ exports.verifyToken = async (req, res, next) => {
   //const token = req.headers["authorization"];
   const token= req.cookies['RecipePadJWT']
 
-  console.log('token: '+token)
+  //console.log('token: '+token)
 
   if (!token) return res.status(403).json({ message: "No token provided" });
 
   try {
     const decoded = JWT.verify(token, _.JWT_SECRET);
-    console.log(decoded)
-    req.userId = decoded.id;
+    //console.log('decoded: ')
+    //console.log(decoded)
+    const id = decoded.id;
 
-    const user = await User.findById(req.userId, { password: 0 });
+    const user = await User.findById(id, { password: 0 });
     
     if (!user) return res.status(404).json({ message: "User Not Found" });
+
+    req.user= user
         
     next();
   
@@ -60,8 +61,9 @@ exports.authentication = async (req,res)=>{
  
   try {  
     const user = req.user
-    //const {username, role} = user  
-    //await res.status(200).json({isAuthenticated : true, user : {username,role}});
+
+    console.log('authentication: '+user)
+ 
     await res.status(200).json({isAuthenticated : true, user : user});
   }catch (err) {console.log('error: '+err.message)}
  

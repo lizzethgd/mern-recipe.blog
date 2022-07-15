@@ -1,12 +1,9 @@
 
 export const checkAuthentication = async ()=>{
   const res = await fetch('user/authentication')
-  if (res.status !== 401)
-    return res.json()
-  else if (localStorage.length !== 0)
-    return JSON.parse(localStorage.getItem('AuthData'))
-  else  
-    return { isAuthenticated: false, user: {} };
+  if (res.status === 401)
+     return { isAuthenticated: false, user: {} };
+  return res.json()
 }
 
 export const authLogin = async user => {

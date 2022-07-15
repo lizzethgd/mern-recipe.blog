@@ -10,18 +10,12 @@ export default ({ children }) => {
     const [isLoaded,setIsLoaded] = useState(false);
 
    useEffect(()=>{ 
-    (async () => { 
-        try{
-        await checkAuthentication().then(data => {
-            console.log(data)
-           if (data.user) setUser(data.user) 
-           if (data.isAuthenticated) setIsAuthenticated( data.isAuthenticated)
-            setIsLoaded(true)
+    checkAuthentication().then(data =>{
+        console.log(data)
+        if (data.user) setUser(data.user);
+        if (data.isAuthenticated) setIsAuthenticated(data.isAuthenticated)
+        setIsLoaded(true);
         })
-    }catch(err){
-        console.log(err)
-    }
-  }) () 
 },[]);
    
 //console.log(user, isAuthenticated, isLoaded )
