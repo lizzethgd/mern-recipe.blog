@@ -225,7 +225,7 @@ return (
         <div className="w3-container w3-card w3-white w3-round padd w3-padding-16" key={comment._id}>
         <img src={comment.author.photo ? comment.author.photo : miniAvatar} className="w3-left w3-circle w3-margin-right c-img"  alt="Avatar" />
         <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">&nbsp;@{comment.author.username}</span></div>
-        <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
+        <small className="w3-opacity w3-right">{new Date(comment.createdAt).toLocaleDateString()}</small><br/>
         <span className="w3-justify w3-left">{comment.content}</span>
         {(isAuthenticated && comment.author._id===user._id) 
         ? <i className="fa-solid fa-circle-xmark w3-right" onClick={(e) => deleteComment(e, comment._id)} style={{cursor: 'pointer', color: '#ff3d00'}} />
