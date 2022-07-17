@@ -14,7 +14,7 @@ const Recipe = () => {
 
   const {user, isAuthenticated} = useContext(AuthContext)
   
-  console.log('user: '+user._id)
+  //console.log('user: '+user._id)
   const {id} = useParams()
 
   console.log(id)
