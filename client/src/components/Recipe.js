@@ -14,7 +14,6 @@ const Recipe = () => {
 
   const {user, isAuthenticated} = useContext(AuthContext)
   
-  //console.log('user: '+user._id)
   const {id} = useParams()
 
   console.log(id)
@@ -197,7 +196,7 @@ return (
 
   </div> 
 
-  { (author._id===user._id) 
+  { (isAuthenticated && author._id===user._id) 
   ? <div className="w3-padding-16">
       <Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ dispatch: recipe }}>
         <i className="fa-solid fa-pen-to-square" /> Edit</Link>
@@ -228,7 +227,7 @@ return (
         <div className="w3-left"><span>{comment.author.fistName} {comment.author.lastName}</span><span className="w3-opacity">&nbsp;@{comment.author.username}</span></div>
         <small className="w3-opacity w3-right">{comment.createdAt}</small><br/>
         <span className="w3-justify w3-left">{comment.content}</span>
-        {(comment.author._id===user._id) 
+        {(isAuthenticated && comment.author._id===user._id) 
         ? <i className="fa-solid fa-circle-xmark w3-right" onClick={(e) => deleteComment(e, comment._id)} style={{cursor: 'pointer', color: '#ff3d00'}} />
         : '' }
         </div>
