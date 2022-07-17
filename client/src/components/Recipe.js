@@ -235,7 +235,7 @@ return (
     ): '' } 
 
     <div className="w3-container padd w3-padding-24" >
-        <img src={user.photo ? user.photo : miniAvatar} className="w3-left w3-circle a-img avatar"  alt="Avatar" />
+        <img src={isAuthenticated && user.photo ? user.photo : miniAvatar} className="w3-left w3-circle a-img avatar"  alt="Avatar" />
         <form className=" w3-white w3-left w3-card w3-round comment-container">
             <textarea type="text" id="content" value={newComment.content} onChange={handleChange} required/>
             <i className="w3-button w3-right w3-hover-white fa-solid fa-paper-plane button" style={{color: '#ff5722'}} onClick={addAComment}/>
