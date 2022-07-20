@@ -24,7 +24,7 @@ export const authLogin = async user => {
 
 export const authLogout = async () => {
   const res = await fetch('user/logout');
-  localStorage.clear();
+  localStorage.removeItem('search');
   return await res.json();
 }
   

@@ -8,7 +8,6 @@ exports.login = async (req, res) => {
     const user = req.user
 
     //console.log('login: '+user)
-
     const token = JWT.sign({ id: user._id },_.JWT_SECRET, {
         expiresIn: _.JWT_EXPIRES // 24 hours
     }); 
@@ -18,7 +17,7 @@ exports.login = async (req, res) => {
 
     await res.status(200).json({isAuthenticated : true, user : user}); 
      
-     console.log("LOGIN!!!!!!!!!!");
+      console.log("LOGIN!!!!!!!!!!");
   
   } catch (err) {
       console.log(err.name+': '+err.message);
@@ -48,11 +47,11 @@ exports.register = async (req,res) => {
     console.log(newUser)
     return res.status(200).json({ token });
      
-  } catch (err) {
-  console.log(err.name+': '+err.message )
-  let errorHandled = err
-  err.name==='MongoError' ? errorHandled = DBError(err) : errorHandled
-  res.status(401).json(errorHandled.message)
+  }catch (err) {
+    console.log(err.name+': '+err.message )
+    let errorHandled = err
+    err.name==='MongoError' ? errorHandled = DBError(err) : errorHandled
+    res.status(401).json(errorHandled.message)
   }
 }
 

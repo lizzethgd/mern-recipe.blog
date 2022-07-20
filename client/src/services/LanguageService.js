@@ -16,6 +16,15 @@ export const createLanguage = async (userId, token, language) => {
     })
 }
 
+export const getLanguage = async (code) => {
+  try{
+    const response = await fetch(`language/${code}`)
+    return response.json()
+  }catch(err) {
+      console.log(err)
+   }
+}
+
 export const getLanguages = async () => {
   try{
     const response = await fetch('language/list')

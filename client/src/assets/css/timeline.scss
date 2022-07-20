@@ -20,6 +20,7 @@ $darkGrey: rgb(33, 56, 56);
 .timeline .swiper-container {
   height: 400px;  //this is the height of the container
   position: relative;
+  top: 25px
 }
 .timeline .swiper-wrapper {
   transition: 2s cubic-bezier(0.68, -0.4, 0.27, 1.34) 0.2s;
@@ -208,6 +209,9 @@ $darkGrey: rgb(33, 56, 56);
   }
 
 @media screen and (min-width: 768px) {
+  .timeline .swiper-container {
+    top: 0
+  }
   .timeline .swiper-slide::after {
     right: -30%;
     bottom: -8%;

@@ -7,6 +7,4 @@ router.put('/add/:recipeId/:userId', add)
 router.delete('/remove/:recipeId/:userId', remove)
 router.get('/:userId', favoritesByUser)
 
-
-
 module.exports = router;

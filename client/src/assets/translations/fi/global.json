@@ -1,0 +1,133 @@
+{
+    "context":{
+        "load:" : "Ladataan"
+    },
+    "nav":{
+        "home": "koti",
+        "log": "Kirjaudu sisään / rekisteröidy",
+        "search" : "Hae nimen tai ainesosan mukaan...",
+        "add": "Lisää resepti",
+        "myReps":"Minun reseptit",
+        "myFavs": "Minun suosikit",
+        "myProf": "Profiilini",
+        "out":"Kirjautua ulos"
+    },
+    "filter":{
+        "filters" : "Suodatin",
+        "all": "Kaikki",
+        "categories" : "Kategoriat",
+        "category": {
+            "Breackfast": "Aamiainen", 
+            "Dessert": "Jälkiruoka", 
+            "Snack": "Välipala", 
+            "Starter": "Alkuruoka", 
+            "Soup": "Keitto", 
+            "Salad": "Salaatti", 
+            "Vegan": "Vegaani",
+            "Vegetarian": "Kasvissyöjä",
+            "MainDish": "Pääruoka",
+            "Cocktail": "Cocktail", 
+            "Smoothie": "Smoothie"   
+        },
+        "regions": "Alue", 
+        "region": {
+            "Regions": "Regiones", 
+            "Dessert": "Postre", 
+            "Snack": "Tentenpié", 
+            "Starter": "Entrada", 
+            "Soup": "Sopa",
+            "title": "Idiomas", 
+            "Salad": "Ensalada", 
+            "Vegan": "Vegan",
+            "Vegetariano": "Vegetariano",
+            "Coktail": "Coctel", 
+            "Juice": "Jugo"   
+        }
+    },
+    "about":{
+        "description": "Valmistuin Datanomi kesäkussa 2017. Olin äitiystauko muutama vuosia mutta olen kuitenkin tehnyt joitain projekteja itse harjoittaakseni oppimaani ja oppiakseni lisää. Työntekijänä olen tehokas ja tottunut työskentelemään paineen alla. Tavoitteenani on työskennellä mielenkiintoisten ja haastavien ongelmien parissa työtehtävissä jotka tukevat ammatillista kehittymistäni",
+        "download":"  Lataa Ansioluettelo",
+        "skills" : "Taidot",
+        "langs": {
+            "title": "Kielet", 
+            "fi": "Suomi", 
+            "en": "Englanti", 
+            "ge": "Saksa", 
+            "sp": "Espanja"
+        }
+    },
+    "resume":{
+        "education" : "Koulutus",
+        "experiencer" : "Työkokemus",
+        "title" :{
+            "PUCP": "Tietotekniikka",
+            "freelancer": "Freelancer",
+            "HBC": "Datanomi",
+            "sitelogic" : "Työharjoittelu",
+            "integrify": "Web-kehittäjä (kurssi)",
+            "home" : "Projektit kotona"
+        },
+        "schools" : {
+            "HBC": "SUOMEN LIIKEMIESTEN KAUPPAOPISTO" , 
+            "PUCP": "Pontifical Catholic University of Peru"
+        },
+        "resume" : {
+            "PUCP": " 4. lukukauteen asti, " , 
+            "freelancer": " Verkkosivujen kehittäminen HTML: llä ja Flashilla, ",
+            "HBC": " IT-alan toisen asteen tutkinto, johon sisältyy liiketaloudellisia elementtejä, ", 
+            "sitelogic" : " Avustaja ja harjoittelija (HTML, CSS ja PHP), ", 
+            "integrify": " Päivitin ja paransin tietämystäni HTML: stä ja CSS: stä, opin Reactia, vähän Nodea, MongoDB: tä ja Gatsbyä", 
+            "home" : " Web-projektien kehittäminen omalla tililläni tietämykseni harjoittelussa, kokeneessa ja parantamiseksi, 2000 - nykyinen"
+        }
+    },
+    "portfolio" : {
+        "titles":{
+            "title00": "Resepti digitaalinen alusta",
+            "title01": "Apteekkipaikannus",
+            "title02": "Covid-19-seurantaohjelma",
+            "title03": "ninjoja paikallistaja",
+            "title04": "",
+            "title05": "",
+            "title06": "",
+            "title07": "",
+            "title08": ""
+        },
+        "descriptions":{
+            "desc00": "Digitaalinen alusta reseptien jakamiseen, reseptien etsiminen ei tarvitse rekisteröityä, mutta reseptien jakaminen, kommentoiminen ja arvioiminen on välttämätöntä. Reseptitietokanta on tallennettu MongoDB:hen ja sitä kutsutaan Node-taustajärjestelmästä, ja ReactJS:ää käytetään käyttöliittymässä. Sharpia, Multeria on käytetty valokuvien käsittelyyn ja Cloudinarya säilytykseen.",
+            "desc01": "Apteekkipaikannus kaikkialla Suomessa, tiedot päivitetään osoitteesta http://overpass-turbo.eu/, muunnetaan json-muotoon ja näytetään sitten Mapboxin tarjoamalla kartalla merkinnöillä, joka hiirtä vietäessä näyttää apteekin tiedot ja napsautettuna apteekki päätilassa. Sovellus tehtiin kokonaan React JS:ssä, CSS:ssä ja joissakin MaterialUI:issa.",
+            "desc02": "Covid-19-seurantaohjelma näyttää tilastotiedot viruksen vaikutuksista maailman väestöön, kuten kuolleiden, tartunnan saaneiden ja toipuneiden sekä rokotettujen lukumäärän. Tiedot kerätään suoraan taudista.sh api. Sovellus tehtiin kokonaan ReactJS:llä, CSS:llä ja MaterialUI:lla.",
+            "desc03": "Fiktioiden ninjoja paikallistaja Suomessa ja Espanjassa. Ninja-tietokanta on tallennettu MongoDB:hen ja sitä kutsutaan Node-taustajärjestelmästä, tulos näkyy Mapboxin tarjoamassa kartassa ja myös kartan alla olevassa luettelossa. FrontEnd on tehty Reactissa ja CSS:ssä.",
+            "desc04": "",
+            "desc05": "",
+            "desc06": "",
+            "desc07": "",
+            "desc08": ""
+        },
+        "button": "Mene sinne!"
+    },
+    "contact":{
+        "fi": "Suomi",
+        "form":{
+            "name":"Nimi",
+            "email": "Sähköposti osoite",
+            "subject": "Aihe",
+            "phone": "Puhelin (valinnainen) ",
+            "message": "Viesti"
+        },
+        "response": " Haluaisin vastauksesi!"
+    },
+    "testimonial":{
+        "leave": "Jätä suosituksen",
+        "form":{
+            "name":"Nimi",
+            "occupation": "Ammatti",
+            "company": "Yritys (valinnainen)",
+            "website": "Nettisivu (valinnainenl)",
+            "testimonial": "Suosituksen teksti"
+        }    
+    },
+    "send": " LÄHETTÄÄ",
+    "footer":{
+        "dev": "Kehitetty Reactissa ja Nodessa ⚛️ kehittäjä "
+    }
+}

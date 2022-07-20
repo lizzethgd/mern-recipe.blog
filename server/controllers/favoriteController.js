@@ -19,33 +19,29 @@ exports.remove = async (req, res) => {
         $pull: {favorites: req.params.userId}
       },{new: true})
       await res.status(200).json({success : true})
-        console.log('Favorite succesfully deleted');
-      } catch (err) {
-        res.status(500).json(err.name+': '+err.message)
-        console.log(err.name+': '+err.message);
-      }
+      console.log('Favorite succesfully deleted');
+    } catch (err) {
+      res.status(500).json(err.name+': '+err.message)
+      console.log(err.name+': '+err.message);
+    }
 }
 
 
 exports.favoritesByUser = async(req, res) => {
   try { 
-  const recipes = await Recipe.find({favorites: req.params.userId } )
-  .populate('author')
-  .populate('category', 'name')
-  .populate('language', 'name')
-  .populate('region', 'name')
-  //.populate('likes', 'user')
-  //.populate('favorites', 'user')
-  /* req.recipe = recipe;
-    next(); */
+    const recipes = await Recipe.find({favorites: req.params.userId } )
+      .populate('author', { password:0, email:0, updatedAt:0 })
+      .populate('language', 'name')
+      .populate('category', 'name')
+      .populate('region', 'name')
     console.log(recipes) 
-  await res.status(200).json({
+    await res.status(200).json({
     recipes: recipes,
     total: recipes.length 
   });
   }catch (err) {
-  res.status(500).json(err.name+': '+err.message)
-  console.log(err.name+': '+err.message);
+    res.status(500).json(err.name+': '+err.message)
+    console.log(err.name+': '+err.message);
   }
 } 
 

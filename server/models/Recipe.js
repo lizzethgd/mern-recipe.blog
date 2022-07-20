@@ -71,12 +71,6 @@ const recipeSchema = new mongoose.Schema(
   }
 );
 
-recipeSchema.virtual('comments', {
-  ref: 'Comment',
-  localField: '_id',
-  foreignField: 'recipe'
-}); 
-
 module.exports = mongoose.model("Recipe", recipeSchema);
 
 

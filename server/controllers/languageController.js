@@ -12,6 +12,17 @@ exports.list = async(req, res) => {
   }
 }
 
+exports.getLang = async(req, res) => {
+  try {
+    const language = await Language.findOne({code: req.params.code})
+    await res.status(200).json(language._id);
+  } catch (err) {
+    res.status(500).json({
+      error: errorHandler(err)
+    })
+  }
+}
+
 exports.create = async (req, res) => {
   const language = new Language(req.body)
   try {

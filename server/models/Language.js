@@ -8,6 +8,11 @@ const languageSchema = new mongoose.Schema(
       trim: true, 
       maxlength: 32,
       unique: true
+    },
+    code: {
+      type: String,
+      trim: true, 
+      maxlength: 3,
     }
   },
   {timestamps: true, 

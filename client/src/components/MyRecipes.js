@@ -14,6 +14,7 @@ const MyRecipes = () => {
 
   const initRecipes= useCallback(async () => {
     await getRecipeByUser(user._id).then(data => {
+      console.log(data.recipes)
             setRecipes(data.recipes)
             setTotalRecipes(data.total) }
     )},

@@ -12,6 +12,7 @@ const MySearch = () => {
 
     const initRecipes= useCallback(async () => {
       await recipesBySearch(dispatch).then(data => {
+        console.log(data.recipes)
               setRecipes(data.recipes)
               setTotalRecipes(data.total) }
       )}, [dispatch] ) 

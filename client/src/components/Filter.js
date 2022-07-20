@@ -1,25 +1,23 @@
 import '../assets/css/filter.scss';
 import { useState, useCallback, useEffect } from "react";
 import { getCategories } from '../services/CategoryService';
-import { getLanguages } from '../services/LanguageService';
 import { getRegions } from '../services/RegionService';
+import {useTranslation} from 'react-i18next';
 
 const Filter = ({filters, setFilters}) => {
 
     const [categories, setCategories] = useState([]);  
-    const [languages, setLanguages] = useState([]); 
     const [regions, setRegions] = useState([]); 
+
+    const { t } = useTranslation("global");
 
     const initFilters= useCallback(async () => {
         await getCategories().then(categories => 
             setCategories(categories)
-        )
-        await getLanguages().then(languages => 
-            setLanguages(languages)
-        )    
+        )   
         await getRegions().then(regions => 
             setRegions(regions)
-        )  
+        )   
     },[] ) 
 
      useEffect(() => {
@@ -38,32 +36,34 @@ const Filter = ({filters, setFilters}) => {
 
    const unfilter = e =>{
          e.preventDefault();
-        setFilters({category: 'ND', language: 'ND',region: 'ND'})
+        setFilters({language: localStorage.i18nextLng, category: 'ND',  region: 'ND'})
    }
+
+   //console.log(filters)
     
 return (   
 <div className="w3-section w3-padding-16">
-    <span className="w3-margin-right">Filter:</span> 
-    <button className="w3-button w3-black" onClick={unfilter}>ALL</button>
+    <span className="w3-margin-right">{t("filter.filters")}:</span> 
+    <button className="w3-button w3-black" onClick={unfilter}>{t("filter.all")}</button>
     <div className="w3-button w3-white" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
     <select name='category' value={filters.category}  onChange={handleChange}>
-    <option value=''>Categories</option>
+    <option value=''>{t("filter.categories")}</option>
     {categories.map(category =>
-        <option key={category._id} value={category._id} >{category.name}</option>
+        <option key={category._id} value={category._id} >{t(`filter.category.${category.name}`)}</option>
     )}
   </select>
     </div>
-    <div className="w3-button w3-white "><i className="fa-solid fa-language w3-margin-right"></i>
+    {/* <div className="w3-button w3-white "><i className="fa-solid fa-language w3-margin-right"></i>
     <select name='language' value={filters.language}  onChange={handleChange}>
     <option value=''>Languages</option>
     {languages.map(language =>
         <option key={language._id} value={language._id} >{language.name}</option>
     )}
   </select>
-    </div>
+    </div> */}
     <div className="w3-button w3-white"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
     <select name='region' value={filters.region}  onChange={handleChange}>
-    <option value=''>Regions</option>
+    <option value=''>{t("filter.regions")}</option>
     {regions.map(region =>
         <option key={region._id} value={region._id} >{region.name}</option>
     )}

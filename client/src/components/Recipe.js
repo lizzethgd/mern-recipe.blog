@@ -32,13 +32,13 @@ const Recipe = () => {
       steps: [],
       author: {},
       category: {},
-      language: {},
+      //language: {},
       region: {},
       likes: [],
       favorites: []
       }) 
 
-  const { title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region, likes, favorites, createdAt } = recipe
+  const { title, description, serves, cookTime, photo, ingredients, steps, author, category, /* language, */ region, likes, favorites, createdAt } = recipe
 
   const [comments, setComments] = useState([])
 
@@ -167,7 +167,7 @@ return (
         <div className="r-icon"><i className="fa-solid fa-users"/> {serves?  serves : '-.-'}</div>
         <div className="r-icon"><i className="fa-solid fa-stopwatch " /> {cookTime.length!==0 ? cookTime[0]+':'+cookTime[1] : '-.-'} </div> 
        <div className="r-icon"><i className="fa-solid fa-rectangle-list" /> {category.name} </div>
-        <div className="r-icon"><i className="fa-solid fa-language" /> {language.name} </div>  
+       {/*  <div className="r-icon"><i className="fa-solid fa-language" /> {language.name} </div>   */}
         <div className="r-icon"><i className="fa-solid fa-earth-americas "/> {region.name} </div> 
     </div> 
   </div> 

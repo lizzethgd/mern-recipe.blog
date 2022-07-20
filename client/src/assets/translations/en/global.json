@@ -1,0 +1,132 @@
+{   
+    "context":{
+        "load:" : "Loading"
+    },
+    "nav":{
+        "home": "Home",
+        "log": "Login / Register",
+        "search" : "Search by name or ingredient...",
+        "add": "Add recipe",
+        "myReps":"My recipes",
+        "myFavs": "My favs",
+        "myProf": "My profile",
+        "out":"Logout"
+    },
+    "filter":{
+        "filters" : "Filters",
+        "all": "All",
+        "categories" : "Categories",
+        "category": {
+            "Breackfast": "Breackfast", 
+            "Dessert": "Dessert", 
+            "Snack": "Snack", 
+            "Starter": "Starter", 
+            "Soup": "Soup",
+            "Salad": "Salad", 
+            "Vegan": "Vegan",
+            "Vegetarian": "Vegetarian",
+            "MainDish": "Main dish",
+            "Coktail": "Coktail",
+            "Smoothie": "Smoothie"
+        },
+        "regions": "Regions", 
+        "region": {
+            "Dessert": "Postre", 
+            "Snack": "Tentenpié", 
+            "Starter": "Entrada", 
+            "Soup": "Sopa",
+            "title": "Idiomas", 
+            "Salad": "Ensalada", 
+            "Vegan": "Vegan",
+            "Vegetariano": "Vegetariano",
+            "Coktail": "Coctel", 
+            "Juice": "Jugo"   
+        }
+    },
+    "about":{
+        "description": "I graduated from Datanomi in the summer of 2017. I was on maternity leave for a few years but I have still done some projects myself to pursue what I have learned and to learn more. As an employee, I am efficient and used to working under pressure. My goal is to work on interesting and challenging issues in jobs that support my professional development ", 
+        "download":"  Download Resume",
+        "skills" : "Skills",
+        "langs": {
+            "title": "Languages", 
+            "fi": "Finnish", 
+            "en": "English", 
+            "ge": "German", 
+            "sp": "Spanish"
+        }
+    },
+    "resume":{
+        "education" : "Education",
+        "experience" : "Work experience",
+        "title" :{
+            "PUCP": "Informatics Engineering",
+            "freelancer" :"Freelancer",
+            "HBC": "Vocational Qualification in Business Information Technology",
+            "sitelogic" : "Internship",
+            "integrify": "Web developer (course)",
+            "home" : "Projects at home"
+        },
+        "schools" : {
+            "HBC": "HELSINKI BUSINESS COLLEGE" , 
+            "PUCP": "Pontifical Catholic University of Peru"
+        },
+        "resume" : {
+            "PUCP": " Until the 4th semester " , 
+            "freelancer": " Website development in HTML and some Flash, ",
+            "HBC": " Secondary degree in IT with elements of business administration, ", 
+            "sitelogic" : " Assistant and trainee (HTML, CSS and PHP), ", 
+            "integrify": " I updated and improved my knowledge about HTML and CSS, I learned React, a little bit of Node, MongoDB and Gatsby", 
+            "home" : " Development of web projects by my own account for practicing, experiencing and improving my knowledge, 2020 - Present"
+        }
+    },
+    "portfolio" : {
+        "titles":{
+            "title00": "Recipe virtual pad",
+            "title01": "Pharmacies Locator",
+            "title02": "Covid-19 Tracker",
+            "title03": "Ninjas Locator",
+            "title04": "",
+            "title05": "",
+            "title06": "",
+            "title07": "",
+            "title08": ""
+        },
+        "descriptions":{
+            "desc00": "Digital pad to share recipes, no registration required to search for recipes but it is necessary to share, comment and rate recipes. The recipes database is stored in MongoDB and is called from the Node backend and ReactJS is used for Frontend. Sharp, Multer have been used for photo processing and Cloudinary for storage.",
+            "desc01": "Pharmacy locator throughout Finland, the data is updated from http://overpass-turbo.eu/, converted to json format and then displayed on a map provided by Mapbox with markers, which when hovering the mouse shows  pharmacy informationand if clicked it shows the pharmacy in main mode. The app was made entirely in React JS, CSS and some MaterialUI.",
+            "desc02": "Covid-19 tracker, shows the statistical data of the effect of the virus on the world population, such as the number of deaths, infected and recovered, as well as vaccinated. The data is collected directly from the disease.sh api. The app was made entirely with ReactJS, CSS and MaterialUI.",
+            "desc03": "Fictional ninja locator in Finland and Spain. The ninja database is stored in MongoDB and is called from the Node backend, the result is displayed on a map provided by Mapbox and also in a list below the map. The FrontEnd is done in ReactJS and CSS.",
+            "desc04": "",
+            "desc05": "",
+            "desc06": "",
+            "desc07": "",
+            "desc08": ""
+        },
+        "button": "Go there!"
+    },
+    "contact":{
+        "fi": "Finland",
+        "form":{
+            "name":"Name",
+            "email": "Email",
+            "subject": "Subject",
+            "phone": "Phone (optional)",
+            "message": "Message"
+        },
+        "response": " I'd love your response!"
+    },
+    "testimonial":{
+        "leave": "Leave your testimonial",
+        "form":{
+            "name":"Name",
+            "occupation": "Occupation",
+            "company": "Company (optional)",
+            "website": "Website (optional)",
+            "testimonial": "Testimonial"
+        }    
+    },
+    "send": " SEND",
+    "footer":{
+        "dev": "Developed in React and Node ⚛️ by "
+    }
+}
