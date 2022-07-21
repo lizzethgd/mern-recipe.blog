@@ -1,6 +1,7 @@
+import blankRecipe from "../assets/images/blankRecipe.jpg"
 import {useState, useEffect} from 'react'
 import {Link, useLocation, useNavigate } from 'react-router-dom'
-import {editRecipe} from '../services/RecipeService';
+import {editRecipe, removePhoto} from '../services/RecipeService';
 import { getCategories } from '../services/CategoryService';
 import { getLanguages } from '../services/LanguageService';
 import { getRegions } from '../services/RegionService';
@@ -23,12 +24,12 @@ const EditRecipe = () => {
         region: '',
         })    
 
-    console.log(dispatch)
 
     const [categories, setCategories] = useState([])
     const [regions, setRegions] = useState([])
     const [languages, setLanguages] = useState([])
 
+    const [imgUrl, setImgUrl] = useState('')
 
      useEffect(() => {
         (async () => { 
@@ -57,7 +58,10 @@ const EditRecipe = () => {
         if (description) formData.append('description', description)
         if (serves) formData.append('serves', serves) 
         if (cookTime!==[]) cookTime.forEach(i => formData.append("cookTime[]", i)) 
-        if (photo!=='') formData.append('photo', photo)
+        if (photo!=='') { 
+            formData.append('photo', photo)
+            if (dispatch.photo) localStorage.setItem('photoUrl', dispatch.photo)
+        }
         ingredients.forEach(i => formData.append("ingredients[]", i))
         steps.forEach(i => formData.append("steps[]", i))
         formData.append('category', category._id)
@@ -65,9 +69,12 @@ const EditRecipe = () => {
         formData.append('region', region._id)
         console.log(formData)
        editRecipe(formData, dispatch._id).then(data=> {
-          history(`/${data.id}`)
-        }
-        )  
+            if (localStorage.photoUrl && data.photo !== localStorage.photoUrl) {
+                removePhoto(localStorage.photoUrl)
+                localStorage.removeItem('photoUrl') 
+            }
+            history(`/${data.id}`)
+        })  
     } 
     
      const handleChange = e => {
@@ -76,9 +83,10 @@ const EditRecipe = () => {
         setUpdateRecipe({ ...updateRecipe, [e.target.id]: value })
     }
 
-    const handlePhoto = async e =>{
+    const handleImage = async e =>{
         let value = e.target.files[0] 
-        value.size > 1048576 ? setErr('File Size is too large. Allowed file size is 1MBChange') : setErr('')
+        if (value.size > 1048576) setErr('File Size is too large. Allowed file size is 1MBChange')
+        setImgUrl(URL.createObjectURL(e.target.files[0]))
         setUpdateRecipe({...updateRecipe, photo: value})
     } 
 
@@ -138,6 +146,7 @@ const EditRecipe = () => {
         }
       };
  */
+
     const ingredientsInputs = updateRecipe.ingredients.map((ingredient, i) =>
         <div key={i} >
           <input className="w3-input w3-padding" id={"ingredient "+i} style={{width:"94%"}} type="text" value={ingredient} onChange={e => handleChangeIngredient(e, i)} />
@@ -161,21 +170,28 @@ return (
         <h2 >Recipe</h2> 
         <div className="w3-padding">
             <input className="w3-input  w3-border" type="text" placeholder="Title" id="title" value={title} onChange={e => handleChange(e)}  required/>
-            <input className="w3-input  w3-border w3-margin-top" type="text" placeholder="Description"  id="description" value={description} onChange={e => handleChange(e)} />
+            <textarea className="w3-input  w3-border w3-margin-top" type="text" placeholder="Description"  id="description" value={description} onChange={e => handleChange(e)} />
         </div>
         
-        <div className=" w3-section " >
-            <div className=" w3-quarter ">
-            <label className="w3-border">N° serves: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={e => handleChange(e)} />
+        <div className="w3-section" >
+
+          <div className="w3-half w3-margin-top">
+            <div className="w3-margin-top">
+            <label >N° serves: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={e => handleChange(e)} />
             </div>
-            <div className=" w3-third w3-margin-top">
+            <div className="w3-margin-top">
                 <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={(e) => handleChangeCookTime(e)} /><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} /> 
             </div>
-            <div className=" w3-third w3-left w3-margin-top">
+          </div>
+
+          <div className="w3-half w3-margin-top" style={{paddingBottom: '30px'}}>
+            <p className="w3-center">
+            <img src={imgUrl ? imgUrl : (updateRecipe.photo ? updateRecipe.photo : blankRecipe)}  className="w3-card" style={{height:"200px", width:"300px"}} alt="Avatar"/>
+             </p>
             <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>
-                <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handlePhoto} />
-                <span style={{color: 'red'}}>{err}</span>
-            </div>
+            <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handleImage} />
+            <span style={{color: 'red'}}>{err}</span>
+          </div>
         </div>
 
         <div className=" w3-section w3-row-padding w3-center" >

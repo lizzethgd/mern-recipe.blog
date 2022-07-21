@@ -113,3 +113,26 @@ else{
      next();
 }
 }
+
+exports.deleteImage = (req, res) => {
+
+  const imageUrl = req.body.url
+
+  console.log(imageUrl)
+
+  const getPublicId = (url) => url.split("/").slice(7).join("/").split(".")[0]
+  
+  const public_id = getPublicId(imageUrl)
+
+    cloudinary.uploader.destroy(public_id, 
+      (error,result) => {
+        if (error) {
+          console.log('error to destroy image: '+JSON.stringify(error))
+        }else{
+          console.log(result)
+        }
+})
+
+  res.json()
+
+}

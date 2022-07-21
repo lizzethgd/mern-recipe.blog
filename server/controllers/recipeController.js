@@ -96,7 +96,7 @@ exports.update =  async (req, res) => {
     const updateRecipe = await Recipe.findByIdAndUpdate(req.params.id, {
       $set: req.body
     },{new: true})
-    await res.status(200).json({success : true, recipe: updateRecipe, id:updateRecipe._id });
+    await res.status(200).json({success : true, recipe: updateRecipe, id: updateRecipe._id });
   } catch (err) {
     res.status(500).json('error controller: '+err)
     console.log('error controller: '+err);
@@ -128,11 +128,4 @@ exports.recipeById = async(req, res) => {
   }
 } 
 
-exports.photo = (req, res, next ) => {
-  if (req.recipe.photo.data) {
-    res.set('Content-Type', req.recipe.photo.contentType)
-    return res.send(req.recipe.photo.data)
-  }
-  next();
-} 
   

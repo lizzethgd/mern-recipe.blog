@@ -1,7 +1,7 @@
 import avatar from "../assets/images/blankAvatar.jpg"
 import "../assets/css/profile.scss"
 import {useContext, useState, useEffect} from 'react'
-import {updateProfile} from '../services/UserService';
+import {updateProfile, removePhoto} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
 import {Link, useNavigate} from 'react-router-dom'
 
@@ -9,10 +9,9 @@ const EditProfile = () => {
 
 const {user, setUser} = useContext(AuthContext);
 
-
 const [updateUser, setUpdateUser] = useState({
   firstName: '',
-  lasttName: '',
+  lastName: '',
   username: '',
   email: '',
   photo: ''
@@ -28,7 +27,6 @@ const [updateUser, setUpdateUser] = useState({
     }) () 
 },[user])
 
-console.log(updateUser)
 const [imgUrl, setImgUrl] = useState('')
 const history = useNavigate()
 
@@ -39,29 +37,36 @@ const handleChange = e => {
 
  const handleImage = e => {
   let value = e.target.files[0] 
-  value.size > 1048576 ? setErr('File Size is too large. Allowed file size is 1MBChange') : setErr('')
+  if (value.size > 1048576) setErr('File Size is too large. Allowed file size is 1MBChange') 
   setImgUrl(URL.createObjectURL(e.target.files[0]))
   setUpdateUser({ ...updateUser, photo: value })
-};
+ }
 
-const handleSubmit = e =>{
-  e.preventDefault()
-  const formData = new FormData()
-  formData.append('firstName', updateUser.firstName)
-  formData.append('lastName', updateUser.lastName)
-  formData.append('email', updateUser.email)
-  if (updateUser.photo!=='') formData.append('photo', updateUser.photo)
-  console.log(formData)
-  updateProfile(formData, user._id).then(data=> {
-    setUser(data.user);
-    history('/myprofile')
+  const handleSubmit = e =>{
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append('firstName', updateUser.firstName)
+    formData.append('lastName', updateUser.lastName)
+    formData.append('email', updateUser.email)
+    if (updateUser.photo!=='') { 
+      formData.append('photo', updateUser.photo)
+      if (user.photo) localStorage.setItem('photoUrl', user.photo)
+    }
+    console.log(formData)
+    updateProfile(formData, user._id).then(data=> {
+      setUser(data.user)
+      if (localStorage.photoUrl && data.user.photo !== localStorage.photoUrl) {
+          removePhoto(localStorage.photoUrl)
+          localStorage.removeItem('photoUrl')
+      }
+      history('/myprofile')
+    }) 
   }
-  ) 
-}
 
 const [err, setErr] = useState('')
 
-console.log(user)
+console.log(user.photo)
+console.log(localStorage.photoUrl)
 
 return (
 <div className="w3-container w3-light-green w3-center container-profile">

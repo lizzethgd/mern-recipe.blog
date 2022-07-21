@@ -1,9 +1,7 @@
 export const getRecipeComments= async (recipeId) => {
-    console.log(recipeId)
   try{
     //const res = await fetch(`recipe/recipes/${categoryId}/${languageId}/${regionId}`)
     const res = await fetch(`comment/${recipeId}`)
-    console.log(res)
     return res.json()
   }catch(err) {
       console.log('error in commentService: '+err)
@@ -13,8 +11,7 @@ export const getRecipeComments= async (recipeId) => {
 
 export const addComment = async (comment) => {
     try{
-        console.log(comment)
-    const res = await fetch('comment/add', {
+      const res = await fetch('comment/add', {
        method: 'POST',
        body: JSON.stringify(comment),
         headers: {
@@ -25,7 +22,7 @@ export const addComment = async (comment) => {
     if (res.status !== 401)
       return res.json();
     }catch(err) {
-   console.log('error in commentService: '+err)
+      console.log('error in commentService: '+err)
   }
 }
 

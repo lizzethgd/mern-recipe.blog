@@ -1,7 +1,7 @@
 const {Router} = require("express");
 const router = Router()
-const {fileUpload,  resizeImage} = require('../middelwares/resizedUpload')
-const { list, listfFiltered, read, create, remove, update, recipeById, recipesSearch, recipesByUser, photo } = require('../controllers/recipeController');
+const {fileUpload,  resizeImage, deleteImage} = require('../middelwares/cloudinary')
+const { list, listfFiltered, read, create, remove, update, recipeById, recipesSearch, recipesByUser } = require('../controllers/recipeController');
 
 router.get('/recipes', list);
 router.get('/recipes/:language/:category/:region', listfFiltered);
@@ -10,7 +10,7 @@ router.post('/create', fileUpload, resizeImage, create)
 router.get('/:id', recipeById)
 router.get('/author/:userId', recipesByUser)
 router.delete('/:id', remove)
-router.get('/photo/:id', photo)
+router.put('/photo', deleteImage)
 router.put('/:id', fileUpload, resizeImage, update)
 
 module.exports = router;

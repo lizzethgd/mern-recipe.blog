@@ -10,7 +10,7 @@ export default ({ children }) => {
     const [isLoaded,setIsLoaded] = useState(false);
 
     const [filters, setFilters] = useState({
-       language: localStorage.i18nextLng,
+       language: (localStorage.i18nextLng ? localStorage.i18nextLng : 'en'),
        category: 'ND',
        region: 'ND'
       }) 

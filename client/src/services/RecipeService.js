@@ -28,11 +28,8 @@ export const recipesBySearch = async (search) => {
 }
 
 export const getRecipeByUser = async (userId) => {
-  console.log(userId)
   try{
-    //const res = await fetch(`recipe/recipes/${categoryId}/${languageId}/${regionId}`)
     const res = await fetch(`recipe/author/${userId}`)
-    console.log(res)
     return await res.json()
   }catch(err) {
     console.log('error in recipeService: '+err)
@@ -75,5 +72,21 @@ export const removeRecipe = async (id) => {
         return await res.json();
     }catch(err) {
       console.log('error in recipeService: '+err)
+    }
+}
+
+export const removePhoto = async (photoURL) => {
+  const photo = {url : photoURL}
+  try{
+    const res = await fetch(`recipe/photo`, {
+        method: 'PUT',
+        body: JSON.stringify(photo),
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+        return await res.json();
+    }catch(err) {
+      console.log('error in recipeService photo: '+err)
     }
 }

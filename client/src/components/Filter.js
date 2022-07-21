@@ -2,7 +2,7 @@ import '../assets/css/filter.scss';
 import { useState, useCallback, useEffect } from "react";
 import { getCategories } from '../services/CategoryService';
 import { getRegions } from '../services/RegionService';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 const Filter = ({filters, setFilters}) => {
 
@@ -34,10 +34,10 @@ const Filter = ({filters, setFilters}) => {
         setFilters({...filters, [e.target.name]: e.target.value})
     }
 
-   const unfilter = e =>{
+    const unfilter = e =>{
          e.preventDefault();
         setFilters({language: localStorage.i18nextLng, category: 'ND',  region: 'ND'})
-   }
+    }
 
    //console.log(filters)
     

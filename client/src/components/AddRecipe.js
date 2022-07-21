@@ -1,3 +1,4 @@
+import blankRecipe from "../assets/images/blankRecipe.jpg"
 import {useContext, useEffect, useState} from 'react'
 import {AuthContext} from '../context/AuthContext';
 import {createRecipe} from '../services/RecipeService';
@@ -33,6 +34,8 @@ const [recipe, setRecipe] = useState({
     }) 
 
 const {title, description, serves, cookTime, photo, ingredients, steps, author, category, language, region} = recipe
+
+const [imgUrl, setImgUrl] = useState('')
 
 useEffect(() => {
     (async () => { 
@@ -79,6 +82,7 @@ const handleChange = e => {
 const handlePhoto = async e =>{
     let value = e.target.files[0] 
     value.size > 1048576 ? setErr('File Size is too large. Allowed file size is 1MBChange') : setErr('')
+    setImgUrl(URL.createObjectURL(e.target.files[0]))
     setRecipe({...recipe, photo: value})
 }   
 
@@ -164,19 +168,25 @@ return (
         <textarea className="w3-input w3-border w3-margin-top" type="text" placeholder="Description"  id="description" value={description} onChange={handleChange} onKeyDown={handleEnter}/>
     
     <div className="w3-section" >
-        <div className=" w3-quarter w3-margin-top">
-        <label className="w3-border">N° serves: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={handleChange} onKeyDown={handleEnter}/>
+
+      <div className="w3-half w3-margin-top">
+        <div className="w3-margin-top">
+        <label>N° serves: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={handleChange} onKeyDown={handleEnter}/>
         </div>
-        <div className=" w3-quarter w3-margin-top">
+        <div className="w3-margin-top">
             <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={handleChangeCookTime} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
         </div>
-        <div className="w3-quarter w3-center w3-margin-top">
-        <label htmlFor="photo" style={{fontSize: "large"}} >Select a image:</label>
-        <span style={{color: 'red'}}>{err}</span>
-        </div>
-        <div className=" w3-quarter w3-center">
-            <input type="file" id="photo" accept=".png, .jpg, .jpeg"  onChange={handlePhoto} />
-        </div>
+      </div>
+
+      <div className="w3-half w3-margin-top" style={{paddingBottom: '30px'}}>
+            <p className="w3-center">
+            <img src={imgUrl ? imgUrl : blankRecipe}  className="w3-card" style={{height:"200px", width:"300px"}} alt="Avatar"/>
+             </p>
+            <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>
+            <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handlePhoto} />
+            <span style={{color: 'red'}}>{err}</span>
+    </div>
+        
     </div>
     
     </div>

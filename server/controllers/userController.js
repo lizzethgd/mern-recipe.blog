@@ -65,3 +65,4 @@ exports.getUserFavorites = async (req, res) => {
   console.log(err.name+': '+err.message);
   }
 }
+

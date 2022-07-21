@@ -3,7 +3,7 @@ const router = express.Router()
 const authJWT =require('../middelwares/authJWT')
 const authController =require('../controllers/authController')
 const userController =require('../controllers/userController')
-const {fileUpload, resizeImage} = require('../middelwares/resizedUpload')
+const {fileUpload, resizeImage, deleteImage} = require('../middelwares/cloudinary')
 
 /* router.use((req, res, next) => 
 {res.header("Access-Control-Allow-Headers","x-access-token, Origin, Content-Type, Accept");
@@ -20,7 +20,7 @@ router.get('/authentication', authJWT.verifyToken, authJWT.authentication)
 
 router.put('/password/:id', authJWT.verifyUser, userController.update)
 
-router.put('/:id',  fileUpload, resizeImage, authJWT.verifyOwnership, userController.update)
+router.put('/:id',  authJWT.verifyOwnership, fileUpload, resizeImage, userController.update)
 
 router.delete('/:id',  authJWT.verifyOwnership, authController.logout, authController.delete)
 
@@ -32,7 +32,9 @@ router.get('/:id/recipes', userController.getUserRecipes)
 
 router.get('/:id/favorites', userController.getUserFavorites)
 
-router.get('/admin', authJWT.verifyToken, authJWT.authentication);
+router.get('/admin', authJWT.verifyToken, authJWT.authentication)
+
+router.put('/remove/photo', deleteImage)
 
 /* router.param("userId", authController.userById); */
 

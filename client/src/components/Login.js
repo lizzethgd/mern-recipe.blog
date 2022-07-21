@@ -47,6 +47,7 @@ const Login = () => {
         try{
         e.preventDefault();
         authRegister(userLogup)
+        history('/');
     }catch(err){console.log(err.message)}
     
       }   
