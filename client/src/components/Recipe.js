@@ -164,15 +164,15 @@ return (
     <h2 className="w3-center padd w3-text-white">{title}</h2> 
     <div className="w3-center w3-large desc">{description? description: null}</div> 
     <div className=" w3-center r-icons">
-        <div className="r-icon"><i className="fa-solid fa-users"/> {serves?  serves : '-.-'}</div>
-        <div className="r-icon"><i className="fa-solid fa-stopwatch " /> {cookTime.length!==0 ? cookTime[0]+':'+cookTime[1] : '-.-'} </div> 
-       <div className="r-icon"><i className="fa-solid fa-rectangle-list" /> {category.name} </div>
-       {/*  <div className="r-icon"><i className="fa-solid fa-language" /> {language.name} </div>   */}
-        <div className="r-icon"><i className="fa-solid fa-earth-americas "/> {region.name} </div> 
+        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-users"/> {serves?  serves : '-.-'}</div>
+        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-stopwatch "/> {cookTime.length!==0 ? cookTime[0]+':'+cookTime[1] : '-.-'} </div> 
+       <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-rectangle-list" /> {category.name} </div>
+       {/*  <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-language" /> {language.name} </div>   */}
+        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-earth-americas "/> {region.name} </div> 
     </div> 
   </div> 
 
-  <div className="w3-row w3-text-white "  >
+  <div className="w3-row w3-text-white w3-padding-top-24"  >
         
     <div className="w3-col m6 padd ">  
       <h3 className="w3-center">Ingredients</h3>

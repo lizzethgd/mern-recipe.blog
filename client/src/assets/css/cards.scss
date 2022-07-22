@@ -154,11 +154,20 @@ $darkGrey: #4f585e;
     border-radius:  0 0 5px 5px;
 
     .card__description {
-      padding: 0 15px 0px;
+      line-height: 20px;
+      height: 105px;
+      word-break: break-all;
+      // text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 5;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: -o-ellipsis-lastline;
+      padding: 5px 15px 0px;
       position: relative;
       font-size: 14px;
     }
-  
+
     .card__actions {
       box-shadow: 0 2px 0px 0 rgba(0,0,0,0.075);
       padding: 8px 15px 20px;
@@ -203,6 +212,7 @@ $darkGrey: #4f585e;
 
     .toggle__info {
       background: $salmon !important;
+
       span {
         top: 15px;
       }

@@ -175,37 +175,17 @@ return (
         
         <div className="w3-section" >
 
-          <div className="w3-half w3-margin-top">
+          <div className="w3-half w3-margin-top w3-left-align " style={{paddingLeft: '13vw'}}>
             <div className="w3-margin-top">
-            <label >N° serves: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={e => handleChange(e)} />
+            <label className="w3-button w3-white"><i className="fa-solid fa-users w3-margin-right"/>N° serves: </label ><input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={e => handleChange(e)} />
             </div>
             <div className="w3-margin-top">
-                <label >CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={(e) => handleChangeCookTime(e)} /><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} /> 
+                <label className="w3-button w3-white"><i className="fa-solid fa-stopwatch w3-margin-right"/> CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={(e) => handleChangeCookTime(e)} /><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} /> 
             </div>
-          </div>
-
-          <div className="w3-half w3-margin-top" style={{paddingBottom: '30px'}}>
-            <p className="w3-center">
-            <img src={imgUrl ? imgUrl : (updateRecipe.photo ? updateRecipe.photo : blankRecipe)}  className="w3-card" style={{height:"200px", width:"300px"}} alt="Avatar"/>
-             </p>
-            <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>
-            <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handleImage} />
-            <span style={{color: 'red'}}>{err}</span>
-          </div>
-        </div>
-
-        <div className=" w3-section w3-row-padding w3-center" >
             <div className="w3-button w3-white w3-margin-top" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
                 <select id='category' value={category._id}  onChange={handleChange}>
                 {categories.map(category =>
                     <option key={category._id} value={category._id} >{category.name}</option>
-                )}
-                </select>
-            </div>
-            <div className="w3-button w3-white w3-margin-top"><i className="fa-solid fa-language w3-margin-right"></i>
-                <select id='language' value={language._id}  onChange={handleChange}>
-                {languages.map(language =>
-                    <option key={language._id} value={language._id} >{language.name}</option>
                 )}
                 </select>
             </div>
@@ -216,12 +196,34 @@ return (
                 )}
                 </select>
             </div>
+          </div>
+
+          <div className="w3-half w3-margin-top" style={{paddingBottom: '5vh'}}>
+            <p className="w3-center">
+            <img src={imgUrl ? imgUrl : (updateRecipe.photo ? updateRecipe.photo : blankRecipe)}  className="w3-card" style={{height:"200px", width:"300px"}} alt="Avatar"/>
+             </p>
+            <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>
+            <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handleImage} />
+            <span style={{color: 'red'}}>{err}</span>
+          </div>
         </div>
+{/* 
+        <div className=" w3-section w3-row-padding w3-center" > */}
+           
+          {/*   <div className="w3-button w3-white w3-margin-top"><i className="fa-solid fa-language w3-margin-right"></i>
+                <select id='language' value={language._id}  onChange={handleChange}>
+                {languages.map(language =>
+                    <option key={language._id} value={language._id} >{language.name}</option>
+                )}
+                </select>
+            </div> */}
+       {/*     
+        </div> */}
     </div>
         
-    <div className="w3-row blocks">
+    <div className="w3-row ">
     
-        <div className="h-block" >
+        <div className="w3-col m6 padd " >
           <h3 className="w3-center">Ingredients</h3>
            <div className=" w3-white w3-margin-top"  style={{padding:"5px 10px 35px 15px"}}> 
                     {ingredientsInputs}
@@ -231,7 +233,7 @@ return (
           </div> 
         </div>
     
-        <div className="h-block" >
+        <div className="w3-col m6 padd " >
             <h3 className="w3-center">Steps</h3>
             <ol style={{padding:"0px 10px"}}>
                 {stepsInputs}
