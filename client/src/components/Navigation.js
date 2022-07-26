@@ -19,16 +19,9 @@ const Navigation = () => {
   
   const [showNav, setShowNav] = useState('')
 
-  //const [showLangs, setShowLangs] = useState('')
-
-   //console.log(i18n.language )
+  const [showLangs, setShowLangs] = useState('')
 
   const history = useNavigate() 
- 
-/*   useEffect(() => {
-    getLanguage(i18n.language).then(language => 
-      localStorage.setItem('lang', language) )
-  }, [i18n.language])  */ 
   
   const onClickLogoutHandler = async ()=>{
     await authLogout().then(data=>{
@@ -46,11 +39,10 @@ const Navigation = () => {
      console.log(showNav)
   }
 
-/* const openLangs= () =>{
+const openLangs= () =>{
     showLangs==='block' ? setShowLangs('none') : setShowLangs('block')
     console.log(showLangs)
  } 
-*/
 
   const handleChange =  e => {
     e.preventDefault();
@@ -103,14 +95,11 @@ const Navigation = () => {
   </>
     )
 
-  const languagesSet = (
+  const languageSet = (
     <>
-    <button className="w3-button w3-padding-large" ><i className='fa-solid fa-globe'/></button>
-     <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" /* style={{display: showLangs}} */>
       <button className="w3-bar-item w3-button" name="en" onClick={langChange}>🇬🇧 English</button>
       <button className="w3-bar-item w3-button" name="fi" onClick={langChange}>🇫🇮 Suomi</button>
       <button className="w3-bar-item w3-button" name="es" onClick={langChange}>🇪🇸 Español</button>
-    </div>
     </> 
   )  
 
@@ -135,13 +124,19 @@ return (
     <NavLink  className="w3-bar-item w3-button w3-deep-orange" title={t("nav.home")} to="/"><img src={recipebook} style={{padding:0, height:"35px", width:"35px"}} alt="recipebook" /> <b>RecipePad</b></NavLink>
    { !isAuthenticated ?  userNoLogTop : userLogTop }
    
-   <div className="w3-dropdown-hover w3-right" >
-    {languagesSet} 
+   <div className="w3-dropdown-hover w3-right w3-hide-small" >
+   <button className="w3-button w3-padding-large"><i className='fa-solid fa-globe'/></button>
+     <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" >
+    {languageSet} 
+    </div>
   </div>
 
- {/*  <div className="w3-right w3-hide-medium w3-hide-large" onClick={openLangs}>
-    {languagesSet} 
-  </div> */}
+ {<div className="w3-right w3-hide-medium w3-hide-large" >
+    <button className="w3-button w3-padding-large" onClick={openLangs} ><i className='fa-solid fa-globe'/></button>
+    <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" style={{display: showLangs}}>
+    {languageSet}
+    </div>
+  </div>}
 
     <div className="w3-bar-item w3-right w3-hide-small search-container ">
       <input type="text" placeholder={t("nav.search")}  onChange={handleChange} required/>
@@ -149,15 +144,6 @@ return (
     </div>
   </div>
   </div>
-
-  {/* <!-- Navbar on small screens --> */}
-{/*   <div id="navDemo" className="w3-dropdown-click w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium w3-large" style={{zIndex: 2}} >
-    <div className="w3-bar-item w3-padding-large w3-padding-top-64 w3-button search-container ">
-      <input type="text" placeholder="Search recipe..  " id="search" onChange={handleChange} required/>
-      <button className="w3-button w3-hover-white fa-solid fa-magnifying-glass button" onClick={handleSubmit} />
-    </div>
-    { !isAuthenticated ? <NavLink className="w3-bar-item w3-button w3-padding-large" to="/login"> Login / Register <i className="fa-solid fa-right-to-bracket"/></NavLink>  : userLinksAcordeon }
-  </div> */}
   
 </div>
     )
