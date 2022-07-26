@@ -42,13 +42,10 @@ const Navigation = () => {
  
   const openNav= () =>{
      nav.show==='block' ? setNav({...nav, show:'none', icon: 'bars'}) : setNav({...nav, show:'block', icon: 'xmark'})
-     console.log(nav.show)
   }
 
 const openLangs= () =>{
     langs.show==='block' ? setLangs({...langs, show:'none', icon: 'globe'}) : setLangs({...langs, show:'block', icon: 'xmark'})
-    //showLangs==='block' ? setShowLangs('none') : setShowLangs('block')
-    console.log(langs.show)
  } 
 
   const handleChange =  e => {

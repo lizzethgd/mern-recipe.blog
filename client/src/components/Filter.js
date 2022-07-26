@@ -42,10 +42,11 @@ const Filter = ({filters, setFilters}) => {
    //console.log(filters)
     
 return (   
-<div className="w3-section" style={{paddingTop: '40px'}}>
-    <span className="w3-margin-right">{t("filter.filters")}:</span> 
-    <button className="w3-button w3-black" onClick={unfilter}>{t("filter.all")}</button>
-    <div className="w3-button w3-white" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
+<div className="w3-section " style={{paddingTop: '40px'}}>
+    <span className="w3-margin-right cero">{t("filter.filters")}:</span> 
+    <button className="w3-button w3-black one" onClick={unfilter}>{t("filter.all")}</button>
+    
+    <div className="w3-button w3-white two" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
     <select name='category' value={filters.category}  onChange={handleChange}>
     <option value='ND'>{t("filter.categories")}</option>
     {categories.map(category =>
@@ -61,7 +62,7 @@ return (
     )}
   </select>
     </div> */}
-    <div className="w3-button w3-white"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
+    <div className="w3-button w3-white three"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
     <select name='region' value={filters.region}  onChange={handleChange}>
     <option value='ND'>{t("filter.regions")}</option>
     {regions.map(region =>

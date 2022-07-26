@@ -56,3 +56,64 @@
   .select-items div:hover, .same-as-selected {
     background-color: rgba(0, 0, 0, 0.1);
   }
+
+  .cero{
+    color: white;
+    font-weight: bold;
+  }
+
+  .two{
+    border: 1px solid black;
+  }
+
+  .three{
+    border: 1px solid black;
+  }
+
+
+  @media screen and (max-width: 600px) {
+  
+  .cero{
+      font-size: large;
+  } 
+
+  .one{
+    width: 41%;
+  }
+
+  .two{
+    width: 60%;
+    text-align:left;
+    
+  }
+
+  .three{
+    width: 60%;
+    text-align:left;
+    border-top: 0
+  }
+
+}
+
+  @media screen and (min-width: 768px) {
+
+    .cero{
+      font-size: x-large;
+    } 
+
+    .one{
+      width: 12%;
+      border: 1px solid black;
+    }
+  
+    .two{
+      width: 15%;
+    }
+
+    .three{
+      width: 19%;
+      border-left: 0;
+    }
+ 
+  }
+
