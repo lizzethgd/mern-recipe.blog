@@ -17,9 +17,15 @@ const Navigation = () => {
 
   const { t, i18n } = useTranslation("global");
   
-  const [showNav, setShowNav] = useState('')
+  const [nav, setNav] = useState({
+    show : 'none',
+    icon: 'bars'
+  })
 
-  const [showLangs, setShowLangs] = useState('')
+  const [langs, setLangs] = useState({
+    show : 'none',
+    icon: 'globe'
+  })
 
   const history = useNavigate() 
   
@@ -35,13 +41,14 @@ const Navigation = () => {
   }
  
   const openNav= () =>{
-     showNav==='block' ? setShowNav('none') : setShowNav('block')
-     console.log(showNav)
+     nav.show==='block' ? setNav({...nav, show:'none', icon: 'bars'}) : setNav({...nav, show:'block', icon: 'xmark'})
+     console.log(nav.show)
   }
 
 const openLangs= () =>{
-    showLangs==='block' ? setShowLangs('none') : setShowLangs('block')
-    console.log(showLangs)
+    langs.show==='block' ? setLangs({...langs, show:'none', icon: 'globe'}) : setLangs({...langs, show:'block', icon: 'xmark'})
+    //showLangs==='block' ? setShowLangs('none') : setShowLangs('block')
+    console.log(langs.show)
  } 
 
   const handleChange =  e => {
@@ -111,8 +118,8 @@ return (
   <div className="w3-bar w3-deep-orange w3-left-align w3-large" >
 
   <div className="w3-right ">
-    <button className="w3-button w3-padding-large w3-deep-orange w3-right w3-hide-medium w3-hide-large" onClick={openNav}><i className="fa fa-bars"/></button>
-    <div className='w3-dropdown-content w3-card-4 w3-bar-block w3-theme-d2 w3-hide-medium w3-hide-large' style={{top: "50px", right: 0, display: showNav, width: '100%'}}>
+    <button className="w3-button w3-padding-large w3-deep-orange w3-right w3-hide-medium w3-hide-large" onClick={openNav}><i className={`fa-solid fa-${nav.icon}`}/></button>
+    <div className='w3-dropdown-content w3-card-4 w3-bar-block w3-theme-d2 w3-hide-medium w3-hide-large' style={{top: "50px", right: 0, display: nav.show, width: '100%'}}>
       <div className="w3-bar-item w3-button w3-padding-large w3-padding-top-24 search-container ">
         <input type="text" placeholder={t("nav.search")} id="search" onChange={handleChange} required/>
         <button className="w3-button w3-hover-white fa-solid fa-magnifying-glass button" onClick={handleSubmit} />
@@ -132,8 +139,8 @@ return (
   </div>
 
  {<div className="w3-right w3-hide-medium w3-hide-large" >
-    <button className="w3-button w3-padding-large" onClick={openLangs} ><i className='fa-solid fa-globe'/></button>
-    <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" style={{display: showLangs}}>
+    <button className="w3-button w3-padding-large" onClick={openLangs} ><i className={`fa-solid fa-${langs.icon}`}/></button>
+    <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" style={{display: langs.show}}>
     {languageSet}
     </div>
   </div>}
