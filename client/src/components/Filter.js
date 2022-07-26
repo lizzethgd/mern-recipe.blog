@@ -42,7 +42,7 @@ const Filter = ({filters, setFilters}) => {
    //console.log(filters)
     
 return (   
-<div className="w3-section " style={{paddingTop: '40px'}}>
+<div className="w3-section " style={{paddingTop: '40px', paddingBottom: 0}}>
     <span className="w3-margin-right cero">{t("filter.filters")}:</span> 
     <button className="w3-button w3-black one" onClick={unfilter}>{t("filter.all")}</button>
     
