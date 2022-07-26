@@ -1,0 +1,33 @@
+.blank{
+  padding: 15vh 5vw 40vh;
+  color: white;
+  font-size: medium;
+}
+
+.filters{
+    padding: 1vh 5vw 1vh;
+    color: white;
+    font-size: medium;
+}
+
+@media screen and (min-width: 768px) {
+    .blank{
+        padding: 15vh 5vw 10vh;
+        font-size: large
+    }
+
+    .filters{
+        font-size: large
+    }  
+}    
+
+@media screen and (min-width: 1024px) {
+    .blank{
+        padding: 15vh 7vw 52vh;
+    }
+
+    .filters{
+        padding: 10vh 7vw 15vh;
+        font-size: large
+    }  
+}   

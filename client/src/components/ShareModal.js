@@ -27,12 +27,15 @@ import {
     VKIcon,
     WhatsappIcon,
   } from "react-share";
+import { useTranslation } from 'react-i18next';
 
 const ShareModal = ({ showModal, toggleModal}) => {
 
 const modalDisplay = showModal ? 'block' : 'none' 
   
 const shareURL = localStorage.getItem('shareUrl') 
+
+const { t } = useTranslation("global")
 
 const closeModal = () =>{
   toggleModal()
@@ -41,6 +44,7 @@ const closeModal = () =>{
 
   const copyURL = () => {
       const url = document.getElementById('inputURL')
+      console.log(url)
       url.select()
       document.execCommand('copy')
       //navigator.clipboard.writeText(shareURL)
@@ -50,7 +54,7 @@ const closeModal = () =>{
 <div id="share-container" className="w3-modal" style={{display: modalDisplay}} >
    
     <div className="w3-modal-content w3-animate-zoom w3-round-large w3-light-grey modal_content">
-    <div className="modal_head"><span className='titles'>Share via</span><i className="fa-solid fa-xmark w3-button w3-deep-orange w3-large w3-display-topright close" title="Close" onClick={closeModal}/></div>
+    <div className="modal_head"><span className='titles'>{t('share.via')}</span><i className="fa-solid fa-xmark w3-button w3-deep-orange w3-large w3-display-topright close" title="Close" onClick={closeModal}/></div>
     <hr className='hr-1' />
 
     <div className='modal_body'>
@@ -185,13 +189,13 @@ const closeModal = () =>{
       </div>
       <hr className='hr-2'/>  
      <div className='modal_footer'>
-      <div className="titles" >Or copy link <span className="message"></span></div>
-        <form className="url_copy">
+      <div className="titles" >{t('share.copy')}<span className="message"></span></div>
+        <div className="url_copy">
          <i className="fa-solid fa-link link_icon"/>
-          <input className="url_input" id="inputURL" type="url" /* placeholder={shareURL} */
-          aria-describedby="inputGroup-sizing-default" defaultValue={shareURL } />
+        <input className="url_input" id="inputURL" type="url" /*  placeholder={shareURL} */
+          aria-describedby="inputGroup-sizing-default" defaultValue={shareURL} disabled/> 
             <button className="fa-solid fa-clone copy_url" onClick={copyURL} title="copy url"/>
-        </form>
+        </div>
       </div> 
     
     </div>

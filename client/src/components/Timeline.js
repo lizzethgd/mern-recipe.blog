@@ -2,6 +2,7 @@ import React, { useEffect} from 'react';
 import Swiper from 'swiper/bundle';
 import '../assets/css/swiper.min.css';
 import '../assets/css/timeline.scss';
+import { useTranslation } from 'react-i18next'
  
 const bulletFunction = function ( index, className) {
   const year = document.querySelectorAll('.swiper-slide')[index].getAttribute('data-year');
@@ -32,26 +33,29 @@ const Timeline = () => {
   });
 });
 
+ const { t } = useTranslation("global")
+
  const slices = [
   { letter: 'a',
-    title: 'Find',
-    subtitle: 'very special recepties',
-    text: 'Find special recipes shared by other people like you.'
+    title: t('timeline.find.title'),
+    subtitle: t('timeline.find.subtitle'),
+    text: t('timeline.find.text')
   },
   { letter: 'b',
-    title: 'Search',
-    subtitle: 'using filters',
-    text: 'You can customize your search by recipe category, language, and region, as well as by name or ingredient.'
+    title: t('timeline.search.title'),
+    subtitle: t('timeline.search.subtitle'),
+    text: t('timeline.search.text')
   },
   { letter: 'c',
-    title: 'Enjoy',
-    subtitle: 'your meal',
-    text: 'Enjoying a good meal made by oneself is one of the small pleasures of life'
+    title: t('timeline.share.title'),
+    subtitle: t('timeline.share.subtitle'),
+    text: t('timeline.share.text')
+   
   },
   { letter: 'd',
-    title: 'Share',
-    subtitle: 'here your recepties',
-    text: 'Share your food recipes with the world and let people rate and comment on them'
+    title: t('timeline.enjoy.title'),
+    subtitle: t('timeline.enjoy.subtitle'),
+    text: t('timeline.enjoy.text')
   }
  ]
 
@@ -63,7 +67,8 @@ const Timeline = () => {
      {
        slices.map(slice => 
         <div key={slice.letter} className={"swiper-slide "+slice.letter}  data-year={slice.title} >
-          <div className="swiper-slide-content"><span className="timeline-title" >{slice.title}</span>
+          <div className="swiper-slide-content">
+            <span className="timeline-title" >{slice.title}</span>
             <h4 className="timeline-subtitle">{slice.subtitle}</h4>
             <p className="timeline-text">{slice.text}</p>
           </div>

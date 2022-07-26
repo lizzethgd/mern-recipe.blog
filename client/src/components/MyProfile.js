@@ -4,6 +4,7 @@ import {useContext, useState, useEffect, useCallback} from 'react'
 import {getMyProfile} from '../services/UserService';
 import {AuthContext} from '../context/AuthContext';
 import {Link} from 'react-router-dom'
+import { useTranslation } from 'react-i18next';
 
 const MyProfile = () => {
 
@@ -11,6 +12,7 @@ const MyProfile = () => {
 
   const [myProfile, setMyProfile] = useState({})
 
+  const { t } = useTranslation("global")
   //console.log(user)
   //console.log(user._id)
 
@@ -37,7 +39,7 @@ return (
    <div className="w3-container">
      <div className="w3-row padd  "  >
       <div className="w3-col m6 padd "> 
-        <h4 className="w3-center">My Profile</h4>
+        <h4 className="w3-center">{t('profile.myProfile')}</h4>
         <p className="w3-center">{myProfile.photo!=='undefined' && myProfile.photo!=='' 
         ? <img src={myProfile.photo} alt='Avatar' className="w3-circle" style={{height:"200px", width:"200px"}} /> 
         : <img src={avatar} alt='Avatar' className="w3-circle" style={{height:"200px", width:"200px"}} /> }</p>
@@ -53,7 +55,7 @@ return (
       </div>
     </div>
     <div className="w3-center w3-padding-24">
-      <Link className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-user-pen"/> Edit</Link>
+      <Link className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-user-pen"/> {t('buttons.edit')}</Link>
     </div>
   </div> 
    <br/> 

@@ -6,10 +6,10 @@ import { useTranslation } from 'react-i18next';
 
 const Filter = ({filters, setFilters}) => {
 
-    const [categories, setCategories] = useState([]);  
-    const [regions, setRegions] = useState([]); 
+    const [categories, setCategories] = useState([]) 
+    const [regions, setRegions] = useState([]) 
 
-    const { t } = useTranslation("global");
+    const { t } = useTranslation("global")
 
     const initFilters= useCallback(async () => {
         await getCategories().then(categories => 
@@ -42,14 +42,14 @@ const Filter = ({filters, setFilters}) => {
    //console.log(filters)
     
 return (   
-<div className="w3-section w3-padding-16">
+<div className="w3-section" style={{paddingTop: '40px'}}>
     <span className="w3-margin-right">{t("filter.filters")}:</span> 
     <button className="w3-button w3-black" onClick={unfilter}>{t("filter.all")}</button>
     <div className="w3-button w3-white" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
     <select name='category' value={filters.category}  onChange={handleChange}>
-    <option value=''>{t("filter.categories")}</option>
+    <option value='ND'>{t("filter.categories")}</option>
     {categories.map(category =>
-        <option key={category._id} value={category._id} >{t(`filter.category.${category.name}`)}</option>
+        <option key={category._id} value={category._id}>{t(`filter.category.${category.name}`)}</option>
     )}
   </select>
     </div>
@@ -63,9 +63,9 @@ return (
     </div> */}
     <div className="w3-button w3-white"><i className="fa-solid fa-earth-americas w3-margin-right"></i>
     <select name='region' value={filters.region}  onChange={handleChange}>
-    <option value=''>{t("filter.regions")}</option>
+    <option value='ND'>{t("filter.regions")}</option>
     {regions.map(region =>
-        <option key={region._id} value={region._id} >{region.name}</option>
+        <option key={region._id} value={region._id}>{t(`filter.region.${region.name}`)}</option>
     )}
   </select>
     </div>

@@ -6,10 +6,13 @@ import {getCategories } from '../services/CategoryService';
 import {getLanguages } from '../services/LanguageService';
 import {getRegions } from '../services/RegionService';
 import {Link, useNavigate} from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const AddRecipe = () => {
 
-const {user} = useContext(AuthContext);
+const {user} = useContext(AuthContext)
+
+const { t } = useTranslation("global")
 
 const [categories, setCategories] = useState([])
 const [regions, setRegions] = useState([])
@@ -162,36 +165,36 @@ return (
 <form  className="w3-padding-16" onSubmit={handleSubmit}>
   
   <div className="w3-content" >
-    <h2>Recipe</h2> 
+    <h2>{t('recipe.recipe')}</h2> 
     <div className="w3-section">
 
-        <input className="w3-input w3-border" type="text" placeholder="Title" id="title" value={title} onChange={handleChange} onKeyDown={handleEnter} required/>
-        <textarea className="w3-input w3-border w3-margin-top" type="text" placeholder="Description"  id="description" value={description} onChange={handleChange} onKeyDown={handleEnter}/>
+        <input className="w3-input w3-border" type="text" placeholder={t('recipe.title')} id="title" value={title} onChange={handleChange} onKeyDown={handleEnter} required/>
+        <textarea className="w3-input w3-border w3-margin-top" type="text" placeholder={t('recipe.description')}  id="description" value={description} onChange={handleChange} onKeyDown={handleEnter}/>
     
     <div className="w3-section" >
 
       <div className="w3-half w3-margin-top w3-left-align " style={{paddingLeft: '13vw'}}>
         
         <div className="w3-margin-top" >
-        <label><i className="fa-solid fa-users w3-margin-right"/>N° serves: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={handleChange} onKeyDown={handleEnter}/>
+        <label><i className="fa-solid fa-users w3-margin-right"/>N° {t('recipe.serves')}: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={handleChange} onKeyDown={handleEnter}/>
         </div>
         <div className="w3-margin-top">
-            <label ><i className="fa-solid fa-stopwatch w3-margin-right"/> CookTime: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={handleChangeCookTime} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
+            <label ><i className="fa-solid fa-stopwatch w3-margin-right"/> {t('recipe.cookTime')}: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={handleChangeCookTime} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
         </div>
 
         <div className="w3-margin-top" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
             <select id='category' value={category}  onChange={handleChange} required >
-            <option value=''>Categories</option>
+            <option value=''>{t('filter.categories')}</option>
             {categories.map(category =>
-                <option key={category._id} value={category._id} >{category.name}</option>
+                <option key={category._id} value={category._id} >{t(`filter.category.${category.name}`)}</option>
             )}
             </select>
         </div>
         <div className="w3-margin-top "><i className="fa-solid fa-earth-americas w3-margin-right"></i>
             <select id='region' value={region}  onChange={handleChange} required>
-            <option value=''>Regions</option>
+            <option value=''>{t('filter.regions')}</option>
             {regions.map(region =>
-                <option key={region._id} value={region._id} >{region.name}</option>
+                <option key={region._id} value={region._id} >{t(`filter.region.${region.name}`)}</option>
             )}
             </select>
         </div>
@@ -201,7 +204,7 @@ return (
             <p className="w3-center">
             <img src={imgUrl ? imgUrl : blankRecipe}  className="w3-card" style={{width:"300px", height:"200px"}} alt="Avatar"/>
              </p>
-            <small style={{fontSize: '15px', width: '30%'}} >Photo:</small>
+            <small style={{fontSize: '15px', width: '30%'}} >{t('recipe.photo')}: </small>
             <input type="file" id='photo' accept=".png, .jpg, .jpeg" onChange={handlePhoto} />
             <span style={{color: 'red'}}>{err}</span>
     </div>
@@ -216,7 +219,7 @@ return (
 
 
         <div className="w3-col m6 padd " >
-            <h3 className="w3-center">Ingredients</h3>
+            <h3 className="w3-center">{t('recipe.ingredients')}</h3>
             <div className="w3-white w3-margin-top" style={{padding:'5px 10px 35px 15px'}} >
                 {ingredientsInputs}
             </div>
@@ -225,7 +228,7 @@ return (
             </div>
         </div>
         <div className="w3-col m6 padd " >
-            <h3 className="w3-center">Steps</h3>
+            <h3 className="w3-center">{t('recipe.steps')}</h3>
             <ol style={{padding:"0 10px"}}>
                 {stepsInputs}
                 <div className="w3-button w3-white w3-left fa fa-plus"  onClick={addStep} />
@@ -234,8 +237,8 @@ return (
         </div>
    </div>
     <div className="w3-center w3-padding-24">
-      <button type="submit" className="w3-button w3-round w3-deep-orange" onSubmit={handleSubmit} >Send <i className="fa fa-paper-plane" /></button>
-      <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/'}><i className="fa-solid fa-ban"/> Cancel</Link>
+      <button type="submit" className="w3-button w3-round w3-deep-orange" onSubmit={handleSubmit} > <i className="fa fa-paper-plane" /> {t('buttons.publish')} </button>
+      <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/'}> <i className="fa-solid fa-ban"/> {t('buttons.cancel')} </Link>
     </div>       
 </form>  
 </div>

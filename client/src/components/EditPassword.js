@@ -1,13 +1,16 @@
 import avatar from "../assets/images/blankAvatar.jpg"
 import "../assets/css/profile.scss"
 import {useContext, useState} from 'react'
-import {updateProfile} from '../services/UserService';
-import {AuthContext} from '../context/AuthContext';
+import {updateProfile} from '../services/UserService'
+import {AuthContext} from '../context/AuthContext'
 import {Link, useNavigate} from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const EditPassword = () => {
 
   const {user, setUser} = useContext(AuthContext);
+
+  const { t } = useTranslation("global")
 
   const [updateUserPassword, setUpdateUserPassword] = useState({
     currentPassword: '',
@@ -84,29 +87,29 @@ return (
           <span>{message}</span>
           <i className="fa-solid fa-unlock-keyhole fa-fw w3-margin-top w3-margin-right w3-text-theme" title=' password'/>
           <div className="w3-border" style={{display: "flex"}} >
-            <input className="w3-input" type={passwordsShow.currentPwShow.typePass} id="currentPassword" onChange={handleChange} onKeyDown={handleEnter} placeholder='Current password'/>
+            <input className="w3-input" type={passwordsShow.currentPwShow.typePass} id="currentPassword" onChange={handleChange} onKeyDown={handleEnter} placeholder={t('password.current')}/>
             <i className={`fa-solid fa-eye${passwordsShow.currentPwShow.slash} fa-fw w3-input w3-text-theme w3-white `} id='currentPwShow' style={{width: '15%', paddingTop: '12px'}} onClick={showText}/>
           </div>
           </div>
         <div className="w3-margin"  style={{display: "flex"}}>
           <i className="fa-solid fa-lock fa-fw w3-margin-top w3-margin-right w3-text-theme" title='New password'/>
           <div className="w3-border " style={{display: "flex"}}>
-            <input className="w3-input" type={passwordsShow.newPwShow.typePass} id="newPassword" onChange={handleChange} onKeyDown={handleEnter} placeholder='New password'/>
+            <input className="w3-input" type={passwordsShow.newPwShow.typePass} id="newPassword" onChange={handleChange} onKeyDown={handleEnter} placeholder={t('password.new')}/>
             <i className={`fa-solid fa-eye${passwordsShow.newPwShow.slash}  w3-input w3-text-theme w3-white ` } id='newPwShow' style={{width: '15%', paddingTop: '12px'}} onClick={showText}/>
           </div>
         </div>
         <div className="w3-margin"  style={{display: "flex"}}>
           <i className="fa-solid fa-lock fa-fw w3-margin-top w3-margin-right w3-text-theme" title='New password'/>
           <div className="w3-border" style={{display: "flex"}}>
-            <input className="w3-input" type={passwordsShow.confirmPwShow.typePass} id="password" onChange={handleChange} onKeyDown={handleEnter} placeholder='Confirm new password'/>
+            <input className="w3-input" type={passwordsShow.confirmPwShow.typePass} id="password" onChange={handleChange} onKeyDown={handleEnter} placeholder={t('password.confirm')}/>
             <i className={`fa-solid fa-eye${passwordsShow.confirmPwShow.slash} w3-input w3-text-theme w3-white`} id='confirmPwShow' style={{width: '15%', paddingTop: '12px'}} onClick={showText}/>
           </div>
         </div>
         </div>
       </div>
       <div className="w3-center w3-padding-24">
-        <button className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>  
-        <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-ban"/> Cancel</Link>
+        <button className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> {t('buttons.send')}</button>  
+        <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/editprofile'}><i className="fa-solid fa-ban"/> {t('buttons.cancel')}</Link>
      </div>
      </div>
         <br/> 

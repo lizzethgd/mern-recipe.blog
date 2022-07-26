@@ -83,7 +83,7 @@ const Navigation = () => {
     <button className="w3-button w3-padding-large" > <img src={ !user ? avatar : (user.photo ? user.photo : avatar ) } className="w3-circle" style={{border: "2px solid #fff", height:"30px", width:"30px"}} alt="Avatar" /></button>     
     <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" style={{width: "100px", right: 0}}>
       <NavLink className="w3-bar-item w3-button" to="/myprofile"><i className="fa-solid fa-user" /> {t("nav.myProf")}</NavLink>
-      <button className="w3-bar-item w3-button" onClick={onClickLogoutHandler}><i className="fa-solid fa-right-from-bracket" /> {t("nav.out")}</button>
+      <button className="w3-bar-item w3-button" onClick={onClickLogoutHandler}>{t("nav.out")} <i className="fa-solid fa-right-to-bracket" /> </button>
     </div>
     </div>
 
@@ -99,7 +99,7 @@ const Navigation = () => {
     <NavLink className="w3-bar-item w3-button w3-padding-large"  to="/myrecipes"><i className="fa fa-address-book"/> {t("nav.myReps")}</NavLink>
     <NavLink className="w3-bar-item w3-button w3-padding-large"  to="/addrecipe"><i className="fa fa-plus-square"/> {t("nav.add")}</NavLink>
     <NavLink className="w3-bar-item w3-button w3-padding-large" to="/myprofile"><i className="fa-solid fa-user" /> {t("nav.myProf")}</NavLink>
-    <button className="w3-bar-item w3-button w3-padding-large" onClick={onClickLogoutHandler}><i className="fa-solid fa-right-from-bracket"/> {t("nav.out")}</button>
+    <button className="w3-bar-item w3-button w3-padding-large" onClick={onClickLogoutHandler}> {t("nav.out")} <i className="fa-solid fa-right-to-bracket"/></button>
   </>
     )
 
@@ -123,7 +123,7 @@ return (
 
   <div className="w3-right ">
     <button className="w3-button w3-padding-large w3-deep-orange w3-right w3-hide-medium w3-hide-large" onClick={openNav}><i className="fa fa-bars"/></button>
-    <div className='w3-dropdown-content w3-card-4 w3-bar-block w3-theme-d2' style={{top: "50px", right: 0, display: showNav, width: '100%'}}>
+    <div className='w3-dropdown-content w3-card-4 w3-bar-block w3-theme-d2 w3-hide-medium w3-hide-large' style={{top: "50px", right: 0, display: showNav, width: '100%'}}>
       <div className="w3-bar-item w3-button w3-padding-large w3-padding-top-24 search-container ">
         <input type="text" placeholder={t("nav.search")} id="search" onChange={handleChange} required/>
         <button className="w3-button w3-hover-white fa-solid fa-magnifying-glass button" onClick={handleSubmit} />

@@ -1,15 +1,18 @@
 import {useState, useContext, useEffect, useCallback} from 'react'
 import miniAvatar from "../assets/images/blankAvatar.jpg"
 import blankRecipe from "../assets/images/blankRecipe.jpg"
-import {getRecipeById} from '../services/RecipeService';
-import {addLike, deleteLike} from '../services/LikeService';
-import {addFavorite, deleteFavorite} from '../services/FavoriteService';
+import {getRecipeById} from '../services/RecipeService'
+import {addLike, deleteLike} from '../services/LikeService'
+import {addFavorite, deleteFavorite} from '../services/FavoriteService'
 import {Link, useNavigate} from 'react-router-dom'
-import {AuthContext} from '../context/AuthContext';
+import {AuthContext} from '../context/AuthContext'
+import { useTranslation } from 'react-i18next'
 
 const Card = ({id, toggleModal}) => {
 
     const {user, isAuthenticated} = useContext(AuthContext)
+
+    const { t } = useTranslation("global")
     
     const [recipe, setRecipe] = useState({
       title: '',
@@ -121,9 +124,9 @@ return (
           </div>
         </div>
         <div className="card__flap ">
-          <div className="card__description">{recipe.description}</div>
+         {recipe.description ? <div className="card__description">{recipe.description}</div> : null }
           <div className="card__actions">
-               <Link className="card__btn" to={`/${recipe._id}`} >Go to recipe</Link> 
+               <Link className="card__btn" to={`/${recipe._id}`} >{t('card.botton')}</Link> 
           </div>
         </div>
     </div>

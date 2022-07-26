@@ -9,12 +9,15 @@ import {getRecipeComments, addComment, removeComment} from '../services/CommentS
 import {addLike, deleteLike} from '../services/LikeService'
 import {addFavorite, deleteFavorite} from '../services/FavoriteService'
 import ShareModal from './ShareModal'
+import { useTranslation } from 'react-i18next'
 
 const Recipe = () => {
 
   const {user, isAuthenticated} = useContext(AuthContext)
   
   const {id} = useParams()
+
+  const { t } = useTranslation("global")
 
   console.log(id)
 
@@ -164,18 +167,18 @@ return (
     <h2 className="w3-center padd w3-text-white">{title}</h2> 
     <div className="w3-center w3-large desc">{description? description: null}</div> 
     <div className=" w3-center r-icons">
-        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-users"/> {serves?  serves : '-.-'}</div>
-        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-stopwatch "/> {cookTime.length!==0 ? cookTime[0]+':'+cookTime[1] : '-.-'} </div> 
-       <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-rectangle-list" /> {category.name} </div>
+        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-users"/> {t('recipe.serves')}: {serves?  serves : '-.-'}</div>
+        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-stopwatch "/> {t('recipe.cookTime')}: {cookTime.length!==0 ? cookTime[0]+':'+cookTime[1] : '-.-'} </div> 
+       <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-rectangle-list" /> {t(`filter.category.${category.name}`)} </div>
        {/*  <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-language" /> {language.name} </div>   */}
-        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-earth-americas "/> {region.name} </div> 
+        <div className="w3-quarter w3-margin-top"><i className="fa-solid fa-earth-americas "/> {t(`filter.region.${region.name}`)} </div> 
     </div> 
   </div> 
 
   <div className="w3-row w3-text-white w3-padding-top-24"  >
         
     <div className="w3-col m6 padd ">  
-      <h3 className="w3-center">Ingredients</h3>
+      <h3 className="w3-center">{t('recipe.ingredients')}</h3>
       <div style={{padding:"6px 16px"}}>
         <div className=" w3-white w3-padding" >
             {ingredients.map((ingredient,i) =>
@@ -186,7 +189,7 @@ return (
     </div>
         
     <div className="w3-col m6 padd">
-      <h3 className="w3-center">Steps</h3>
+      <h3 className="w3-center">{t('recipe.steps')}</h3>
       <ol>
         { steps.map((step, i) =>
         (<li key={i}><p className="w3-padding w3-white w3-justify w3-round">{step}</p></li>)
@@ -199,14 +202,14 @@ return (
   { (isAuthenticated && author._id===user._id) 
   ? <div className="w3-padding-16">
       <Link className="w3-button w3-round w3-padding-large w3-deep-orange w3-hover-black" to="/editrecipe" state={{ dispatch: recipe }}>
-        <i className="fa-solid fa-pen-to-square" /> Edit</Link>
+        <i className="fa-solid fa-pen-to-square" /> {t('buttons.edit')}  </Link>
       <button className="w3-button w3-round w3-padding-large w3-grey w3-hover-black" style={{marginLeft: '20px'}} onClick={deleteRecipe}>
-          <i className="fa-solid fa-ban"/> Delete</button>
+        <i className="fa-solid fa-trash-can"/> {t('buttons.delete')} </button>
     </div>
   : ''}
 
   <div className="w3-container  w3-center w3-text-white w3-padding-24">  
-    Published by <img src={author.photo ? author.photo: miniAvatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} on {new Date(createdAt).toLocaleDateString()} 
+  {t('recipe.published')} <img src={author.photo ? author.photo: miniAvatar} className="w3-circle a-img"  alt="Avatar" /> @{author.username} {t('recipe.on')} {new Date(createdAt).toLocaleDateString()} 
     <p className="w3-large">
         <i className={`fa-${heart} fa-heart`} style={{color: "red", cursor: 'pointer'}} onClick={handleLike}/> {likes.length > 0 ? likes.length : ''} &nbsp;&nbsp;&nbsp;   
         <i className="w3-button w3-hover-white w3-hover-text-deep-orange fa-solid fa-share-alt" onClick={handleModal}/> &nbsp;&nbsp;&nbsp; 
@@ -216,7 +219,7 @@ return (
     <hr className="w3-clear" />
   </div>
        
-  <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> Comments:  {comments.length}</h4>
+  <h4  className="w3-text-white"><i className="fa-solid fa-comments"/> {t('recipe.comments')}:  {comments.length}</h4>
 
   <div className="w3-container padd">
       

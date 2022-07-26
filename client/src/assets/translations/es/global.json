@@ -31,103 +31,86 @@
         },
         "regions": "Regiones", 
         "region": {
-            "Regions": "Regiones", 
-            "Dessert": "Postre", 
-            "Snack": "Tentenpié", 
-            "Starter": "Entrada", 
-            "Soup": "Sopa",
-            "title": "Idiomas", 
-            "Salad": "Ensalada", 
-            "Vegan": "Vegan",
-            "Vegetariano": "Vegetariano",
-            "Coktail": "Coctel", 
-            "Juice": "Jugo"   
+            "NorthwesternEurope": "Noroeste de Europa", 
+            "Mediterranean": "Mediterráneo", 
+            "LatinAmerica": "Latino América", 
+            "NorthAmerica": "América del Norte",
+            "CentralEurope": "Europa central", 
+            "EasternEurope": "Europa del Este", 
+            "Sub-SaharanAfrica": "Africa subsahariana",
+            "NorthAfrica": "África del Norte",
+            "Nordic": "Nórdica", 
+            "Arabic": "Arábe",
+            "Baltic": "Báltica", 
+            "India": "India", 
+            "Oceania": "Oceánica", 
+            "EastAsia": "Este del Asia", 
+            "WestAsia": "Asia occidental"  
         }
     },
-    "about":{
-        "description": "Me gradué de Datanomi en el verano de 2017. Estuve de baja por maternidad durante algunos años, pero todavía he hecho algunos proyectos para seguir con lo que he aprendido y aprender más. Como empleado, soy eficiente y estoy acostumbrado a trabajar bajo presión. Mi objetivo es trabajar en temas interesantes y desafiantes en trabajos que apoyen mi desarrollo profesional. ",
-        "download":"  Descargar Curriculum",
-        "skills" : "Conocimientos",
-        "langs": {
-            "title": "Idiomas", 
-            "fi": "Finés", 
-            "en": "Inglés", 
-            "ge": "Alemán", 
-            "sp": "Español"
+    "card":{
+        "botton": "Ir a la receta"
+    },
+    "share":{
+        "via": "Compartir via",
+        "copy" : "O copiar enlace"
+    },
+    "recipe": {
+        "recipe" : "Receta",
+        "title" : "Título",
+        "description" : "Descripción",
+        "serves" : "Comensales",
+        "cookTime": "Tiempo",
+        "photo": "Foto",
+        "ingredients": "Ingredientes", 
+        "steps": "Pasos", 
+        "published": "Publicado por", 
+        "on": "el", 
+        "comments": "Comentarios"
+    },
+    "buttons":{
+        "edit" : "Editar",
+        "delete" : "Eliminar",
+        "publish": "Publicar",
+        "cancel": "Cancelar",
+        "send": "Enviar"
+    },
+    "profile":{
+        "myProfile" : "Mi perfil",
+        "edit" : "Editar mi perfil",
+        "change" : "Cambiar password"
+    },
+    "password":{
+        "current": "Actual password",
+        "new": "Nuevo password",
+        "confirm": "Confirmar nuevo password"
+    },
+    "timeline":{
+        "find": {
+            "title" : "Encuentra",
+            "subtitle": "recetas muy especiales",
+            "text": "Encuentra recetas muy especiales compartidas por otras personas como tú."
+        },
+        "search": {
+            "title" : "Busca",
+            "subtitle": "usando filtros personalizados",
+            "text": "Puede personalizar su búsqueda por categoría y región, así como por nombre o ingrediente."
+        },
+        "share": {
+            "title" : "Comparte",
+            "subtitle": "aquí tus recetas",
+            "text": "Comparta sus propias recetas o sus favoritas con el mundo y deje que otros las califiquen y comenten."
+        },
+        "enjoy": {
+            "title" : "Disfuta",
+            "subtitle": "de su comida",
+            "text": "Disfrutar de una buena comida hecha por uno mismo es uno de los pequeños placeres de la vida."
         }
     },
-    "resume":{
-        "education" : "Formación",
-        "experience" : "Experiencia de Trabajo",
-        "title" :{
-            "PUCP": "Ingeniería Informática",
-            "freelancer" :"Freelancer",
-            "HBC": "Calificación vocacional en tecnología de la información comercial",
-            "sitelogic" : "Práctica laboral",
-            "integrify": "Desarrollador web (curso)",
-            "home" : "Projectos "
-        },
-        "schools" : {
-            "HBC": "HELSINKI BUSINESS COLLEGE" , 
-            "PUCP": "Pontifical Catholic University of Peru"
-        },
-        "resume" : {
-            "PUCP": " Hasta el 4º semestre" , 
-            "freelancer": " Desarrollo de sitios web con HTML y algo de Flash, ",
-            "HBC": " Cualificación profesional en tecnología de la información empresarial", 
-            "sitelogic" : " Auxiliar y aprendiz (HTML, CSS y PHP), ", 
-            "integrify": " Actualicé y mejoré mi conocimiento sobre HTML y CSS, aprendí React, un poco de Node, MongoDB y Gatsby", 
-            "home" : " Desarrollo de proyectos web por mi propia cuenta para practicar, experimentar y mejorar mis conocimientos, 2020 - presente"
-        }
-    },
-    "portfolio" : {
-        "titles":{
-            "title00": "Bloc digital de recetas",
-            "title01": "Localizador de farmacias",
-            "title02": "Covid-19 rastreador",
-            "title03": "Localizador de ninjas",
-            "title04": "",
-            "title05": "",
-            "title06": "",
-            "title07": "",
-            "title08": ""
-        },
-        "descriptions":{
-            "desc00": "Bloc digital para compartir recetas, no es necesario registrarse para buscar recetas pero sí es necesario para compartir, comentar y calificar recetas. La base de datos de recetas se almacena en MongoDB y se llama desde el backend de Node y ReactJS se usa para Frontend. Para el procesamiento de fotos se ha utlizado Sharp, Multer y para el almacenamiento de éstas Cloudinary.",
-            "desc01": "Localizador de farmacias en todo Finlandia, los datos son actualizados desde http://overpass-turbo.eu/, convertidos a formato json  y luego mostrados en un mapa provisto por Mapbox con marcadores, el cual al posar el mouse por encima muestrainformación de la farmacia y si se clickea muestra la farmacia en modo principal. La app se hizo integramente en React JS, CSS and algo de MaterialUI.",
-            "desc02": "Covid-19 rastreador,  muestra los datos estadisticos del efecto del virus en la poblacion mundial, tales como numero de muertos, infectados y recuperados, asi como vacunados. Los datos son recogidos directamte de la api disease.sh. La app fue hecha en totalidad con ReactJS, CSS and MaterialUI.",
-            "desc03": "Localizador de ninjas ficticios en los territorios Finlandia y Espana. La base de datos de los ninjas esta almacenada en MongoDB y es llamado desde el backend de Node, el resultado se muestra en un mapa proveido por Mapbox y tambien en un listado bajo el mapa. El FrontEnd esa hecho en React y CSS.",
-            "desc04": "",
-            "desc05": "",
-            "desc06": "",
-            "desc07": "",
-            "desc08": ""
-        },
-        "button": "Ir allí!"
-    },
-    "contact":{
-        "fi": "Finlandia",
-        "form":{
-            "name":"Nombre",
-            "email": "Correo electrónico",
-            "subject": "Título",
-            "phone": "Telefono (opcional)",
-            "message": "Mensaje"
-        },
-        "response": " Me encantaría recibir respuesta!"
-    },
-    "testimonial":{
-        "leave": "Deje su recomendación",
-        "form":{
-            "name":"Nombre",
-            "occupation": "Ocupación",
-            "company": "Compañia (opcional)",
-            "website": "Sitio web (opcional)",
-            "testimonial": "Texto de recomendación"
-        }
-    },
-    "send": " ENVIAR",
-    "footer":{
-        "dev": "Desarrollado en React y Node ⚛️ por"
-    }
+    "blank":{ 
+        "filters" : "No hay resultados que coincidan con el/los filtro(s), por favor intenta con otro(s)",
+        "search" : "No hay resultados para este criterio de busqueda, por favor intenta con otro",
+        "myReps": "No has publicado ninguna receta aún",
+        "myFavs": "No has guardado nunguna receta como favorita aún"
+    }    
 }

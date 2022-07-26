@@ -1,13 +1,16 @@
 import avatar from "../assets/images/blankAvatar.jpg"
 import "../assets/css/profile.scss"
 import {useContext, useState, useEffect} from 'react'
-import {updateProfile, removePhoto} from '../services/UserService';
-import {AuthContext} from '../context/AuthContext';
+import {updateProfile, removePhoto} from '../services/UserService'
+import {AuthContext} from '../context/AuthContext'
 import {Link, useNavigate} from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
 const EditProfile = () => {
 
-const {user, setUser} = useContext(AuthContext);
+const {user, setUser} = useContext(AuthContext)
+
+const { t } = useTranslation("global")
 
 const [updateUser, setUpdateUser] = useState({
   firstName: '',
@@ -74,7 +77,7 @@ return (
     <div className="w3-container">
       <div className="w3-row padd  "  >    
         <div className="w3-col m6 padd "> 
-        <h4 className="w3-center">Edit profile</h4>
+        <h4 className="w3-center">{t('profile.edit')}</h4>
         <p className="w3-center">
           <img src={imgUrl ? imgUrl : (updateUser.photo ? updateUser.photo : avatar)}  className="w3-circle" style={{height:"200px", width:"200px"}} alt="Avatar"/>
           {err}
@@ -86,12 +89,12 @@ return (
         <p style={{display: "flex"}}><i className="fa-solid fa-user fa-fw w3-margin-top w3-margin-right w3-text-theme " title='Name'/><input className="w3-input w3-border w3-half" type="text" id="firstName" value={updateUser.firstName} onChange={e => handleChange(e)} /><input className="w3-input w3-border w3-half" type="text" id="lastName"value={updateUser.lastName} onChange={e => handleChange(e)} /></p>
         <p style={{display: "flex"}}><i className="fa-solid fa-at fa-fw w3-margin-top w3-margin-right w3-text-theme" title='Username'/><input className="w3-input w3-border " type="text" id="username"value={updateUser.username} onChange={e => handleChange(e)} /></p>
         <p style={{display: "flex"}}><i className="fa-regular fa-envelope fa-fw w3-margin-top w3-margin-right w3-text-theme" title='E-mail'/><input className="w3-input w3-border " type="text" id="email"value={updateUser.email} onChange={e => handleChange(e)} /></p>
-        <Link className="w3-button w3-margin-top w3-round w3-left w3-grey w3-hover-black" to={'/editpassword'}><i className="fa-solid fa-key"/> Change Password</Link>
+        <Link className="w3-button w3-margin-top w3-round w3-left w3-grey w3-hover-black" to={'/editpassword'}><i className="fa-solid fa-key"/> {t('profile.change')}</Link>
         </div>
       </div>
       <div className="w3-center w3-padding-24">
-      <button className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> Send</button>     
-      <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/myprofile'}><i className="fa-solid fa-ban"/> Cancel</Link>     
+      <button className="w3-button w3-round w3-padding w3-deep-orange w3-hover-black"><i className="fa-solid fa-paper-plane"/> {t('buttons.send')}</button>     
+      <Link className="w3-button w3-round w3-margin-left w3-padding w3-grey w3-hover-black" to={'/myprofile'}><i className="fa-solid fa-ban"/> {t('buttons.cancel')}</Link>     
       </div>
      </div>
    </form>
