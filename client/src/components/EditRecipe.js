@@ -3,7 +3,6 @@ import {useState, useEffect} from 'react'
 import {Link, useLocation, useNavigate } from 'react-router-dom'
 import {editRecipe, removePhoto} from '../services/RecipeService'
 import { getCategories } from '../services/CategoryService'
-import { getLanguages } from '../services/LanguageService'
 import { getRegions } from '../services/RegionService'
 import { useTranslation } from 'react-i18next'
 
@@ -30,7 +29,7 @@ const EditRecipe = () => {
 
     const [categories, setCategories] = useState([])
     const [regions, setRegions] = useState([])
-    const [languages, setLanguages] = useState([])
+    //const [languages, setLanguages] = useState([])
 
     const [imgUrl, setImgUrl] = useState('')
 
@@ -39,10 +38,10 @@ const EditRecipe = () => {
            try{   
             setUpdateRecipe(dispatch)     
             const categories =  await getCategories()
-            const languages = await getLanguages()
+            //const languages = await getLanguages()
             const regions = await getRegions()
             setCategories(categories)
-            setLanguages(languages)
+            //setLanguages(languages)
             setRegions(regions)
           }catch(err){
              console.log(err)

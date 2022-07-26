@@ -3,7 +3,7 @@ import {useContext, useEffect, useState} from 'react'
 import {AuthContext} from '../context/AuthContext';
 import {createRecipe} from '../services/RecipeService';
 import {getCategories } from '../services/CategoryService';
-import {getLanguages } from '../services/LanguageService';
+//import {getLanguages } from '../services/LanguageService';
 import {getRegions } from '../services/RegionService';
 import {Link, useNavigate} from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
@@ -16,7 +16,7 @@ const { t } = useTranslation("global")
 
 const [categories, setCategories] = useState([])
 const [regions, setRegions] = useState([])
-const [languages, setLanguages] = useState([])
+//const [languages, setLanguages] = useState([])
 
 const [err, setErr] = useState('')
 
@@ -47,8 +47,8 @@ useEffect(() => {
         setCategories(categories)
     const regions = await getRegions()
         setRegions(regions)
-    const languages = await getLanguages()
-        setLanguages(languages)
+   /*  const languages = await getLanguages()
+        setLanguages(languages) */
     }catch(err){
         console.log('error en addRecipe page: '+err) 
     }

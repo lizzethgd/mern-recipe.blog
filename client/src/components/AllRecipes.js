@@ -4,13 +4,13 @@ import Numeration from './Numeration';
 import { useState, useCallback, useEffect, useContext } from "react";
 import {getRecipes} from '../services/RecipeService';
 import {AuthContext} from '../context/AuthContext';
-import { useTranslation } from 'react-i18next'
-import  "../assets/css/blank.scss"
+/* import { useTranslation } from 'react-i18next'
+import  "../assets/css/blank.scss" */
 
 const AllRecipes = () => {
 
   const {filters, setFilters} = useContext(AuthContext);  
-  const { t } = useTranslation("global")
+  //const { t } = useTranslation("global")
 
   const [recipes, setRecipes] = useState([])
   const [totalRecipes, setTotalRecipes] = useState(0)
