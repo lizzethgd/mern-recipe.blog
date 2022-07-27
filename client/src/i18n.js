@@ -1,15 +1,13 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import Backend from 'i18next-http-backend'
+//import Backend from 'i18next-http-backend'
 import LanguageDetector from 'i18next-browser-languagedetector';
-import global_en from './assets/translations/en/global.json'
-import global_fi from './assets/translations/fi/global.json'
-import global_es from './assets/translations/es/global.json'
-
-
+import en from './assets/translations/en.json'
+import fi from './assets/translations/fi.json'
+import es from './assets/translations/es.json'
 
 i18n
-  .use(Backend)
+  //.use(Backend)
   // detect user language
   // learn more: https://github.com/i18next/i18next-browser-languageDetector
   .use(LanguageDetector)
@@ -19,6 +17,7 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     debug: true,
+    //lng: 'en',
     fallbackLng: 'en',
     detection: {
       order: ['cookie', 'localStorage', 'htmlTag', 'next navigator', 'path', 'subdomain'],
@@ -27,12 +26,13 @@ i18n
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },
-    resources:{
-      en: {global: global_en},
-      fi: {global: global_fi},
-      es: {global: global_es},
-    }
+   resources:{
+      en: {global: en},
+      fi: {global: fi},
+      es: {global:es},
+    } 
    
   });
+
 
 export default i18n;

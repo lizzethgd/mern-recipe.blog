@@ -1,5 +1,6 @@
 import {createContext, useState, useEffect} from 'react';
 import {checkAuthentication} from '../services/AuthService';
+import { useTranslation } from 'react-i18next';
 
 export const AuthContext = createContext({});
 
@@ -9,8 +10,10 @@ export default ({ children }) => {
     const [isAuthenticated,setIsAuthenticated] = useState(false);
     const [isLoaded,setIsLoaded] = useState(false);
 
+    const { i18n } = useTranslation("global");
+
     const [filters, setFilters] = useState({
-       language: (localStorage.i18nextLng ? localStorage.i18nextLng : 'en'),
+       language: i18n.language,
        category: 'ND',
        region: 'ND'
       }) 

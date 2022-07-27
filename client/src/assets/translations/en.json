@@ -1,0 +1,117 @@
+{   
+    "context":{
+        "load:" : "Loading"
+    },
+    "nav":{
+        "home": "Home",
+        "log": "Login / Register",
+        "search" : "Search by name or ingredient...",
+        "add": "Add recipe",
+        "myReps":"My recipes",
+        "myFavs": "My favs",
+        "myProf": "My profile",
+        "out":"Logout"
+    },
+    "filter":{
+        "filters" : "Filters",
+        "all": "All",
+        "categories" : "Categories",
+        "category": {
+            "Breackfast": "Breackfast", 
+            "Dessert": "Dessert", 
+            "Snack": "Snack", 
+            "Starter": "Starter", 
+            "Soup": "Soup",
+            "Salad": "Salad", 
+            "Vegan": "Vegan",
+            "Vegetarian": "Vegetarian",
+            "MainDish": "Main dish",
+            "Coktail": "Coktail",
+            "Smoothie": "Smoothie"
+        },
+        "regions": "Regions", 
+        "region": {
+            "NorthwesternEurope": "Northwestern Europe", 
+            "Mediterranean": "Mediterranean", 
+            "LatinAmerica": "Latin America", 
+            "NorthAmerica": "North America",
+            "CentralEurope": "Central Europe", 
+            "EasternEurope": "Eastern Europe", 
+            "Sub-SaharanAfrica": "Sub-Saharan Africa",
+            "NorthAfrica": "North Africa",
+            "Nordic": "Nordic", 
+            "Arabic": "Arabic",
+            "Baltic": "Baltic", 
+            "India": "Indian", 
+            "Oceania": "Oceanic", 
+            "EastAsia": "East Asia", 
+            "WestAsia": "WestAsia"         
+        }
+    },
+    "card":{
+        "botton": "Go to recipe"
+    },
+    "share":{
+        "via": "Share via",
+        "copy" : "Or copy link"
+    },    
+    "recipe": {
+        "recipe" : "Recipe",
+        "title" : "Title",
+        "description" : "Description",
+        "serves" : "Serves",
+        "cookTime": "Cook time",
+        "photo": "Photo",
+        "ingredients": "Ingredients", 
+        "steps": "Steps", 
+        "published": "Published by", 
+        "on": "on", 
+        "comments": "Comments",
+        "date" : "{{date, DATE_HUGE}}"
+    },
+    "buttons":{
+        "edit" : "Edit",
+        "delete" : "Delete",
+        "publish": "Publish",
+        "cancel": "Cancelar",
+        "send": "Send"
+    },
+    "profile":{
+        "myProfile" : "My profile",
+        "edit" : "Edit my profile",
+        "change" : "Change password"
+    },
+    "password":{
+        "current": "Current password",
+        "new": "New password",
+        "confirm": "Confirm password"
+    },
+    "timeline":{
+        "find": {
+            "title" : "Find",
+            "subtitle": "very special recipes",
+            "text": "Find special recipes shared by other people like you."
+        },
+        "search": {
+            "title" : "Search",
+            "subtitle": "using custom filters",
+            "text": "You can customize your search by category, and region, as well as by name or ingredient."
+        },
+        "share": {
+            "title" : "Share",
+            "subtitle": "here your recepties",
+            "text": "Share your own or favorites recipes with the world and let others rate and comment on them"
+        },
+        "enjoy": {
+            "title" : "Enjoy",
+            "subtitle": "your meal",
+            "text": "Enjoying a good meal made by oneself is one of the small pleasures of life."
+        }
+    },
+    "blank":{ 
+        "filters" : "There are no results matching the filter(s), please try another(s)",
+        "search" : "There are no results for this search criteria, please try another one",
+        "myReps": "You have not published any recipe yet",
+        "myFavs": "You haven't saved any recipes as a favorite yet"
+    } 
+}

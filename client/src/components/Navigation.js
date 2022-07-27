@@ -64,7 +64,6 @@ const openLangs= () =>{
     const code = e.target.name
     i18n.changeLanguage(code)
     setFilters({...filters, language: code}) 
-    document.documentElement.setAttribute('lang', code)
    }
 
   const userNoLogTop = (
@@ -105,7 +104,9 @@ const openLangs= () =>{
       <button className="w3-bar-item w3-button" name="fi" onClick={langChange}>🇫🇮 Suomi</button>
       <button className="w3-bar-item w3-button" name="es" onClick={langChange}>🇪🇸 Español</button>
     </> 
-  )  
+  )
+  
+  console.log(i18n)
 
 return (
 <div  >
@@ -136,7 +137,7 @@ return (
   </div>
 
  {<div className="w3-right w3-hide-medium w3-hide-large" >
-    <button className="w3-button w3-padding-large" onClick={openLangs} ><i className={`fa-solid fa-${langs.icon}`}/></button>
+    <button className="w3-button w3-padding-large" onClick={openLangs} ><i className={`fa-solid fa-${langs.icon}`} /></button>
     <div className="w3-dropdown-content w3-card-4 w3-bar-block w3-deep-orange" style={{display: langs.show}}>
     {languageSet}
     </div>
