@@ -27,7 +27,8 @@
             "Vegetarian": "Vegetariano",
             "MainDish": "Plato Principal",
             "Coktail": "Cóctel", 
-            "Smoothie": "Jugo"   
+            "Smoothie": "Jugo",
+            "Sauce" : "Salsa"   
         },
         "regions": "Regiones", 
         "region": {

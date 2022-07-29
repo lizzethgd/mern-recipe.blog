@@ -27,7 +27,8 @@
             "Vegetarian": "Vegetarian",
             "MainDish": "Main dish",
             "Coktail": "Coktail",
-            "Smoothie": "Smoothie"
+            "Smoothie": "Smoothie",
+            "Sauce" : "Sauce"
         },
         "regions": "Regions", 
         "region": {

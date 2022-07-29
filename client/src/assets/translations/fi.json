@@ -27,7 +27,8 @@
             "Vegetarian": "Kasvissyöjä",
             "MainDish": "Pääruoka",
             "Cocktail": "Cocktail", 
-            "Smoothie": "Smoothie"   
+            "Smoothie": "Smoothie",
+            "Sauce" : "Salsa"  
         },
         "regions": "Alue", 
         "region": {

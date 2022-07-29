@@ -83,7 +83,7 @@ exports.create = async (req, res) => {
     console.log('req.body in recipe controlled: ')
     console.log(req.body)
     const language = await Language.findOne({code: req.body.language})
-    req.body.language = language
+    req.body.language = await language
     const newRecipe = await new Recipe(req.body)
     await newRecipe.save();
     await res.status(200).json({success : true, recipe: newRecipe, id: newRecipe._id})
