@@ -4,13 +4,25 @@
     },
     "nav":{
         "home": "koti",
-        "log": "Kirjaudu sisään / rekisteröidy",
+        "log": "Kirjaudu sisään / Rekisteröidy",
         "search" : "Hae nimen tai ainesosan mukaan...",
         "add": "Lisää resepti",
         "myReps":"Minun reseptit",
         "myFavs": "Minun suosikit",
         "myProf": "Profiilini",
         "out":"Kirjautua ulos"
+    },
+    "log":{
+        "login": "Kirjaudu sisään",
+        "username": "Käyttäjätunnus",
+        "password": "Salasana",
+        "signin": "Kirjautua",
+        "or": "tai",
+        "register": "Rekisteröidy",
+        "firstname": "Etunimi",
+        "lastname": "Sukunimi",
+        "email": "Sähköposti",
+        "signup": "Lähettää"
     },
     "filter":{
         "filters" : "Suodatin",

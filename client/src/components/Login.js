@@ -3,6 +3,7 @@ import {authLogin, authRegister} from '../services/AuthService'
 import {AuthContext} from '../context/AuthContext';
 import {useNavigate } from "react-router-dom";
 import '../assets/css/login.scss'
+import { useTranslation } from 'react-i18next';
 
 const Login = () => {
 
@@ -10,10 +11,12 @@ const Login = () => {
     const [userLogup, setUserLogup] = useState({username: '', password: ''}) 
     const {setIsAuthenticated, setUser} = useContext(AuthContext); 
     const [message,setMessage] = useState();
-    const [ inputTypeLogin, setInputTypeLogin] = useState('password')
-    const [ eyeSlashLogin, setEyeSlashLogin] = useState('-slash')
-    const [ inputTypeLogup, setInputTypeLogup] = useState('password')
-    const [ eyeSlashLogup, setEyeSlashLogup] = useState('-slash') 
+    const [inputTypeLogin, setInputTypeLogin] = useState('password')
+    const [eyeSlashLogin, setEyeSlashLogin] = useState('-slash')
+    const [inputTypeLogup, setInputTypeLogup] = useState('password')
+    const [eyeSlashLogup, setEyeSlashLogup] = useState('-slash') 
+
+    const { t, i18n } = useTranslation("global");
 
     const history = useNavigate()  
 
@@ -111,39 +114,39 @@ const Login = () => {
         
         <div className="login ">
         {message ? <p className="msg">{message}</p>: null}
-            <h2 className="log-form-title" id="login" onClick={e => loginShow(e)}><span>or</span>Login </h2>
+            <h2 className="log-form-title" id="login" onClick={e => loginShow(e)}><span>{t('log.or')} </span>{t('log.login')} </h2>
             <form onSubmit={handleSubmitLogin} target="_self">
               <div className="log-form-holder">
-                <input type="text" className="log-input" placeholder="Username" required name="username"  onChange={handleChangeLogin}/>    
+                <input type="text" className="log-input" placeholder={t('log.username')} required name="username"  onChange={handleChangeLogin}/>    
                 <div className="log-input " style={{display: "flex", padding: 0}} >
-                    <input  type={inputTypeLogin} className="log-input" placeholder='Password' required name="password" onChange={handleChangeLogin} />
+                    <input  type={inputTypeLogin} className="log-input" placeholder={t('log.password')} required name="password" onChange={handleChangeLogin} />
                     <i className={`fa-solid fa-eye${eyeSlashLogin} w3-text-theme `} name='showPass' style={{width: '15%', padding: '7px' , backgroundColor: 'transparent'}} onClick={showLoginPass}/>
                 </div>   
               </div>
-                <button className="log-submit-btn"  type='submit'>Sign in</button>
+                <button className="log-submit-btn"  type='submit'>{t('log.signin')}</button>
             </form> 
         </div>
 
         <div className="signup slide-up">
         {message ? <p>{message}</p>: null}
             <div className="log-center">
-                <h2 className="log-form-title" id="logup" onClick={e => logupShow(e)}><span>or</span>Register</h2>
+                <h2 className="log-form-title" id="logup" onClick={e => logupShow(e)}><span>{t('log.or')} </span>{t('log.register')}</h2>
                 <form onSubmit={handleSubmitLogup} target="_self">
                     <div className="log-form-holder">
-                        <input type="text" className="log-input" placeholder="First name" name="firstName" onChange={handleChangeLogup}/>
+                        <input type="text" className="log-input" placeholder={t('log.firstname')} name="firstName" onChange={handleChangeLogup}/>
 
-                        <input type="text" className="log-input" placeholder="Last name" name="lastName" onChange={handleChangeLogup}/>
+                        <input type="text" className="log-input" placeholder={t('log.lastname')} name="lastName" onChange={handleChangeLogup}/>
 
-                        <input type="text" className="log-input" placeholder="E-mail" required name="email" onChange={handleChangeLogup}/>
+                        <input type="text" className="log-input" placeholder={t('log.email')} required name="email" onChange={handleChangeLogup}/>
 
-                        <input type="text" className="log-input" placeholder="Username" required name="username" onChange={handleChangeLogup}/>
+                        <input type="text" className="log-input" placeholder={t('log.username')} required name="username" onChange={handleChangeLogup}/>
                           
                         <div className="log-input " style={{display: "flex", padding: 0}} >
-                         <input  type={inputTypeLogup} className="log-input" placeholder='Password' required name="password" onChange={handleChangeLogup} />
+                         <input  type={inputTypeLogup} className="log-input" placeholder={t('log.password')} required name="password" onChange={handleChangeLogup} />
                          <i className={`fa-solid fa-eye${eyeSlashLogup} w3-text-theme`} name='showPass' style={{width: '15%', padding: '7px'}} onClick={showLogupPass}/>
                         </div>
                     </div>
-                    <button className="log-submit-btn"type='submit'>Sign up</button>
+                    <button className="log-submit-btn"type='submit'>{t('log.signup')}</button>
                 </form>
             </div>
         </div>
