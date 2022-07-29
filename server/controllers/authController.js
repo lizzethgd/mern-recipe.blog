@@ -44,8 +44,10 @@ exports.register = async (req,res) => {
     const token = JWT.sign({ id: newUser._id }, _.JWT_SECRET, {
       expiresIn: _.JWT_EXPIRES, // 24 hours
     });
-    console.log(newUser)
-    return res.status(200).json({ token });
+    
+    const resUser =  await User.findById(newUser._id, { password: 0 });
+
+    return res.status(200).json({ isAuthenticated : true, user : resUser} );
      
   }catch (err) {
     console.log(err.name+': '+err.message )

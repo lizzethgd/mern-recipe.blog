@@ -19,7 +19,7 @@ exports.verifyUser = async (req, res, next) => {
        message: "Invalid Password"
      });
 
- const resUser =   await User.findById(user._id, { password: 0 });
+  const resUser =  await User.findById(user._id, { password: 0 });
   
    req.user= resUser
  
