@@ -46,11 +46,16 @@ const Login = () => {
     const handleSubmitLogup = e => {
         try{
         e.preventDefault();
-        authRegister(userLogup)
-        history('/');
-    }catch(err){console.log(err.message)}
-    
-      }   
+        authRegister(userLogup).then(data=>{
+            const { isAuthenticated,user} = data;    
+            if(isAuthenticated){
+                setUser(user);
+                setIsAuthenticated(isAuthenticated);
+                history('/')} }
+        )
+       } catch(err){console.log(err.message)}
+}
+  
 
      
     const logupShow = e => {
