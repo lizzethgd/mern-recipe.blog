@@ -21,6 +21,7 @@ return (
     <a className="w3-button w3-large" title="Github" href="https://github.com/lizzethgd" target="_blank" rel="noreferrer"><i className="fa-brands fa-github" /></a>*/}
     <a className="w3-button w3-large" title="Stackoverflow" href="https://stackoverflow.com/users/12558623/lizzeth-gardi"  ><i className="fa-brands fa-stack-overflow"/></a>
     <a className="w3-button w3-large" title="lizzethgd@gmail.com" href="mailto:lizzethgd@gmail.com"  ><i className="fa-solid fa-envelope"/></a>
+    <p>&copy; Copyright {new Date().getFullYear()}</p>
   </div>
   <div className="w3-tooltip w3-right to-top-button">  
     <button className="w3-button w3-theme w3-xlarge " onClick={scrollToTop} title="Scroll to top">
