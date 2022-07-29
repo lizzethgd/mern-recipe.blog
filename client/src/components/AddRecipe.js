@@ -12,7 +12,7 @@ const AddRecipe = () => {
 
 const {user} = useContext(AuthContext)
 
-const { t } = useTranslation("global")
+const { t, i18n } = useTranslation("global")
 
 const [categories, setCategories] = useState([])
 const [regions, setRegions] = useState([])
@@ -32,7 +32,7 @@ const [recipe, setRecipe] = useState({
     steps: [' ', ' '],
     author: user._id,
     category: '',
-    language: '',
+    language: i18n.language,
     region: ''
     }) 
 
