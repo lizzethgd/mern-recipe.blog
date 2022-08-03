@@ -41,7 +41,7 @@ const Login = () => {
                     history('/');
                 }
                 else
-                    setMessage('wrong credentials');
+                    setMessage(t('log.wrong'));
             })
     }
 

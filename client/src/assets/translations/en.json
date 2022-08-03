@@ -18,6 +18,7 @@
         "password": "Password",
         "signin": "Sign in",
         "or": "or",
+        "wrong": "Wrong credentials",
         "register": "Register",
         "firstname": "First name",
         "lastname": "Last name",
@@ -40,7 +41,8 @@
             "MainDish": "Main dish",
             "Coktail": "Coktail",
             "Smoothie": "Smoothie",
-            "Sauce" : "Sauce"
+            "Sauce" : "Sauce",
+            "Dough": "Dough"
         },
         "regions": "Regions", 
         "region": {

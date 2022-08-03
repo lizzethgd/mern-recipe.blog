@@ -18,6 +18,7 @@
         "password": "Contraseña",
         "signin": "Entrar",
         "or": "o",
+        "wrong": "Credenciales incorrectas",
         "register": "Registrarse",
         "firstname": "Nombre",
         "lastname": "Apellido",
@@ -40,7 +41,8 @@
             "MainDish": "Plato Principal",
             "Coktail": "Cóctel", 
             "Smoothie": "Jugo",
-            "Sauce" : "Salsa"   
+            "Sauce" : "Salsa",
+            "Dough": "Masa"    
         },
         "regions": "Regiones", 
         "region": {

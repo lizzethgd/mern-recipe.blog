@@ -18,6 +18,7 @@
         "password": "Salasana",
         "signin": "Kirjautua",
         "or": "tai",
+        "wrong": "Väärät tunnistetiedot",
         "register": "Rekisteröidy",
         "firstname": "Etunimi",
         "lastname": "Sukunimi",
@@ -40,7 +41,8 @@
             "MainDish": "Pääruoka",
             "Cocktail": "Cocktail", 
             "Smoothie": "Smoothie",
-            "Sauce" : "Salsa"  
+            "Sauce" : "Kastike",
+            "Dough": "Taikina" 
         },
         "regions": "Alue", 
         "region": {
