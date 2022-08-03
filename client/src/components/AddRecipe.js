@@ -91,7 +91,7 @@ const handlePhoto = async e =>{
 
 const handleChangeCookTime = e =>{
     let values = cookTime
-    e.target.id === "hh" ? values[0]=e.target.value :  values[1]=e.target.value
+    e.target.id === "hh" ? values=[e.target.value, ''] :  values=['', e.target.value]
     setRecipe({ ...recipe, cookTime: values })    
 }
 
@@ -179,7 +179,9 @@ return (
         <label><i className="fa-solid fa-users w3-margin-right"/>N° {t('recipe.serves')}: </label > <input className="w3-border" type="number" min="1" max="10" placeholder="nn" style={{width: "4em"}} id="serves" value={serves} onChange={handleChange} onKeyDown={handleEnter}/>
         </div>
         <div className="w3-margin-top">
-            <label ><i className="fa-solid fa-stopwatch w3-margin-right"/> {t('recipe.cookTime')}: </label ><input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={handleChangeCookTime} onKeyDown={handleEnter}/><input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
+            <label ><i className="fa-solid fa-stopwatch w3-margin-right"/> {t('recipe.cookTime')}: </label >
+            <input className="w3-border" type="number" min="1" max="30" placeholder="hh" style={{width: "3.5em"}} id="hh" value={cookTime[0]} onChange={handleChangeCookTime} onKeyDown={handleEnter}/>
+            <input className="w3-border" type="number" min="1" max="60" placeholder="min" style={{width: "3.5em"}} id="mm" value={cookTime[1]}  onChange={e=> handleChangeCookTime(e)} onKeyDown={handleEnter}/> 
         </div>
 
         <div className="w3-margin-top" > <i className="fa-solid fa-rectangle-list w3-margin-right"/>
