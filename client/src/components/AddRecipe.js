@@ -87,9 +87,7 @@ const handlePhoto = e =>{
     if (value!==undefined) 
     { if (value.size > 1048576) setErr('File Size is too large. Allowed file size is 1MBChange') 
     setImgUrl(URL.createObjectURL(e.target.files[0]))
-    setRecipe({...recipe, photo: value})}
-    else{
-        setRecipe({...recipe, photo: ''})
+    setRecipe({...recipe, photo: value})
     }
 }   
 

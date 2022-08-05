@@ -87,9 +87,11 @@ const EditRecipe = () => {
 
     const handleImage = async e =>{
         let value = e.target.files[0] 
+        if (value!==undefined){
         if (value.size > 1048576) setErr('File Size is too large. Allowed file size is 1MBChange')
         setImgUrl(URL.createObjectURL(e.target.files[0]))
         setUpdateRecipe({...updateRecipe, photo: value})
+        }
     } 
 
     const handleChangeCookTime = e =>{
