@@ -82,11 +82,15 @@ const handleChange = e => {
     setRecipe({ ...recipe, [e.target.id]: value })
 }
 
-const handlePhoto = async e =>{
+const handlePhoto = e =>{
     let value = e.target.files[0] 
-    value.size > 1048576 ? setErr('File Size is too large. Allowed file size is 1MBChange') : setErr('')
+    if (value!==undefined) 
+    { if (value.size > 1048576) setErr('File Size is too large. Allowed file size is 1MBChange') 
     setImgUrl(URL.createObjectURL(e.target.files[0]))
-    setRecipe({...recipe, photo: value})
+    setRecipe({...recipe, photo: value})}
+    else{
+        setRecipe({...recipe, photo: ''})
+    }
 }   
 
 const handleChangeCookTime = e =>{
