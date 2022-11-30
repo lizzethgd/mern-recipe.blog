@@ -13,7 +13,7 @@ require('dotenv').config();
 //to understand the form dates
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '/client/build')));
-app.use(express.urlencoded({extended: false})) 
+
 app.use(cors());
 app.use(cookieParser())
 
@@ -37,13 +37,9 @@ app.use(function(err, req, res, next){
 });
 
 // Database setup
-mongoose.connect(process.env.DATABASE, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true
-})
+mongoose.connect(process.env.DATABASE, {})
 .then(() => { console.log("Conected to mongoDB")})
-//.catch((err) => console.log(err));
+.catch((err) => console.log(err));
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
