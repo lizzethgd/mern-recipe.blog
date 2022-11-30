@@ -39,7 +39,7 @@ app.use(function(err, req, res, next){
 // Database setup
 mongoose.connect(process.env.DATABASE, {})
 .then(() => { console.log("Conected to mongoDB")})
-.catch((err) => console.log(err));
+//.catch((err) => console.log(err));
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {
